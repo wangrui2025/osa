@@ -21,6 +21,8 @@ export default defineConfig({
   integrations: [
     sitemap(),
     astroIcon(),
-    tailwindcss(),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
