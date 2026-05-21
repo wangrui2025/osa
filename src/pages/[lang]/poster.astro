@@ -14,3 +14,10 @@ const description = t(lang, 'poster.description');
 <Layout title={title} description={description} lang={lang} showFooter={false}>
   <Poster />
 </Layout>
+
+<style is:global>
+  html:has(.osa-poster-root),
+  html:has(.osa-poster-root) body {
+    overflow: hidden;
+  }
+</style>
