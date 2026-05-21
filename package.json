@@ -9,10 +9,10 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.2.8",
-    "@fontsource/plus-jakarta-sans": "^5.2.8",
+    "@fontsource/noto-sans": "^5.2.10",
     "@iconify-json/lucide": "^1.2.108",
     "@iconify-json/simple-icons": "^1.2.83",
+    "@tailwindcss/postcss": "^4.3.0",
     "astro": "^6.3.6",
     "astro-icon": "^1.1.5",
     "tailwindcss": "^4.3.0"
@@ -20,7 +20,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/sitemap": "^3.7.2",
-    "@tailwindcss/vite": "^4.3.0",
     "katex": "^0.16.47",
     "typescript": "^5.9.3"
   }
