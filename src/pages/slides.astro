@@ -36,6 +36,9 @@ html = html.replace(
 const base = '/osa';
 html = html.replace(/href="\/fonts\//g, `href="${base}/fonts/`);
 
+// Step 5: Fix image paths - use CDN for academic images
+html = html.replace(/src="\/academic\/images\//g, 'src="https://cdn.jsdelivr.net/gh/mykcs/academic@main/images/');
+
 // Parse HTML: split head and body
 const headMatch = html.match(/<head>([\s\S]*?)<\/head>/);
 const bodyMatch = html.match(/<body>([\s\S]*?)<\/body>/);
