@@ -6,13 +6,18 @@ import CopyButton from './CopyButton.astro';
 import { getScholarlyArticleSchema } from '../utils/structuredData';
 import { t } from '../i18n';
 import { Image } from 'astro:assets';
-import figOverview from '../assets/paper/fig/Met/fig_overview.png';
-import figChallenge from '../assets/paper/fig/challenge/image.png';
-import figOsu from '../assets/paper/fig/osu/fig_osu.png';
-import figApfe from '../assets/paper/fig/apfe/fig_apfe.png';
-import tabCap from '../assets/paper/tab/tab_cap.png';
-import tabAbl from '../assets/paper/tab/tab_abl.png';
-import figExp from '../assets/paper/fig/Exp/image.png';
+
+const ACADEMIC_BASE = 'https://mykcs.github.io/academic/images/publications/cvpr2026-osa';
+const LOGO_BASE = 'https://mykcs.github.io/academic/images/logos';
+
+const figOverview = `${ACADEMIC_BASE}/fig/Met/fig_overview.png`;
+const figChallenge = `${ACADEMIC_BASE}/fig/challenge/image.png`;
+const figOsu = `${ACADEMIC_BASE}/fig/osu/fig_osu.png`;
+const figApfe = `${ACADEMIC_BASE}/fig/apfe/fig_apfe.png`;
+const tabCap = `${ACADEMIC_BASE}/tab/tab_cap.png`;
+const tabAbl = `${ACADEMIC_BASE}/tab/tab_abl.png`;
+const figExp = `${ACADEMIC_BASE}/fig/Exp/image.png`;
+const cvprLogo = `${LOGO_BASE}/cvpr2026.png`;
 
 interface Props {
   lang: 'en' | 'zh';
@@ -25,7 +30,7 @@ const schema = getScholarlyArticleSchema({
   authors: ['Rui Wang', 'Huisi Wu', 'Jing Qin'],
   description: t(lang, 'description'),
   url: new URL(Astro.url.pathname, Astro.site).href,
-  image: new URL(`${import.meta.env.BASE_URL}/paper/fig/Met/fig_overview.png`, Astro.site).href,
+  image: new URL(figOverview, Astro.site).href,
   datePublished: '2026-06-01',
   venue: 'CVPR 2026',
   pdfUrl: 'https://arxiv.org/abs/2603.26188',
@@ -41,7 +46,7 @@ const schema = getScholarlyArticleSchema({
         <!-- CVPR Logo -->
         <div class="mb-6">
           <Image
-            src={`${import.meta.env.BASE_URL}/assets/images/cvpr2026.png`}
+            src={cvprLogo}
             alt="CVPR 2026"
             width={200}
             height={56}

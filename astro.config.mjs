@@ -17,6 +17,11 @@ export default defineConfig({
       redirectToDefaultLocale: true,
     },
   },
+  image: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'mykcs.github.io' },
+    ],
+  },
   integrations: [
     sitemap(),
     astroIcon(),
