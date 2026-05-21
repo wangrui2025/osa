@@ -36,7 +36,7 @@ const base = import.meta.env.BASE_URL;
 html = html.replace(/href="\/fonts\//g, `href="${base}/fonts/`);
 
 // Step 5: Fix image paths - use CDN for academic images
-html = html.replace(/src="\/academic\/images\//g, 'src="https://cdn.jsdelivr.net/gh/mykcs/academic@main/images/');
+html = html.replace(/src="\/academic\/images\//g, 'src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/');
 
 // Step 6: Inject KaTeX CSS (removed CDN version above, need styles for pre-rendered formulas)
 html = html.replace('</head>', `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" /></head>`);
