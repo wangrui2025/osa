@@ -225,12 +225,6 @@ const schema = getScholarlyArticleSchema({
     <div class="text-center">
       <h2 class="section-heading inline-block">{t(lang, 'resourcesTitle')}</h2>
       <div class="flex flex-wrap justify-center gap-3 mt-6">
-        <ActionButton href="https://arxiv.org/abs/2603.26188" icon="lucide:file-text" target="_blank">
-          {t(lang, 'arxivLabel')}
-        </ActionButton>
-        <ActionButton href="https://github.com/wangrui2025/OSA" icon="lucide:github" target="_blank">
-          {t(lang, 'codeLabel')}
-        </ActionButton>
         <ActionButton href={`${import.meta.env.BASE_URL}/${lang}/poster`} icon="lucide:presentation">
           {t(lang, 'posterLabel')}
         </ActionButton>
