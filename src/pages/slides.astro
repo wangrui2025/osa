@@ -39,7 +39,7 @@ html = html.replace(/href="\/fonts\//g, `href="${base}/fonts/`);
 html = html.replace(/src="\/academic\/images\//g, 'src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/');
 
 // Step 6: Inject KaTeX CSS (removed CDN version above, need styles for pre-rendered formulas)
-html = html.replace('</head>', `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" /></head>`);
+html = html.replace('</head>', `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css" /></head>`);
 
 return new Response(html, {
   headers: { 'Content-Type': 'text/html; charset=utf-8' },

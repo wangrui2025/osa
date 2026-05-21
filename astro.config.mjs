@@ -1,12 +1,15 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import astroIcon from 'astro-icon';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  output: 'static',
   site: 'https://wangrui2025.github.io',
   base: '/osa',
   prefetch: true,
   redirects: {
+    '/': '/en/',
     '/slides.html': '/slides',
   },
   i18n: {
@@ -20,10 +23,14 @@ export default defineConfig({
   image: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.jsdelivr.net' },
+      { protocol: 'https', hostname: 'mykcs.github.io' },
     ],
   },
   integrations: [
     sitemap(),
     astroIcon(),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
