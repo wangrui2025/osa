@@ -10,7 +10,7 @@ const lang = Astro.params.lang as 'en' | 'zh';
 const title = t(lang, 'slides.title');
 const description = t(lang, 'slides.description');
 ---
-<Layout title={title} description={description} lang={lang} showFooter={false}>
+<Layout title={title} description={description} showFooter={false}>
   <!-- iframe wrapper: fixed height, overflow hidden so scaled iframe doesn't cause page scroll -->
   <div class="slides-viewport">
     <div class="slides-scaler" id="slides-scaler">
@@ -82,7 +82,7 @@ const description = t(lang, 'slides.description');
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;
     color: #e2e8f0;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Noto Sans', system-ui, sans-serif;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     white-space: nowrap;
   }

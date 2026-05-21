@@ -1,56 +1,44 @@
 ---
+import '@fontsource/noto-sans/400.css';
+import '@fontsource/noto-sans/700.css';
+import 'katex/dist/katex.min.css';
 import { ClientRouter } from 'astro:transitions';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import LangSwitcher from '../components/LangSwitcher.astro';
 import Footer from '../components/Footer.astro';
-import { t } from '../i18n/index.ts';
 import '../styles/global.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/plus-jakarta-sans/600.css';
-import '@fontsource/plus-jakarta-sans/700.css';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   showFooter?: boolean;
-  lang: 'en' | 'zh';
-  structuredData?: Record<string, unknown>;
+  structuredData?: object;
 }
 
 const {
   title,
   description = 'OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement',
-  image,
+  image = new URL(`${import.meta.env.BASE_URL}/paper/fig/Met/fig_overview.png`, Astro.site).href,
   showFooter = true,
-  lang,
   structuredData,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = image ?? new URL(`${import.meta.env.BASE_URL}/paper/fig/Met/fig_overview.png`, Astro.site).href;
+const lang = Astro.currentLocale ?? 'en';
 ---
 
 <!DOCTYPE html>
 <html lang={lang}>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <meta name="description" content={description}>
-
-    <!-- FOUC Prevention -->
-    <style>
+    <style is:inline>
       :root {
-        --bg-color: #fafaf9;
-        --text-color: #1e293b;
+        --bg-color: #ffffff;
+        --text-color: #374151;
       }
       html.dark {
-        --bg-color: #0a0a0a;
-        --text-color: #f1f5f9;
+        --bg-color: #111827;
+        --text-color: #e5e7eb;
       }
       html {
         background-color: var(--bg-color);
@@ -62,77 +50,99 @@ const ogImage = image ?? new URL(`${import.meta.env.BASE_URL}/paper/fig/Met/fig_
       }
     </style>
     <script is:inline>
-      (function () {
+      (function() {
         function applyTheme() {
-          const theme =
-            localStorage.getItem('theme') ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          const theme = localStorage.getItem('theme')
+            || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.classList.toggle('dark', theme === 'dark');
           const meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#fafaf9');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#111827' : '#ffffff');
         }
         applyTheme();
         document.addEventListener('astro:after-swap', applyTheme);
       })();
     </script>
-
-    <!-- SEO -->
+    <meta name="description" content={description}>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={t(lang, 'og.locale')} />
-    <meta property="og:locale:alternate" content={t(lang, 'og.localeAlternate')} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <link rel="canonical" href={canonicalUrl} />
+    <meta name="twitter:image" content={image} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
     <!-- Language alternates for SEO -->
     <link rel="alternate" hreflang="en" href={new URL('/osa/en/', Astro.site).href} />
     <link rel="alternate" hreflang="zh" href={new URL('/osa/zh/', Astro.site).href} />
     <link rel="alternate" hreflang="x-default" href={new URL('/osa/en/', Astro.site).href} />
 
-    <meta name="theme-color" content="#fafaf9" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-
-    <!-- Icons -->
     <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/favicon.png`} />
-
-    {structuredData && (
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-    )}
-
-    <!-- Client Router -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
     <ClientRouter fallback="none" />
+    {structuredData && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+    )}
   </head>
-
-  <body class="min-h-screen flex flex-col">
-    <!-- Top-right controls -->
-    <div class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-surface/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-lg p-1 border border-border dark:border-border-dark no-print">
+  <body class="bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-200 transition-colors min-h-screen flex flex-col">
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
       <ThemeToggle />
-      <LangSwitcher currentLang={lang} />
+      <LangSwitcher />
     </div>
-
-    <main id="main" class="flex-1">
+    <main class="flex-1">
       <slot />
     </main>
+    {showFooter && <Footer />}
+    <script>
+      if (!(document as any).__osaDelegated) {
+        (document as any).__osaDelegated = true;
 
-    {showFooter && <Footer lang={lang} />}
+        // Theme toggle delegation
+        document.addEventListener('click', (e) => {
+          const btn = (e.target as HTMLElement).closest('#theme-toggle');
+          if (!btn) return;
+          const html = document.documentElement;
+          const isDark = html.classList.toggle('dark');
+          try {
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          } catch {}
+          const meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', isDark ? '#111827' : '#ffffff');
+        });
 
-    <!-- Event Delegation -->
-    <script src="../../scripts/delegation.ts"></script>
+        // Copy button delegation
+        document.addEventListener('click', (e) => {
+          const btn = (e.target as HTMLElement).closest('button[data-copy-target]');
+          if (!btn) return;
+
+          const targetId = btn.getAttribute('data-copy-target');
+          const label = btn.getAttribute('data-copy-label') || 'Copy';
+          const successLabel = btn.getAttribute('data-copy-success') || 'Copied!';
+          const el = document.getElementById(targetId || '');
+          if (!el) return;
+          const text = el.innerText;
+
+          const showSuccess = () => {
+            const icon = btn.querySelector('.copy-icon');
+            const textSpan = btn.querySelector('span');
+            if (icon) icon.setAttribute('name', 'lucide:check');
+            if (textSpan) textSpan.textContent = successLabel;
+            setTimeout(() => {
+              if (icon) icon.setAttribute('name', 'lucide:copy');
+              if (textSpan) textSpan.textContent = label;
+            }, 2000);
+          };
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(showSuccess).catch(() => {});
+          }
+        });
+      }
+    </script>
   </body>
 </html>
-
-<style>
-  @media print {
-    .no-print {
-      display: none !important;
-    }
-  }
-</style>

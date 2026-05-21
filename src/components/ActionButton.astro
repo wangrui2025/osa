@@ -4,18 +4,18 @@ import { Icon } from 'astro-icon/components';
 interface Props {
   href: string;
   icon?: string;
-  variant?: 'default' | 'primary';
   target?: string;
 }
 
-const { href, icon, variant = 'default', target } = Astro.props;
+const { href, icon, target } = Astro.props;
+const isExternal = target === '_blank' || href.startsWith('http');
 ---
 
 <a
   href={href}
   target={target}
-  rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-  class={`action-btn ${variant === 'primary' ? 'action-btn-primary' : ''}`}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 hover:-translate-y-0.5 hover:shadow-lg transition"
 >
   {icon && <Icon name={icon} class="w-4 h-4" />}
   <slot />

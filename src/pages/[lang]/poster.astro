@@ -11,7 +11,7 @@ const lang = Astro.params.lang as 'en' | 'zh';
 const title = t(lang, 'poster.title');
 const description = t(lang, 'poster.description');
 ---
-<Layout title={title} description={description} lang={lang} showFooter={false}>
+<Layout title={title} description={description} showFooter={false}>
   <Poster />
 </Layout>
 

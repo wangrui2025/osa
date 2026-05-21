@@ -33,10 +33,10 @@ const schema = getScholarlyArticleSchema({
 });
 ---
 
-<Layout title={t(lang, 'title')} description={t(lang, 'description')} lang={lang} structuredData={schema}>
+<Layout title={t(lang, 'title')} description={t(lang, 'description')} structuredData={schema}>
   <!-- Hero -->
-  <section class="relative pt-12 pb-16 md:pt-16 md:pb-20">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative bg-gray-50 dark:bg-gray-800 pb-12 pt-8">
+    <div class="max-w-5xl mx-auto px-4">
       <div class="text-center">
         <!-- Venue Badge -->
         <div class="mb-6">
@@ -47,7 +47,7 @@ const schema = getScholarlyArticleSchema({
           {t(lang, 'publicationTitle')}
         </h1>
 
-        <p class="text-lg mt-4 text-text-muted dark:text-text-muted-dark">
+        <p class="text-lg mt-4 text-gray-500 dark:text-gray-400">
           {t(lang, 'venueFull')}
         </p>
 
@@ -57,7 +57,7 @@ const schema = getScholarlyArticleSchema({
           <span class="mx-1">Jing Qin<sup>2</sup></span>
         </div>
 
-        <div class="text-sm mt-3 text-text-muted dark:text-text-muted-dark">
+        <div class="text-sm mt-3 text-gray-500 dark:text-gray-400">
           <div><sup>1</sup>{t(lang, 'affiliation1')}</div>
           <div><sup>2</sup>{t(lang, 'affiliation2')}</div>
         </div>
@@ -93,8 +93,8 @@ const schema = getScholarlyArticleSchema({
   <!-- Abstract -->
   <Section>
     <div class="abstract-box">
-      <h2 class="section-heading text-center">{t(lang, 'abstractTitle')}</h2>
-      <div class="prose dark:prose-invert max-w-none space-y-4">
+      <h2 class="text-3xl font-semibold text-center mb-6 font-[Google_Sans]">{t(lang, 'abstractTitle')}</h2>
+      <div class="text-justify fade-in space-y-4">
         <p>{t(lang, 'abstractP1')}</p>
         <p>{t(lang, 'abstractP2')}</p>
         {t(lang, 'abstractP3') && <p>{t(lang, 'abstractP3')}</p>}
@@ -106,7 +106,7 @@ const schema = getScholarlyArticleSchema({
   <!-- Motivation / Challenges -->
   <Section>
     <h2 class="section-heading">{t(lang, 'motivationTitle')}</h2>
-    <p class="text-text-muted dark:text-text-muted-dark mb-8">{t(lang, 'motivationDesc')}</p>
+    <p class="text-gray-500 dark:text-gray-400 mb-8">{t(lang, 'motivationDesc')}</p>
 
     <div class="figure-card">
       <Image
@@ -128,8 +128,8 @@ const schema = getScholarlyArticleSchema({
 
     <!-- OSU -->
     <div class="mb-12">
-      <h3 class="text-xl font-semibold mb-4 text-text dark:text-text-dark">{t(lang, 'methodOsuTitle')}</h3>
-      <p class="text-text-muted dark:text-text-muted-dark mb-6">{t(lang, 'methodOsuDesc')}</p>
+      <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{t(lang, 'methodOsuTitle')}</h3>
+      <p class="text-gray-500 dark:text-gray-400 mb-6">{t(lang, 'methodOsuDesc')}</p>
       <div class="figure-card">
         <Image
           src={figOsu}
@@ -143,8 +143,8 @@ const schema = getScholarlyArticleSchema({
 
     <!-- APFE -->
     <div class="mb-8">
-      <h3 class="text-xl font-semibold mb-4 text-text dark:text-text-dark">{t(lang, 'methodApfeTitle')}</h3>
-      <p class="text-text-muted dark:text-text-muted-dark mb-6">{t(lang, 'methodApfeDesc')}</p>
+      <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{t(lang, 'methodApfeTitle')}</h3>
+      <p class="text-gray-500 dark:text-gray-400 mb-6">{t(lang, 'methodApfeDesc')}</p>
       <div class="figure-card">
         <Image
           src={figApfe}
@@ -164,7 +164,7 @@ const schema = getScholarlyArticleSchema({
   <!-- Results -->
   <Section>
     <h2 class="section-heading">{t(lang, 'resultsTitle')}</h2>
-    <p class="text-text-muted dark:text-text-muted-dark mb-8">{t(lang, 'resultsDesc')}</p>
+    <p class="text-gray-500 dark:text-gray-400 mb-8">{t(lang, 'resultsDesc')}</p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <!-- Quantitative Results Table -->

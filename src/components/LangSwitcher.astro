@@ -1,21 +1,22 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { t } from '../i18n/index.ts';
+import { t } from '../i18n';
 
-interface Props {
-  currentLang: 'en' | 'zh';
-}
-
-const { currentLang } = Astro.props;
-const otherLang = currentLang === 'en' ? 'zh' : 'en';
-const otherPath = getRelativeLocaleUrl(otherLang, '/');
-const switchLabel = otherLang === 'zh' ? t(otherLang, 'langSwitch') : t(otherLang, 'langSwitchEn');
+const currentLocale = Astro.currentLocale ?? 'en';
+const targetLocale = currentLocale === 'en' ? 'zh' : 'en';
+const currentPath = Astro.url.pathname
+  .replace(import.meta.env.BASE_URL, '')
+  .replace(/^\/(en|zh)/, '')
+  .replace(/\/$/, '') || '/';
+const targetUrl = getRelativeLocaleUrl(targetLocale, currentPath);
+const switchLabel = t(targetLocale, 'langSwitch');
 ---
 
 <a
-  href={otherPath}
-  class="p-2 rounded-lg text-sm font-medium transition-colors hover:bg-surface-elevated dark:hover:bg-surface-elevated-dark text-text dark:text-text-dark"
-  aria-label={`Switch to ${otherLang === 'zh' ? 'Chinese' : 'English'}`}
+  href={targetUrl}
+  class="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white rounded-full px-4 py-2 text-sm font-bold transition-colors shadow-md"
+  title="Switch Language"
 >
-  {switchLabel}
+  <img src={`${import.meta.env.BASE_URL}/assets/images/translate.svg`} alt="Translate" class="h-4 w-auto" loading="lazy" decoding="async" />
+  <span>{switchLabel}</span>
 </a>
