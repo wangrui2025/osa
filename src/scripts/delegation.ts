@@ -2,13 +2,13 @@ document.addEventListener('click', (event: Event) => {
   const target = event.target as HTMLElement;
 
   // Theme toggle
-  if (target.closest('#theme-toggle')) {
+  if (target.closest('[data-action="theme-toggle"]')) {
     const isDark = document.documentElement.classList.toggle('dark');
     try {
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
     } catch {}
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', isDark ? '#0a0a0a' : '#fafaf9');
+    if (meta) meta.setAttribute('content', isDark ? '#111827' : '#ffffff');
     return;
   }
 
