@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
-    "@fontsource/noto-serif-sc": "^5.2.8",
     "@fontsource/plus-jakarta-sans": "^5.2.8",
     "@iconify-json/lucide": "^1.2.108",
     "@iconify-json/simple-icons": "^1.2.83",
