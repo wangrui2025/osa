@@ -1,15 +1,3 @@
 ---
-// Redirect root to default language (en)
+return Astro.redirect('/osa/en/', 302);
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0;url=./en/" />
-  <link rel="canonical" href="./en/" />
-  <title>Redirecting...</title>
-</head>
-<body>
-  <p>Redirecting to <a href="./en/">English version</a>...</p>
-</body>
-</html>
