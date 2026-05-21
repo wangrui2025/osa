@@ -22,7 +22,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/sitemap": "^3.7.2",
-    "@tailwindcss/postcss": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.0",
     "katex": "^0.16.47",
     "typescript": "^5.9.3"
   }
