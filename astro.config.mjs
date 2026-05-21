@@ -19,7 +19,7 @@ export default defineConfig({
   },
   image: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'mykcs.github.io' },
+      { protocol: 'https', hostname: 'cdn.jsdelivr.net' },
     ],
   },
   integrations: [
