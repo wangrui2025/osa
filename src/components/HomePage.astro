@@ -38,12 +38,18 @@ const schema = getScholarlyArticleSchema({
   <section class="relative bg-gray-50 dark:bg-gray-800 pb-12 pt-8">
     <div class="max-w-5xl mx-auto px-4">
       <div class="text-center">
-        <!-- Venue Badge -->
+        <!-- CVPR Logo -->
         <div class="mb-6">
-          <span class="venue-badge">{t(lang, 'venue')}</span>
+          <Image
+            src={`${import.meta.env.BASE_URL}/assets/images/cvpr2026.png`}
+            alt="CVPR 2026"
+            width={200}
+            height={56}
+            class="h-14 w-auto mx-auto lg:absolute lg:top-8 lg:left-8 lg:mx-0"
+          />
         </div>
 
-        <h1 class="publication-title">
+        <h1 class="publication-title mt-4">
           {t(lang, 'publicationTitle')}
         </h1>
 
