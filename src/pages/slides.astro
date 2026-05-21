@@ -2,7 +2,6 @@
 import fs from 'fs';
 import path from 'path';
 import katex from 'katex';
-import 'katex/dist/katex.min.css';
 
 const srcPath = path.join(process.cwd(), 'public/slides.src');
 let html = fs.readFileSync(srcPath, 'utf-8');
@@ -32,42 +31,17 @@ html = html.replace(
   }
 );
 
-// Step 4: Fix font paths - add /osa prefix for GitHub Pages
-const base = '/osa';
+// Step 4: Fix font paths - add base prefix for GitHub Pages
+const base = import.meta.env.BASE_URL;
 html = html.replace(/href="\/fonts\//g, `href="${base}/fonts/`);
 
 // Step 5: Fix image paths - use CDN for academic images
 html = html.replace(/src="\/academic\/images\//g, 'src="https://cdn.jsdelivr.net/gh/mykcs/academic@main/images/');
 
-// Parse HTML: split head and body
-const headMatch = html.match(/<head>([\s\S]*?)<\/head>/);
-const bodyMatch = html.match(/<body>([\s\S]*?)<\/body>/);
-const headContent = headMatch ? headMatch[1] : '';
-const bodyContent = bodyMatch ? bodyMatch[1] : '';
+// Step 6: Inject KaTeX CSS (removed CDN version above, need styles for pre-rendered formulas)
+html = html.replace('</head>', `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" /></head>`);
 
-// Extract head elements we need to preserve
-const titleMatch = headContent.match(/<title>[^<]*<\/title>/);
-const title = titleMatch ? titleMatch[0] : '<title>OSA Slides</title>';
-const metaTags = headContent.match(/<meta[^>]*>/g) || [];
-const linkTags = headContent.match(/<link[^>]*>/g) || [];
-const otherHead = headContent
-  .replace(/<title>[^<]*<\/title>/g, '')
-  .replace(/<meta[^>]*>/g, '')
-  .replace(/<link[^>]*>/g, '')
-  .trim();
+return new Response(html, {
+  headers: { 'Content-Type': 'text/html; charset=utf-8' },
+});
 ---
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <Fragment set:html={title} />
-  {metaTags.map((tag: string) => <Fragment set:html={tag} />)}
-  {linkTags.map((tag: string) => <Fragment set:html={tag} />)}
-  <Fragment set:html={otherHead} />
-</head>
-<body>
-  <Fragment set:html={bodyContent} />
-</body>
-</html>
