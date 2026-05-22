@@ -1,4 +1,11 @@
 ---
+import { t } from '../i18n';
+
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
 ---
 
 <div class="osa-poster-root">
@@ -12,15 +19,14 @@
         </div>
         <div class="osa-poster-header-center">
           <h1 class="osa-poster-paper-title">
-            <span class="osa-poster-highlight">OSA</span>: Echocardiography Video Segmentation via<br>
-            Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement
+            <span class="osa-poster-highlight">OSA</span>: {t(lang, 'publicationTitle')}
           </h1>
           <div class="osa-poster-authors">
             Rui Wang<sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;Huisi Wu<sup>1*</sup>&nbsp;&nbsp;&nbsp;&nbsp;Jing Qin<sup>2</sup>
           </div>
           <div class="osa-poster-affiliations">
-            <sup>1</sup>College of Computer Science and Software Engineering, Shenzhen University<br>
-            <sup>2</sup>Centre for Smart Health, School of Nursing, The Hong Kong Polytechnic University
+            <sup>1</sup>{t(lang, 'affiliation1')}<br>
+            <sup>2</sup>{t(lang, 'affiliation2')}
           </div>
         </div>
         <div class="osa-poster-header-right">
@@ -34,42 +40,42 @@
         <div class="osa-poster-column">
           <div class="osa-poster-column-inner">
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Problem Setting</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.problemSettingTitle')}</h2>
               <div class="osa-poster-section-body">
-                LV segmentation from echocardiography is essential for cardiac function assessment, yet challenging due to:
+                {t(lang, 'poster.problemSettingBody')}
                 <ul>
-                  <li><strong>Severe speckle noise</strong> & low contrast</li>
-                  <li><strong>Rapid non-rigid deformation</strong> (systole ↔ diastole)</li>
-                  <li><strong>Sparse annotations</strong> (ED/ES frames only)</li>
+                  <li set:html={t(lang, 'poster.problemSettingPoint1')} />
+                  <li set:html={t(lang, 'poster.problemSettingPoint2')} />
+                  <li set:html={t(lang, 'poster.problemSettingPoint3')} />
                 </ul>
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/challenge/image.png" alt="Challenges" style="width: 80%; margin: 0 auto;" onerror="this.classList.add('img-placeholder')">
-                <div class="osa-poster-figure-caption">Figure 1. Challenges: speckle noise, blurred contours, and shape variations.</div>
+                <div class="osa-poster-figure-caption">{t(lang, 'poster.problemSettingFigureCaption')}</div>
               </div>
             </div>
 
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Motivation</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.motivationTitle')}</h2>
               <div class="osa-poster-section-body">
-                Existing video segmentation models ignore ultrasound-specific noise statistics, while temporal models suffer from state degradation. OSA addresses both jointly:
+                {t(lang, 'poster.motivationBody')}
                 <ul>
-                  <li><strong>Speckle resilience</strong> via physics-driven anatomical decoupling</li>
-                  <li><strong>Temporal stability</strong> via orthogonalized state updates</li>
-                  <li><strong>Sparse annotation</strong> handled by ED/ES frame supervision</li>
+                  <li set:html={t(lang, 'poster.motivationPoint1')} />
+                  <li set:html={t(lang, 'poster.motivationPoint2')} />
+                  <li set:html={t(lang, 'poster.motivationPoint3')} />
                 </ul>
               </div>
             </div>
 
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Contributions</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.contributionsTitle')}</h2>
               <div class="osa-poster-section-body">
                 <ul>
-                  <li>First unified temporal + ultrasound-aware architecture</li>
-                  <li>Stiefel constraint prevents rank collapse</li>
-                  <li>Physics-driven decoupling for noise resilience</li>
-                  <li><strong>Stiefel manifold:</strong> <strong>S</strong><sub>t</sub> ∈ <strong>V</strong><sub>Cv,Ck</sub> with <strong>S</strong><sup>⊤</sup><strong>S</strong> = <strong>I</strong></li>
-                  <li><strong>Newton-Schulz projection:</strong> avoids exact SVD, O(1) fixed steps</li>
+                  <li>{t(lang, 'poster.contribution1')}</li>
+                  <li>{t(lang, 'poster.contribution2')}</li>
+                  <li>{t(lang, 'poster.contribution3')}</li>
+                  <li set:html={t(lang, 'poster.contribution4')} />
+                  <li set:html={t(lang, 'poster.contribution5')} />
                 </ul>
               </div>
             </div>
@@ -80,37 +86,37 @@
         <div class="osa-poster-column">
           <div class="osa-poster-column-inner">
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Our Approach</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.ourApproachTitle')}</h2>
               <div class="osa-poster-section-body">
-                We propose <strong style="color: #4655AB;">OSA</strong> — joint temporal stabilization + anatomy-aware enhancement:
+                {t(lang, 'poster.ourApproachBody')}
                 <ul>
-                  <li><strong>OSU:</strong> Stiefel manifold constraint prevents rank collapse</li>
-                  <li><strong>APFE:</strong> Physics-driven decoupling separates anatomy from speckle</li>
+                  <li set:html={t(lang, 'poster.ourApproachPoint1')} />
+                  <li set:html={t(lang, 'poster.ourApproachPoint2')} />
                 </ul>
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/first/fig_first.png" alt="OSA Teaser" style="width: 80%; margin: 0 auto;" onerror="this.classList.add('img-placeholder')">
-                <div class="osa-poster-figure-caption">Figure 2. Paradigm comparison: Memory Bank, LRM, and OSA.</div>
+                <div class="osa-poster-figure-caption">{t(lang, 'poster.ourApproachFigureCaption')}</div>
               </div>
             </div>
 
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Method Overview</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.methodOverviewTitle')}</h2>
               <div class="osa-poster-section-body">
-                OSA segments LV using a <strong>ResNet-50</strong> backbone.
+                {t(lang, 'poster.methodOverviewBody')}
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Met/fig_overview.png" alt="OSA Architecture"  onerror="this.classList.add('img-placeholder')">
-                <div class="osa-poster-figure-caption">Figure 3. OSA architecture: APFE → OSU → decoder.</div>
+                <div class="osa-poster-figure-caption">{t(lang, 'poster.methodOverviewFigureCaption')}</div>
               </div>
               <div class="osa-poster-section-body">
-                <strong>Pipeline:</strong>
+                <strong>{t(lang, 'poster.methodOverviewPipeline')}</strong>
                 <ol style="padding-left: 0.52in; margin: 0.15in 0;">
-                  <li>ResNet-50 extracts features <strong>F</strong><sub>t</sub></li>
-                  <li>APFE decomposes into keys/values</li>
-                  <li>OSU maintains state <strong>S</strong><sub>t</sub> on Stiefel manifold</li>
-                  <li>Query <strong>Q</strong><sub>t</sub> ⊗ <strong>S</strong><sub>t</sub></li>
-                  <li>Decoder outputs mask <strong>M</strong><sub>t</sub></li>
+                  <li set:html={t(lang, 'poster.pipelineStep1')} />
+                  <li set:html={t(lang, 'poster.pipelineStep2')} />
+                  <li set:html={t(lang, 'poster.pipelineStep3')} />
+                  <li set:html={t(lang, 'poster.pipelineStep4')} />
+                  <li set:html={t(lang, 'poster.pipelineStep5')} />
                 </ol>
               </div>
             </div>
@@ -121,9 +127,9 @@
         <div class="osa-poster-column">
           <div class="osa-poster-column-inner">
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Orthogonalized State Update</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.osuTitle')}</h2>
               <div class="osa-poster-section-body">
-                Linear recurrent models suffer <strong>rank collapse</strong>: unconstrained updates decay singular values in <strong>S</strong><sub>t</sub>.
+                {t(lang, 'poster.osuBody')}
               </div>
               <div class="osa-poster-formula-box">
                 <div class="osa-poster-formula">
@@ -140,22 +146,22 @@
                 </div>
               </div>
               <div class="osa-poster-section-body">
-                OSU projects state updates onto the Stiefel manifold, ensuring stable transitions across the cardiac cycle.
+                {t(lang, 'poster.osuBody2')}
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/osu/fig_osu.png" alt="OSU Detail" style="width: 90%; align-self: center;" onerror="this.classList.add('img-placeholder')">
-                <div class="osa-poster-figure-caption">Figure 4. OSU: orthogonalized update preserves manifold structure.</div>
+                <div class="osa-poster-figure-caption">{t(lang, 'poster.osuFigureCaption')}</div>
               </div>
             </div>
 
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Anatomical Prior-aware Feature Enhancement</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.apfeTitle')}</h2>
               <div class="osa-poster-section-body">
-                APFE decouples anatomy from speckle noise via <strong>physics-driven decomposition</strong>, building stable structural anchors.
+                {t(lang, 'poster.apfeBody')}
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/apfe/fig_apfe.png" alt="APFE Detail" style="width: 90%; align-self: center;" onerror="this.classList.add('img-placeholder')">
-                <div class="osa-poster-figure-caption">Figure 5. APFE: contrast decomposition provides noise-resilient cues.</div>
+                <div class="osa-poster-figure-caption">{t(lang, 'poster.apfeFigureCaption')}</div>
               </div>
             </div>
           </div>
@@ -165,24 +171,24 @@
         <div class="osa-poster-column">
           <div class="osa-poster-column-inner">
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Quantitative Results</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.quantitativeResultsTitle')}</h2>
               <div class="osa-poster-section-body">
-                SOTA on <strong>CAMUS</strong> & <strong>EchoNet-Dynamic</strong> across mDice, mIoU, HD, and ASD.
+                {t(lang, 'poster.quantitativeResultsBody')}
               </div>
               <div class="osa-poster-table-wrap">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/tab/tab_cap.png" alt="Main Results"  onerror="this.classList.add('img-placeholder')">
               </div>
-              <div class="osa-poster-figure-caption">Table 1. Segmentation performance on CAMUS and EchoNet-Dynamic.</div>
+              <div class="osa-poster-figure-caption">{t(lang, 'poster.quantitativeResultsTableCaption')}</div>
             </div>
 
             <div class="osa-poster-section">
-              <h2 class="osa-poster-section-title">Qualitative Comparison</h2>
+              <h2 class="osa-poster-section-title">{t(lang, 'poster.qualitativeComparisonTitle')}</h2>
               <div class="osa-poster-section-body">
-                OSA shows superior boundary adherence and fewer false positives in speckle-dense regions.
+                {t(lang, 'poster.qualitativeComparisonBody')}
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Exp/image.png" alt="Qualitative Results"  onerror="this.classList.add('img-placeholder')">
-                <div class="osa-poster-figure-caption">Figure 6. Visual comparison. Green = GT, Red = pred, Yellow = overlap.</div>
+                <div class="osa-poster-figure-caption">{t(lang, 'poster.qualitativeComparisonFigureCaption')}</div>
               </div>
             </div>
           </div>
@@ -192,7 +198,7 @@
       <!-- ==================== FOOTER ==================== -->
       <footer class="osa-poster-footer">
         <div class="osa-poster-footer-section">
-          <h3>Code</h3>
+          <h3>{t(lang, 'poster.footerCode')}</h3>
           <div class="osa-poster-footer-links">
             <a href="https://github.com/wangrui2025/OSA" class="osa-poster-footer-link" target="_blank">
               <span>github.com/wangrui2025/OSA</span>
@@ -200,11 +206,11 @@
           </div>
         </div>
         <div class="osa-poster-footer-section">
-          <h3>CVPR 2026</h3>
-          <p>Nashville, Tennessee, USA · June 2026</p>
+          <h3>{t(lang, 'poster.footerConference')}</h3>
+          <p>{t(lang, 'poster.footerConferenceInfo')}</p>
         </div>
         <div class="osa-poster-footer-section">
-          <h3>Contact</h3>
+          <h3>{t(lang, 'poster.footerContact')}</h3>
           <div class="osa-poster-footer-links">
             <a href="mailto:hswu@szu.edu.cn" class="osa-poster-footer-link">
               <span>hswu@szu.edu.cn</span>
@@ -217,11 +223,11 @@
 
   <!-- Preview Controls -->
   <div class="osa-poster-preview-controls" id="previewControls">
-    <span>Preview: <span id="zoomLevel">100%</span></span>
+    <span>{t(lang, 'poster.previewLabel')} <span id="zoomLevel">100%</span></span>
     <button onclick="zoomIn()">+</button>
     <button onclick="zoomOut()">&minus;</button>
     <button onclick="fitToScreen()">Fit</button>
-    <button onclick="window.print()">Print PDF</button>
+    <button onclick="window.print()">{t(lang, 'poster.printPdf')}</button>
   </div>
 </div>
 
