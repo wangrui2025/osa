@@ -496,10 +496,9 @@ const { lang } = Astro.props;
     align-items: stretch;
     gap: 0.08in;
     margin: 0.15in 0;
-    background: #f8f9fa;
-    padding: 0.1in !important;
     border-radius: 9pt;
     border: 2.25pt solid #e0e0e0;
+    overflow: hidden;
   }
 
   .osa-poster-figure img {
@@ -507,9 +506,7 @@ const { lang } = Astro.props;
     width: 100%;
     height: auto;
     max-width: 100%;
-    max-height: 6in;
-    object-fit: contain;
-    border-radius: 6pt;
+    object-fit: cover;
     margin: 0;
   }
 
@@ -540,7 +537,6 @@ const { lang } = Astro.props;
     min-height: 2in;
     background: linear-gradient(135deg, #e8e8e8 0%, #f0f0f0 50%, #e8e8e8 100%);
     border: 2pt dashed #ccc;
-    border-radius: 6pt;
     display: flex;
     align-items: center;
     justify-content: center;
