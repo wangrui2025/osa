@@ -1,0 +1,17 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const target = getRelativeLocaleUrl('en', '/');
+---
+<!doctype html>
+<html>
+  <head>
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={`${Astro.site?.origin}${target}`} />
+  </head>
+  <body>
+    <a href={target}>Redirecting to English version...</a>
+  </body>
+</html>
