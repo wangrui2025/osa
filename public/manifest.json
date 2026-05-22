@@ -9,8 +9,15 @@
   "icons": [
     {
       "src": "/osa/favicon.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/osa/favicon-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
