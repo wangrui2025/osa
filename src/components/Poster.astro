@@ -19,7 +19,7 @@ const { lang } = Astro.props;
         </div>
         <div class="osa-poster-header-center">
           <h1 class="osa-poster-paper-title">
-            <span class="osa-poster-highlight">OSA</span>: {t(lang, 'publicationTitle')}
+            {t(lang, 'publicationTitle')}
           </h1>
           <div class="osa-poster-authors">
             Rui Wang<sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;Huisi Wu<sup>1*</sup>&nbsp;&nbsp;&nbsp;&nbsp;Jing Qin<sup>2</sup>
@@ -531,6 +531,7 @@ const { lang } = Astro.props;
 
   .osa-poster-figure--flush img {
     border-radius: 0;
+    object-fit: contain;
   }
 
   .osa-poster-figure-caption {
