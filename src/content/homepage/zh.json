@@ -75,7 +75,6 @@
   "poster.methodOverviewFigureCaption": "图 3. OSA 架构：APFE → OSU → 解码器。",
   "poster.methodOverviewPipeline": "流程：",
   "poster.pipelineStep1": "<strong>ResNet-50</strong> 提取特征 <strong>F</strong><sub>t</sub>",
-  "poster.pipelineStep1": "<strong>ResNet-50</strong> 提取特征 <strong>F</strong><sub>t</sub>",
   "poster.pipelineStep2": "APFE 解耦为键/值",
   "poster.pipelineStep3": "OSU 在 Stiefel 流形上维护状态 <strong>S</strong><sub>t</sub>",
   "poster.pipelineStep4": "查询 <strong>Q</strong><sub>t</sub> ⊗ <strong>S</strong><sub>t</sub>",

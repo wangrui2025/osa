@@ -75,7 +75,6 @@
   "poster.methodOverviewFigureCaption": "Figure 3. OSA architecture: APFE → OSU → decoder.",
   "poster.methodOverviewPipeline": "Pipeline:",
   "poster.pipelineStep1": "<strong>ResNet-50</strong> extracts features <strong>F</strong><sub>t</sub>",
-  "poster.pipelineStep1": "<strong>ResNet-50</strong> extracts features <strong>F</strong><sub>t</sub>",
   "poster.pipelineStep2": "APFE decomposes into keys/values",
   "poster.pipelineStep3": "OSU maintains state <strong>S</strong><sub>t</sub> on Stiefel manifold",
   "poster.pipelineStep4": "Query <strong>Q</strong><sub>t</sub> ⊗ <strong>S</strong><sub>t</sub>",
