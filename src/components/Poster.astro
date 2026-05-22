@@ -88,7 +88,7 @@ const { lang } = Astro.props;
             <div class="osa-poster-section">
               <h2 class="osa-poster-section-title">{t(lang, 'poster.ourApproachTitle')}</h2>
               <div class="osa-poster-section-body">
-                {t(lang, 'poster.ourApproachBody')}
+                <Fragment set:html={t(lang, 'poster.ourApproachBody')} />
                 <ul>
                   <li set:html={t(lang, 'poster.ourApproachPoint1')} />
                   <li set:html={t(lang, 'poster.ourApproachPoint2')} />
@@ -102,8 +102,7 @@ const { lang } = Astro.props;
 
             <div class="osa-poster-section">
               <h2 class="osa-poster-section-title">{t(lang, 'poster.methodOverviewTitle')}</h2>
-              <div class="osa-poster-section-body">
-                {t(lang, 'poster.methodOverviewBody')}
+              <div class="osa-poster-section-body" set:html={t(lang, 'poster.methodOverviewBody')}>
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Met/fig_overview.png" alt="OSA Architecture"  onerror="this.classList.add('img-placeholder')">
@@ -128,8 +127,7 @@ const { lang } = Astro.props;
           <div class="osa-poster-column-inner">
             <div class="osa-poster-section">
               <h2 class="osa-poster-section-title">{t(lang, 'poster.osuTitle')}</h2>
-              <div class="osa-poster-section-body">
-                {t(lang, 'poster.osuBody')}
+              <div class="osa-poster-section-body" set:html={t(lang, 'poster.osuBody')}>
               </div>
               <div class="osa-poster-formula-box">
                 <div class="osa-poster-formula">
@@ -156,8 +154,7 @@ const { lang } = Astro.props;
 
             <div class="osa-poster-section">
               <h2 class="osa-poster-section-title">{t(lang, 'poster.apfeTitle')}</h2>
-              <div class="osa-poster-section-body">
-                {t(lang, 'poster.apfeBody')}
+              <div class="osa-poster-section-body" set:html={t(lang, 'poster.apfeBody')}>
               </div>
               <div class="osa-poster-figure">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/apfe/fig_apfe.png" alt="APFE Detail" style="width: 90%; align-self: center;" onerror="this.classList.add('img-placeholder')">
@@ -172,8 +169,7 @@ const { lang } = Astro.props;
           <div class="osa-poster-column-inner">
             <div class="osa-poster-section">
               <h2 class="osa-poster-section-title">{t(lang, 'poster.quantitativeResultsTitle')}</h2>
-              <div class="osa-poster-section-body">
-                {t(lang, 'poster.quantitativeResultsBody')}
+              <div class="osa-poster-section-body" set:html={t(lang, 'poster.quantitativeResultsBody')}>
               </div>
               <div class="osa-poster-table-wrap">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/tab/tab_cap.png" alt="Main Results"  onerror="this.classList.add('img-placeholder')">
