@@ -182,7 +182,7 @@ const { lang } = Astro.props;
               <div class="osa-poster-section-body">
                 {t(lang, 'poster.qualitativeComparisonBody')}
               </div>
-              <div class="osa-poster-figure">
+              <div class="osa-poster-figure osa-poster-figure--near-full">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Exp/image.png" alt="Qualitative Results" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.qualitativeComparisonFigureCaption')}</div>
               </div>
@@ -515,6 +515,12 @@ const { lang } = Astro.props;
 
   .osa-poster-figure--compact {
     width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .osa-poster-figure--near-full {
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
   }
