@@ -9,7 +9,6 @@ export default defineConfig({
   base: '/osa',
   prefetch: true,
   redirects: {
-    '/': '/en/',
     '/slides.html': '/slides',
   },
   i18n: {
