@@ -49,8 +49,8 @@ const { lang } = Astro.props;
                   <li set:html={t(lang, 'poster.problemSettingPoint3')} />
                 </ul>
               </div>
-              <div class="osa-poster-figure osa-poster-figure--compact">
-                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/challenge/image.png" alt="Challenges" onerror="this.classList.add('img-placeholder')">
+              <div class="osa-poster-figure">
+                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/challenge/image.png" alt="Challenges" class="osa-poster-img--scaled" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.problemSettingFigureCaption')}</div>
               </div>
             </div>
@@ -94,8 +94,8 @@ const { lang } = Astro.props;
                   <li set:html={t(lang, 'poster.ourApproachPoint2')} />
                 </ul>
               </div>
-              <div class="osa-poster-figure osa-poster-figure--compact">
-                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/first/fig_first.png" alt="OSA Teaser" onerror="this.classList.add('img-placeholder')">
+              <div class="osa-poster-figure">
+                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/first/fig_first.png" alt="OSA Teaser" class="osa-poster-img--scaled" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.ourApproachFigureCaption')}</div>
               </div>
             </div>
@@ -146,8 +146,8 @@ const { lang } = Astro.props;
               <div class="osa-poster-section-body">
                 {t(lang, 'poster.osuBody2')}
               </div>
-              <div class="osa-poster-figure osa-poster-figure--compact">
-                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/osu/fig_osu.png" alt="OSU Detail" onerror="this.classList.add('img-placeholder')">
+              <div class="osa-poster-figure">
+                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/osu/fig_osu.png" alt="OSU Detail" class="osa-poster-img--scaled" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.osuFigureCaption')}</div>
               </div>
             </div>
@@ -156,8 +156,8 @@ const { lang } = Astro.props;
               <h2 class="osa-poster-section-title">{t(lang, 'poster.apfeTitle')}</h2>
               <div class="osa-poster-section-body" set:html={t(lang, 'poster.apfeBody')}>
               </div>
-              <div class="osa-poster-figure osa-poster-figure--compact">
-                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/apfe/fig_apfe.png" alt="APFE Detail" onerror="this.classList.add('img-placeholder')">
+              <div class="osa-poster-figure">
+                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/apfe/fig_apfe.png" alt="APFE Detail" class="osa-poster-img--scaled" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.apfeFigureCaption')}</div>
               </div>
             </div>
@@ -182,8 +182,8 @@ const { lang } = Astro.props;
               <div class="osa-poster-section-body">
                 {t(lang, 'poster.qualitativeComparisonBody')}
               </div>
-              <div class="osa-poster-figure osa-poster-figure--near-full">
-                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Exp/image.png" alt="Qualitative Results" onerror="this.classList.add('img-placeholder')">
+              <div class="osa-poster-figure">
+                <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Exp/image.png" alt="Qualitative Results" class="osa-poster-img--near-full" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.qualitativeComparisonFigureCaption')}</div>
               </div>
             </div>
@@ -513,13 +513,13 @@ const { lang } = Astro.props;
     margin: 0;
   }
 
-  .osa-poster-figure--compact {
+  .osa-poster-figure img.osa-poster-img--scaled {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .osa-poster-figure--near-full {
+  .osa-poster-figure img.osa-poster-img--near-full {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
