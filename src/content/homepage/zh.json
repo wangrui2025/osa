@@ -88,7 +88,7 @@
   "poster.apfeBody": "APFE 通过<strong>物理驱动分解</strong>将解剖结构与散斑噪声解耦，构建稳定的结构锚点。",
   "poster.apfeFigureCaption": "图 5. APFE：对比度分解提供抗噪声线索。",
   "poster.quantitativeResultsTitle": "定量结果",
-  "poster.quantitativeResultsBody": "在 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集上，mDice、mIoU、HD 和 ASD 均达到 SOTA。",
+  "poster.quantitativeResultsBody": "在 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集上，mDice、mIoU、HD 和 ASD 均达到 SOTA。OSA 在 Hausdorff Distance 上表现最优，反映了临床测量所需的卓越边界精度。",
   "poster.quantitativeResultsTableCaption": "表 1. CAMUS 和 EchoNet-Dynamic 数据集上的分割性能。",
   "poster.qualitativeComparisonTitle": "定性对比",
   "poster.qualitativeComparisonBody": "OSA 在散斑密集区域展现出更优的边界保持能力和更少的假阳性。",
