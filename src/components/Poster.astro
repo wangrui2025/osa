@@ -146,7 +146,7 @@ const { lang } = Astro.props;
               <div class="osa-poster-section-body">
                 {t(lang, 'poster.osuBody2')}
               </div>
-              <div class="osa-poster-figure">
+              <div class="osa-poster-figure osa-poster-figure--flush">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/osu/fig_osu.png" alt="OSU Detail" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.osuFigureCaption')}</div>
               </div>
@@ -156,7 +156,7 @@ const { lang } = Astro.props;
               <h2 class="osa-poster-section-title">{t(lang, 'poster.apfeTitle')}</h2>
               <div class="osa-poster-section-body" set:html={t(lang, 'poster.apfeBody')}>
               </div>
-              <div class="osa-poster-figure">
+              <div class="osa-poster-figure osa-poster-figure--flush">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/apfe/fig_apfe.png" alt="APFE Detail" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.apfeFigureCaption')}</div>
               </div>
@@ -182,7 +182,7 @@ const { lang } = Astro.props;
               <div class="osa-poster-section-body">
                 {t(lang, 'poster.qualitativeComparisonBody')}
               </div>
-              <div class="osa-poster-figure">
+              <div class="osa-poster-figure osa-poster-figure--flush">
                 <img loading="eager" src="https://cdn.jsdelivr.net/gh/mykcs/academic@2d8a325/images/publications/cvpr2026-osa/fig/Exp/image.png" alt="Qualitative Results" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.qualitativeComparisonFigureCaption')}</div>
               </div>
@@ -517,6 +517,10 @@ const { lang } = Astro.props;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .osa-poster-figure--flush {
+    padding: 0 !important;
   }
 
   .osa-poster-figure-caption {
