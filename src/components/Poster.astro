@@ -233,6 +233,10 @@ const { lang } = Astro.props;
      PRINT SETTINGS
      =========================================== */
   @media print {
+    @page {
+      margin: 0;
+      size: a0 landscape;
+    }
     .osa-poster-root {
       width: 84in;
       height: 42in;
