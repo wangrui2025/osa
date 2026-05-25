@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/generate-poster-pdf.mjs",
     "preview": "astro preview",
     "check": "astro check"
   },
@@ -21,6 +21,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.3.0",
     "katex": "^0.16.47",
+    "playwright": "^1.60.0",
     "typescript": "^5.9.3"
   }
 }
