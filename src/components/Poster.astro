@@ -223,7 +223,7 @@ const { lang } = Astro.props;
     <button onclick="zoomIn()">+</button>
     <button onclick="zoomOut()">&minus;</button>
     <button onclick="fitToScreen()">Fit</button>
-    <a href="/osa/osa-poster.pdf" download class="osa-preview-btn">{t(lang, 'poster.downloadPdf')}</a>
+    <button onclick="window.print()">{t(lang, 'poster.downloadPdf')}</button>
     <button onclick="window.print()">{t(lang, 'poster.printPdf')}</button>
   </div>
 </div>
@@ -686,7 +686,6 @@ const { lang } = Astro.props;
     align-items: center;
   }
 
-  .osa-poster-preview-controls a,
   .osa-poster-preview-controls button {
     background: #7F9EE6;
     border: none;

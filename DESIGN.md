@@ -144,54 +144,14 @@
 
 ---
 
-## 8. PDF 导出方案决策
+## 8. PDF 导出方案
 
-### 8.1 方案：Playwright 构建时生成
+### 8.1 方案：`window.print()` + `@media print`
 
-```
-astro build ──→ dist/en/poster/index.html ──→ node scripts/generate-poster-pdf.mjs ──→ dist/osa-poster.pdf
-```
+海报页预览控制栏的"Print PDF"和"Download PDF"按钮均调用浏览器原生 `window.print()`，依赖 `@media print` CSS 渲染。
 
-海报页预览控制栏提供"Download PDF"下载链接，指向该构建产物。
+### 8.2 为什么不生成独立 PDF 文件
 
-### 8.2 为什么不用纯 CSS `@page` 打印
-
-浏览器打印引擎对大幅面（84in × 42in）支持不稳定：
-
-- Chrome `@page { size: 84in 42in; margin: 0; }` 在 scoped `<style>` 中可能被 Astro 忽略（需要 `is:global`）
-- 即使正确设置，Chrome 打印对话框仍然可能渲染自带页眉/页脚（日期、URL、页码），无法通过 CSS 完全禁用
-- 用户每次需要手动取消勾选"更多设置 → 页眉和页脚"，体验不可控
-
-保留 `@media print` CSS 作为 fallback，但主方案使用 Playwright。
-
-### 8.3 为什么不用服务端 Puppeteer
-
-站点托管在 GitHub Pages，没有 Node 运行时。Puppeteer 已被社区大规模弃用，Playwright 是当前标准。
-
-### 8.4 关键参数
-
-```js
-await page.pdf({
-  path: join(dist, 'osa-poster.pdf'),
-  width: '84in',
-  height: '42in',
-  printBackground: true,
-});
-```
-
-- 不设置 `scale`：Playwright `page.pdf()` 传入 `width/height` 时自动按指定尺寸渲染
-- 不设置 `preferCSSPageSize`：显式尺寸优先于 CSS `@page`
-- `waitUntil: 'networkidle'`：确保所有图片和资源加载完成
-
-### 8.5 CI 中的 Playwright
-
-CI workflow 已添加：
-- Playwright browsers 缓存（`~/.cache/ms-playwright`）
-- `npx playwright install chromium --with-deps`
-- `build` 脚本自动串联 PDF 生成
-
-首次 CI 运行耗时约 +60s（下载 Chromium 150MB），后续命中缓存约 +5s。
-
-### 8.6 CSS 打印 fallback
-
-`@media print` CSS 保留作为浏览器直接打印的 fallback。用户仍可通过海报页的 "Print PDF" 按钮调用 `window.print()`，此时依赖 `@media print` 渲染。
+- 不暴露独立 PDF 文件 URL，所有交互都发生在海报页内部
+- 无需 Playwright / Puppeteer 等构建时依赖，CI 更快、依赖更少
+- `@media print` CSS 已在 `[lang]/poster.astro` 的 `is:global` 块中配置 `@page { size: 84in 42in; margin: 0 }`，确保打印尺寸正确
