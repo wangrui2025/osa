@@ -152,7 +152,7 @@
 astro build ──→ dist/en/poster/index.html ──→ node scripts/generate-poster-pdf.mjs ──→ dist/osa-poster.pdf
 ```
 
-部署后访问 `https://wangrui2025.github.io/osa/osa-poster.pdf`。
+海报页预览控制栏提供"Download PDF"下载链接，指向该构建产物。
 
 ### 8.2 为什么不用纯 CSS `@page` 打印
 
