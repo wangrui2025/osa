@@ -87,7 +87,7 @@
   "poster.apfeBody": "APFE 通过<strong>物理驱动分解</strong>将解剖结构与散斑噪声解耦，构建稳定的结构锚点。",
   "poster.apfeFigureCaption": "图 5. APFE：对比度分解提供抗噪声线索。",
   "poster.quantitativeResultsTitle": "定量结果",
-  "poster.quantitativeResultsBody": "在 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集上，mDice、mIoU、HD 和 ASD 均达到 SOTA。OSA 取得 <strong>94.82% mDice</strong> 与最优 Hausdorff Distance，反映临床测量所需的卓越边界精度。在单张 RTX 3090 上推理速度达 <strong>35 fps</strong>，满足临床实时部署需求。",
+  "poster.quantitativeResultsBody": "在 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集上，<strong>mDice 和 mHD95</strong> 均达到 SOTA。OSA 取得 <strong>94.82% mDice</strong> 与具有竞争力的 mHD95，反映临床测量所需的卓越边界精度。推理速度达 <strong>35 fps</strong>，满足临床实时部署需求。",
   "poster.quantitativeResultsTableCaption": "表 1. CAMUS 和 EchoNet-Dynamic 数据集上的分割性能。",
   "poster.qualitativeComparisonTitle": "定性对比",
   "poster.qualitativeComparisonBody": "OSA 在散斑密集区域展现出更优的边界保持能力和更少的假阳性。与 SAM 2 及 UNet 类方法相比，即使在严重声影和低对比度心尖视图下，OSA 仍能在完整心动周期中保持一致的轮廓跟踪。",
