@@ -615,7 +615,7 @@ const { lang } = Astro.props;
   }
 
   .osa-poster-footer-section h3 {
-    font-size: 44pt;
+    font-size: 38pt;
     color: #000000;
     margin-top: 0;
     margin-bottom: 0;
@@ -626,7 +626,7 @@ const { lang } = Astro.props;
 
   .osa-poster-footer-section p,
   .osa-poster-footer-section li {
-    font-size: 31pt;
+    font-size: 26pt;
     line-height: 1.1;
     color: #000000;
     margin-top: 0;
@@ -650,14 +650,22 @@ const { lang } = Astro.props;
 
   .osa-poster-footer-link {
     display: flex;
-    align-items: center;
-    gap: 0.12in;
-    font-size: 37pt;
+    align-items: flex-start;
+    gap: 0.08in;
+    font-size: 28pt;
     color: #000000;
     text-decoration: none;
     min-width: 0;
+    max-width: 100%;
     overflow-wrap: break-word;
-    word-break: break-all;
+    word-break: break-word;
+    line-height: 1.2;
+  }
+
+  .osa-poster-footer-link span {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
   }
 
   .osa-poster-qr-placeholder {
