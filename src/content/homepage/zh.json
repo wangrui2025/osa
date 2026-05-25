@@ -90,7 +90,7 @@
   "poster.quantitativeResultsBody": "在 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集上，<strong>mDice 和 mHD95</strong> 均达到 SOTA。OSA 取得 <strong>94.82% mDice</strong> 与具有竞争力的 mHD95，反映临床测量所需的卓越边界精度。推理速度达 <strong>35 fps</strong>，满足临床实时部署需求。",
   "poster.quantitativeResultsTableCaption": "表 1. CAMUS 和 EchoNet-Dynamic 数据集上的分割性能。",
   "poster.qualitativeComparisonTitle": "定性对比",
-  "poster.qualitativeComparisonBody": "OSA 在散斑密集区域展现出更优的边界保持能力和更少的假阳性。与 SAM 2 及 UNet 类方法相比，即使在严重声影和低对比度心尖视图下，OSA 仍能在完整心动周期中保持一致的轮廓跟踪。",
+  "poster.qualitativeComparisonBody": "OSA 在散斑密集区域展现出更优的边界保持能力和更少的假阳性。与 SAMed-2、EchoVim 等最先进方法相比，即使在严重声影和低对比度心尖视图下，OSA 仍能在完整心动周期中保持一致的轮廓跟踪。",
   "poster.qualitativeComparisonFigureCaption": "图 6. 视觉对比。绿色 = 真值，红色 = 预测，黄色 = 重叠。",
   "poster.footerCode": "代码",
   "poster.footerConference": "CVPR 2026",

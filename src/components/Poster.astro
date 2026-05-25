@@ -131,16 +131,16 @@ const { lang } = Astro.props;
               </div>
               <div class="osa-poster-formula-box">
                 <div class="osa-poster-formula">
-                  <strong>𝒱</strong><sub>C<sub>v</sub>, C<sub>k</sub></sub> = &#123; <strong>S</strong> &isin; &real;<sup>C<sub>v</sub>&times;C<sub>k</sub></sup> : <strong>S</strong><sup>&top;</sup><strong>S</strong> = <strong>I</strong><sub>C<sub>k</sub></sub> &#125;
+                  <strong>𝒱</strong><sub>C<sub>v</sub>, C<sub>k</sub></sub> = &#123; <strong>S</strong> &isin; &real;<sup>C<sub>v</sub>&times;C<sub>k</sub></sup> : <strong>S</strong><sup>T</sup><strong>S</strong> = <strong>I</strong><sub>C<sub>k</sub></sub> &#125;
                 </div>
                 <div class="osa-poster-formula">
-                  <strong>S</strong><sub>t</sub><sup>Euc</sup> = <strong>S</strong><sub>t&minus;1</sub>(<strong>&alpha;</strong><sub>t</sub>(<strong>I</strong><sub>C<sub>k</sub></sub> &minus; <strong>&beta;</strong><sub>t</sub><strong>k</strong><sub>t</sub><strong>k</strong><sub>t</sub><sup>&top;</sup>)) + <strong>&beta;</strong><sub>t</sub><strong>v</strong><sub>t</sub><strong>k</strong><sub>t</sub><sup>&top;</sup>
+                  <strong>S</strong><sub>t</sub><sup>Euc</sup> = <strong>S</strong><sub>t&minus;1</sub>(<strong>&alpha;</strong><sub>t</sub>(<strong>I</strong><sub>C<sub>k</sub></sub> &minus; <strong>&beta;</strong><sub>t</sub><strong>k</strong><sub>t</sub><strong>k</strong><sub>t</sub><sup>T</sup>)) + <strong>&beta;</strong><sub>t</sub><strong>v</strong><sub>t</sub><strong>k</strong><sub>t</sub><sup>T</sup>
                 </div>
                 <div class="osa-poster-formula">
                   <strong>X</strong><sup>(0)</sup> = <strong>S</strong><sub>t</sub><sup>Euc</sup> / (&par;<strong>S</strong><sub>t</sub><sup>Euc</sup>&par;<sub>F</sub> + &epsilon;)
                 </div>
                 <div class="osa-poster-formula">
-                  <strong>X</strong><sup>(j+1)</sup> = <strong>a</strong><strong>X</strong><sup>(j)</sup> + <strong>b</strong><strong>X</strong><sup>(j)</sup>(<strong>X</strong><sup>(j)</sup>)<sup>&top;</sup><strong>X</strong><sup>(j)</sup> + <strong>c</strong><strong>X</strong><sup>(j)</sup>((<strong>X</strong><sup>(j)</sup>)<sup>&top;</sup><strong>X</strong><sup>(j)</sup>)<sup>2</sup>
+                  <strong>X</strong><sup>(j+1)</sup> = <strong>a</strong><strong>X</strong><sup>(j)</sup> + <strong>b</strong><strong>X</strong><sup>(j)</sup>(<strong>X</strong><sup>(j)</sup>)<sup>T</sup><strong>X</strong><sup>(j)</sup> + <strong>c</strong><strong>X</strong><sup>(j)</sup>((<strong>X</strong><sup>(j)</sup>)<sup>T</sup><strong>X</strong><sup>(j)</sup>)<sup>2</sup>
                 </div>
               </div>
               <div class="osa-poster-section-body">

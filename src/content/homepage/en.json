@@ -90,7 +90,7 @@
   "poster.quantitativeResultsBody": "SOTA on <strong>CAMUS</strong> & <strong>EchoNet-Dynamic</strong> in terms of <strong>mDice and mHD95</strong>. OSA achieves <strong>94.82% mDice</strong> and competitive mHD95 performance, reflecting superior boundary precision crucial for clinical measurement. Inference runs at <strong>35 fps</strong>, enabling real-time clinical deployment.",
   "poster.quantitativeResultsTableCaption": "Table 1. Segmentation performance on CAMUS and EchoNet-Dynamic.",
   "poster.qualitativeComparisonTitle": "Qualitative Comparison",
-  "poster.qualitativeComparisonBody": "OSA shows superior boundary adherence and fewer false positives in speckle-dense regions. Compared to SAM 2 and UNet-based methods, OSA maintains consistent contour tracking across the full cardiac cycle even under severe acoustic shadowing and low-contrast apical views.",
+  "poster.qualitativeComparisonBody": "OSA shows superior boundary adherence and fewer false positives in speckle-dense regions. Compared to state-of-the-art methods such as SAMed-2 and EchoVim, OSA maintains consistent contour tracking across the full cardiac cycle even under severe acoustic shadowing and low-contrast apical views.",
   "poster.qualitativeComparisonFigureCaption": "Figure 6. Visual comparison. Green = GT, Red = pred, Yellow = overlap.",
   "poster.footerCode": "Code",
   "poster.footerConference": "CVPR 2026",
