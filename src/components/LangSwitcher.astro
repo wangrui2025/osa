@@ -9,7 +9,6 @@ const currentPath = Astro.url.pathname
   .replace(/^\/(en|zh)/, '')
   .replace(/\/$/, '') || '/';
 const targetUrl = getRelativeLocaleUrl(targetLocale, currentPath);
-const switchLabel = t(targetLocale, 'langSwitch');
 ---
 
 <a
