@@ -1,0 +1,406 @@
+/* ===========================================
+   OSA Poster — Global Styles
+   =========================================== */
+
+/* ===========================================
+   PRINT SETTINGS
+   =========================================== */
+@media print {
+  @page {
+    margin: 0;
+    size: a0 landscape;
+  }
+  .osa-poster-root {
+    width: 84in;
+    height: 42in;
+    overflow: hidden;
+    background: white;
+  }
+  .osa-poster-wrapper {
+    transform: none !important;
+    width: 84in !important;
+    height: 42in !important;
+  }
+  .osa-poster-header,
+  .osa-poster-footer,
+  .osa-poster-section-title,
+  .osa-poster-highlight {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .osa-poster-preview-controls {
+    display: none !important;
+  }
+}
+
+/* ===========================================
+   RESET & BASE
+   =========================================== */
+.osa-poster-root *, .osa-poster-root *::before, .osa-poster-root *::after {
+  box-sizing: border-box;
+}
+
+.osa-poster-root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f0f0f0;
+  font-family: 'Times New Roman', Times, Georgia, serif;
+}
+
+/* ===========================================
+   POSTER CONTAINER
+   =========================================== */
+.osa-poster-wrapper {
+  width: 84in;
+  height: 42in;
+  position: relative;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0,0,0,0.3);
+}
+
+.osa-poster {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 7.4in minmax(0, 1fr) 1.6in;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
+}
+
+/* ===========================================
+   CONTENT GRID
+   =========================================== */
+.osa-poster-content {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  gap: 0;
+  padding: 0.15in 0.25in;
+  overflow: hidden;
+}
+
+.osa-poster-column {
+  padding: 0.15in 0.4in;
+  border-right: 2.25pt solid #e8e8e8;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.osa-poster-column:last-child {
+  border-right: none;
+}
+
+.osa-poster-column-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.15in;
+  overflow: hidden;
+}
+
+/* ===========================================
+   SECTIONS
+   =========================================== */
+.osa-poster-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08in;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.osa-poster-section-title {
+  font-size: 66pt;
+  font-weight: bold;
+  color: #5A6FCA;
+  border-bottom: 2.5pt solid #5A6FCA;
+  padding-bottom: 0.1in;
+  margin-top: 0;
+  margin-bottom: 0.12in;
+  line-height: 1.2;
+}
+
+.osa-poster-section-subtitle {
+  font-size: 52pt;
+  font-weight: bold;
+  color: #4655AB;
+  margin-top: 0.12in;
+  margin-bottom: 0.08in;
+}
+
+.osa-poster-section-body {
+  font-size: 46pt;
+  line-height: 1.4;
+  color: #1a1a1a;
+  text-align: justify;
+}
+
+.osa-poster-section-body ul {
+  list-style: disc;
+  padding-left: 0.4in;
+  margin: 0.23in 0;
+}
+
+.osa-poster-section-body li {
+  margin-bottom: 0.12in;
+}
+
+.osa-poster-section-body strong {
+  color: #4655AB;
+}
+
+/* ===========================================
+   FIGURES
+   =========================================== */
+.osa-poster-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.08in;
+  margin: 0.15in 0;
+  border-radius: 9pt;
+  border: 2.25pt solid #e0e0e0;
+  overflow: hidden;
+}
+
+.osa-poster-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 8in;
+  object-fit: cover;
+  margin: 0;
+}
+
+.osa-poster-figure img.osa-poster-img--95 {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+.osa-poster-figure--flush img.osa-poster-img--95 {
+  max-height: 8.5in;
+}
+
+.osa-poster-figure img.osa-poster-img--near-full {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+.osa-poster-figure--flush {
+  padding: 0 !important;
+}
+
+.osa-poster-figure--flush img {
+  border-radius: 0;
+  object-fit: contain;
+  max-height: 7in;
+}
+
+.osa-poster-figure-caption {
+  font-size: 30pt;
+  color: #444;
+  text-align: center;
+  font-style: italic;
+  line-height: 1.3;
+  margin-top: 0.06in;
+}
+
+img.img-placeholder {
+  min-height: 2in;
+  background: linear-gradient(135deg, #e8e8e8 0%, #f0f0f0 50%, #e8e8e8 100%);
+  border: 2pt dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  object-fit: none;
+}
+img.img-placeholder::after {
+  content: attr(alt);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24pt;
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ===========================================
+   FORMULAS
+   =========================================== */
+.osa-poster-formula-box {
+  background: #f8f9fa;
+  border-left: 4.5pt solid #5A6FCA;
+  padding: 0.05in;
+  margin: 0.05in 0;
+  font-size: 36pt;
+  line-height: 1.3;
+  color: #1a1a1a;
+  border-radius: 0 4pt 4pt 0;
+}
+
+.osa-poster-formula-box .osa-poster-formula {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  text-align: center;
+  margin: 0.1in 0;
+}
+
+/* ===========================================
+   TABLES
+   =========================================== */
+.osa-poster-table-wrap {
+  width: 100%;
+  overflow: hidden;
+  margin: 0.15in 0;
+}
+
+.osa-poster-table-wrap img {
+  width: 100%;
+  height: auto;
+  max-height: 6in;
+  object-fit: contain;
+}
+
+/* ===========================================
+   FOOTER
+   =========================================== */
+.osa-poster-footer {
+  grid-area: footer;
+  background: #7F9EE6;
+  color: white;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr;
+  gap: 0.35in;
+  padding: 0.1in 0.25in;
+  align-items: start;
+}
+
+.osa-poster-footer-section h3 {
+  font-size: 38pt;
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-bottom: 1.5pt solid #7F9EE6;
+  padding-bottom: 0;
+  line-height: 1.1;
+}
+
+.osa-poster-footer-section p,
+.osa-poster-footer-section li {
+  font-size: 26pt;
+  line-height: 1.1;
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.osa-poster-footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.osa-poster-footer-section li {
+  margin-bottom: 0.06in;
+}
+
+.osa-poster-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.osa-poster-footer-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.06in;
+  font-size: 24pt;
+  color: #000000;
+  text-decoration: none;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-height: 1.2;
+}
+
+.osa-poster-footer-link span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.osa-poster-qr-placeholder {
+  width: 1.8in;
+  height: 1.8in;
+  background: white;
+  border-radius: 6pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21pt;
+  color: #333;
+}
+
+/* ===========================================
+   PREVIEW MODE (for screen viewing)
+   =========================================== */
+.osa-poster-preview-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 18px 30px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 21px;
+  z-index: 1000;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.osa-poster-preview-controls button {
+  background: #7F9EE6;
+  border: none;
+  color: #F3F7FF;
+  padding: 9px 21px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.osa-poster-preview-controls button:hover {
+  background: #e5b128;
+}
+
+@media screen {
+  .osa-poster-root {
+    min-height: 100vh;
+    background: #1a1a2e;
+    overflow: auto;
+  }
+  .osa-poster-wrapper {
+    position: absolute;
+    transform-origin: top left;
+    transform: scale(0.25);
+    left: 0;
+    top: 0;
+  }
+}
