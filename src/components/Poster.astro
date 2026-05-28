@@ -259,10 +259,6 @@ const { lang } = Astro.props;
     document.getElementById('zoomLevel')!.textContent = Math.round(currentScale * 100) + '%';
   }
 
-  function resetZoom() {
-    fitWidth();
-  }
-
   window.addEventListener('load', () => { requestAnimationFrame(fitWidth); });
   window.addEventListener('resize', () => { requestAnimationFrame(fitWidth); });
 
