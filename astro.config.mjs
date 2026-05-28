@@ -23,6 +23,7 @@ export default defineConfig({
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.jsdelivr.net' },
       { protocol: 'https', hostname: 'mykcs.github.io' },
+      { protocol: 'https', hostname: 'raw.githubusercontent.com' },
     ],
   },
   integrations: [
