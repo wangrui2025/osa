@@ -8,9 +8,6 @@ export default defineConfig({
   site: 'https://wangrui2025.github.io',
   base: '/osa',
   prefetch: true,
-  redirects: {
-    '/slides.html': '/slides',
-  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'zh'],
