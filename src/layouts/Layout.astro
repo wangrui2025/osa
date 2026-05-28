@@ -24,6 +24,7 @@ const {
 } = Astro.props;
 
 const lang = Astro.currentLocale ?? 'en';
+const structuredDataJson = structuredData ? JSON.stringify(structuredData) : null;
 ---
 
 <!DOCTYPE html>
@@ -92,7 +93,9 @@ const lang = Astro.currentLocale ?? 'en';
     <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
     <ClientRouter fallback="none" />
     {structuredData && (
-      <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+      <script type="application/ld+json" is:inline define:vars={{ structuredDataJson }}>
+        {JSON.parse(structuredDataJson)}
+      </script>
     )}
     <script is:inline>
       (function () {
