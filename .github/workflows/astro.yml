@@ -71,6 +71,35 @@ jobs:
       - name: Build with Astro
         run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Verify hreflang base dedupe (§2.7)
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const findHtml = (dir) => {
+            const r = [];
+            for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+              const p = path.join(dir, e.name);
+              if (e.isDirectory()) r.push(...findHtml(p));
+              else if (e.name.endsWith('.html')) r.push(p);
+            }
+            return r;
+          };
+          const BASE = 'osa';
+          const broken = [];
+          for (const f of findHtml('dist')) {
+            const c = fs.readFileSync(f, 'utf-8');
+            const re = /<link rel=\"alternate\" hreflang=\"[^\"]*\" href=\"([^\"]+)\"/g;
+            let m;
+            while ((m = re.exec(c)) !== null) {
+              const url = m[1];
+              const hits = (url.match(new RegExp(BASE, 'g')) || []).length;
+              if (hits > 1) broken.push(\`\${f}: \${url} has \${BASE} \${hits} times\`);
+            }
+          }
+          if (broken.length) { console.log(broken.join('\n')); process.exit(1); }
+          console.log('OK: no hreflang base duplication');
+          "
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
