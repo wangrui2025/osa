@@ -149,13 +149,24 @@ const description = t(lang, 'slides.description');
 </style>
 
 <script>
-  const scaler = document.getElementById('slides-scaler')!;
-  const iframe = document.getElementById('slides-iframe') as HTMLIFrameElement;
-  const zoomLevelEl = document.getElementById('zoom-level')!;
-  const zoomInBtn = document.getElementById('zoom-in')!;
-  const zoomOutBtn = document.getElementById('zoom-out')!;
-  const zoomFitBtn = document.getElementById('zoom-fit')!;
-  const printBtn = document.getElementById('print-btn')!;
+  // Modern web-design pattern: typed helper + early return.
+  // Avoids 7 non-null assertions (!) which would crash at runtime if
+  // any of the DOM nodes were missing.
+  function $<T extends Element = HTMLElement>(id: string): T | null {
+    return document.getElementById(id) as T | null;
+  }
+
+  const scaler = $<HTMLElement>('slides-scaler');
+  const iframe = $<HTMLIFrameElement>('slides-iframe');
+  const zoomLevelEl = $<HTMLElement>('zoom-level');
+  const zoomInBtn = $<HTMLButtonElement>('zoom-in');
+  const zoomOutBtn = $<HTMLButtonElement>('zoom-out');
+  const zoomFitBtn = $<HTMLButtonElement>('zoom-fit');
+  const printBtn = $<HTMLButtonElement>('print-btn');
+
+  if (!scaler || !iframe || !zoomLevelEl || !zoomInBtn || !zoomOutBtn || !zoomFitBtn || !printBtn) {
+    console.error('[slides] missing required DOM nodes; aborting zoom script');
+  } else {
 
   const zoomSteps = [0.2, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
   let currentZoomIndex = -1; // -1 = fit
@@ -213,4 +224,5 @@ const description = t(lang, 'slides.description');
     if (e.key === '0') { e.preventDefault(); setZoom(-1); }
     if (e.key === 'p' || e.key === 'P') { e.preventDefault(); printBtn.click(); }
   });
+  }
 </script>
