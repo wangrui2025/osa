@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
-    "@astrojs/sitemap": "^3.7.2",
-    "@iconify-json/lucide": "^1.2.109",
+    "@astrojs/sitemap": "^3.7.3",
+    "@iconify-json/lucide": "^1.2.111",
     "@iconify-json/simple-icons": "^1.2.84",
     "@playwright/test": "^1.60.0",
     "katex": "^0.17.0",
