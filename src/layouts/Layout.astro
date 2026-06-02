@@ -81,10 +81,17 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     <meta name="twitter:image" content={image} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
-    <!-- Language alternates for SEO -->
-    <link rel="alternate" hreflang="en" href={new URL('/osa/en/', Astro.site).href} />
-    <link rel="alternate" hreflang="zh" href={new URL('/osa/zh/', Astro.site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/osa/en/', Astro.site).href} />
+    <!-- Language alternates for SEO. Path-aware: /en/poster/ ↔ /zh/poster/. -->
+    {(() => {
+      const altPath = Astro.url.pathname.replace(/^\/(en|zh)/, '') || '/';
+      return (
+        <>
+          <link rel="alternate" hreflang="en" href={new URL(`/osa/en${altPath === '/' ? '/' : altPath}`, Astro.site).href} />
+          <link rel="alternate" hreflang="zh" href={new URL(`/osa/zh${altPath === '/' ? '/' : altPath}`, Astro.site).href} />
+          <link rel="alternate" hreflang="x-default" href={new URL(`/osa/en${altPath === '/' ? '/' : altPath}`, Astro.site).href} />
+        </>
+      );
+    })()}
 
     <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/favicon.png`} />
     <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}/favicon-512.png`} />
