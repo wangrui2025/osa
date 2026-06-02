@@ -244,8 +244,12 @@ const { lang } = Astro.props;
     applyZoom();
   }
   function applyZoom() {
-    const wrapper = document.getElementById('posterWrapper')!;
+    const wrapper = document.getElementById('posterWrapper');
     const controlsH = document.getElementById('previewControls')?.offsetHeight ?? 60;
+    if (!wrapper) {
+      console.error('[poster.astro] #posterWrapper missing; aborting applyZoom');
+      return;
+    }
     const scaledH = POSTER_H * currentScale;
     const scaledW = POSTER_W * currentScale;
     wrapper.style.transformOrigin = 'top left';
@@ -256,7 +260,8 @@ const { lang } = Astro.props;
     } else {
       wrapper.style.top = '10px';
     }
-    document.getElementById('zoomLevel')!.textContent = Math.round(currentScale * 100) + '%';
+    const zoomLevelEl = document.getElementById('zoomLevel');
+    if (zoomLevelEl) zoomLevelEl.textContent = Math.round(currentScale * 100) + '%';
   }
 
   window.addEventListener('load', () => { requestAnimationFrame(fitWidth); });
