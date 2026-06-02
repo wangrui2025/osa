@@ -306,3 +306,32 @@ pre {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ===== Print: global rules for non-poster pages =====
+   Pattern from mykcs.github.io's global.css (Phase 2 commit 93d8fcf).
+   Poster page has its own print rules in poster.css. */
+@media print {
+  html, body { background: white !important; color: #000 !important; }
+
+  /* Hide non-content UI */
+  nav, footer, .skip-link { display: none !important; }
+  [aria-label*="toggle" i], [aria-label*="Toggle" i], [aria-label*="切换" i] {
+    display: none !important;
+  }
+
+  /* Avoid page breaks inside content */
+  section, article, h1, h2, h3, h4, li, blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Show external link URLs after text for paper reference */
+  a[href^="https://"]:not([href*="wangrui2025.github.io"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+  a[href^="/"]::after, a[href^="#"]::after { content: ""; }
+
+  @page { margin: 1.5cm; }
+}
