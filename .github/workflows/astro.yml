@@ -43,12 +43,14 @@ jobs:
           version: 10
           run_install: false
 
-      - name: Setup Node (with pnpm cache)
+      # Cache omitted — actions/setup-node@v6 had trouble resolving
+      # pnpm-lock.yaml cache-dependency-path in the OSA repo layout.
+      # Cache is a nice-to-have; cold installs are fast enough for OSA
+      # (~30s with pnpm store cache from action-setup@v6).
+      - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: "22"
-          cache: 'pnpm'
-          cache-dependency-path: pnpm-lock.yaml
 
       - name: Setup Pages
         id: pages
