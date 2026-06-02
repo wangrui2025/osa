@@ -35,31 +35,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      # OSA uses pnpm (per CLAUDE.md). Override the Astro Pages template's
-      # default npm detection — OSA has only pnpm-lock.yaml, no package-lock.json.
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 10
-          run_install: false
-
-      # Cache omitted — actions/setup-node@v6 had trouble resolving
-      # pnpm-lock.yaml cache-dependency-path in the OSA repo layout.
-      # Cache is a nice-to-have; cold installs are fast enough for OSA
-      # (~30s with pnpm store cache from action-setup@v6).
+      # OSA uses npm (per package-lock.json in repo). Use the standard
+      # Astro Pages template npm detection — earlier I assumed pnpm
+      # based on a stale pnpm.onlyBuiltDependencies key that was
+      # removed; the project actually uses npm.
+      - name: Detect package manager
+        id: detect-package-manager
+        run: |
+          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+            echo "manager=yarn" >> $GITHUB_OUTPUT
+            echo "command=install" >> $GITHUB_OUTPUT
+            echo "lockfile=yarn.lock" >> $GITHUB_OUTPUT
+            exit 0
+          elif [ -f "${{ github.workspace }}/package.json" ]; then
+            echo "manager=npm" >> $GITHUB_OUTPUT
+            echo "command=ci" >> $GITHUB_OUTPUT
+            echo "lockfile=package-lock.json" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Unable to determine package manager"
+            exit 1
+          fi
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: "22"
-
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
+          cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v6
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
-        run: pnpm run build
+        run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
