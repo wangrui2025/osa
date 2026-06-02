@@ -81,14 +81,16 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     <meta name="twitter:image" content={image} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
-    <!-- Language alternates for SEO. Path-aware: /en/poster/ ↔ /zh/poster/. -->
+    <!-- Language alternates for SEO. Path-aware: /en/poster/ ↔ /zh/poster/.
+         Uses BASE_URL so the same code works for any subpath (avoid duplicate base in alt URLs). -->
     {(() => {
-      const altPath = Astro.url.pathname.replace(/^\/(en|zh)/, '') || '/';
+      const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+      const altPath = Astro.url.pathname.replace(new RegExp(`^${baseUrl}/(en|zh)`), '') || '/';
       return (
         <>
-          <link rel="alternate" hreflang="en" href={new URL(`/osa/en${altPath === '/' ? '/' : altPath}`, Astro.site).href} />
-          <link rel="alternate" hreflang="zh" href={new URL(`/osa/zh${altPath === '/' ? '/' : altPath}`, Astro.site).href} />
-          <link rel="alternate" hreflang="x-default" href={new URL(`/osa/en${altPath === '/' ? '/' : altPath}`, Astro.site).href} />
+          <link rel="alternate" hreflang="en" href={new URL(`${baseUrl}/en${altPath}`, Astro.site).href} />
+          <link rel="alternate" hreflang="zh" href={new URL(`${baseUrl}/zh${altPath}`, Astro.site).href} />
+          <link rel="alternate" hreflang="x-default" href={new URL(`${baseUrl}/en${altPath}`, Astro.site).href} />
         </>
       );
     })()}
