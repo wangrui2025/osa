@@ -3,7 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import katex from 'katex';
 
-const srcPath = path.join(process.cwd(), 'public/slides.src');
+// Read source from src/ (not public/) so it isn't copied to dist/ as a 65KB
+// static asset. Slides source lives at src/slides.src and is consumed at
+// build time only.
+const srcPath = path.join(process.cwd(), 'src/slides.src');
 let html = fs.readFileSync(srcPath, 'utf-8');
 
 function renderLatex(latex: string): string {
