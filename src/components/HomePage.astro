@@ -5,7 +5,6 @@ import ActionButton from './ActionButton.astro';
 import CopyButton from './CopyButton.astro';
 import { getScholarlyArticleSchema } from '../utils/structuredData';
 import { t } from '../i18n';
-import { Image } from 'astro:assets';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const ACADEMIC_BASE = 'https://cdn.jsdelivr.net/gh/mykcs/academic@v1.1.0/images/publications/cvpr2026-osa';
@@ -46,11 +45,11 @@ const schema = getScholarlyArticleSchema({
       <div class="text-center">
         <!-- CVPR Logo -->
         <div class="mb-6">
-          <Image
+          <img
             src={cvprLogo}
             alt="CVPR 2026"
-            width={200}
-            height={56}
+            width="200"
+            height="56"
             class="h-14 w-auto mx-auto lg:absolute lg:top-8 lg:left-8 lg:mx-0"
             loading="eager"
           />
@@ -90,11 +89,11 @@ const schema = getScholarlyArticleSchema({
   <!-- Architecture Overview -->
   <Section>
     <div class="figure-card">
-      <Image
+      <img
         src={figOverview}
         alt="OSA Architecture Overview"
-        width={1200}
-        height={600}
+        width="1200"
+        height="600"
         loading="eager"
       />
     </div>
@@ -122,11 +121,11 @@ const schema = getScholarlyArticleSchema({
     <p class="text-gray-500 dark:text-gray-400 mb-8">{t(lang, 'motivationDesc')}</p>
 
     <div class="figure-card">
-      <Image
+      <img
         src={figChallenge}
         alt="Challenges in echocardiography segmentation"
-        width={1200}
-        height={400}
+        width="1200"
+        height="400"
         loading="lazy"
       />
     </div>
@@ -144,11 +143,11 @@ const schema = getScholarlyArticleSchema({
       <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{t(lang, 'methodOsuTitle')}</h3>
       <p class="text-gray-500 dark:text-gray-400 mb-6">{t(lang, 'methodOsuDesc')}</p>
       <div class="figure-card">
-        <Image
+        <img
           src={figOsu}
           alt="Orthogonalized State Update mechanism"
-          width={1200}
-          height={500}
+          width="1200"
+          height="500"
           loading="lazy"
         />
       </div>
@@ -159,11 +158,11 @@ const schema = getScholarlyArticleSchema({
       <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{t(lang, 'methodApfeTitle')}</h3>
       <p class="text-gray-500 dark:text-gray-400 mb-6">{t(lang, 'methodApfeDesc')}</p>
       <div class="figure-card">
-        <Image
+        <img
           src={figApfe}
           alt="Anatomical Prior-aware Feature Enhancement module"
-          width={1200}
-          height={500}
+          width="1200"
+          height="500"
           loading="lazy"
         />
       </div>
@@ -182,11 +181,11 @@ const schema = getScholarlyArticleSchema({
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <!-- Quantitative Results Table -->
       <div class="figure-card">
-        <Image
+        <img
           src={tabCap}
           alt="Comparison with state-of-the-art methods"
-          width={600}
-          height={400}
+          width="600"
+          height="400"
           loading="lazy"
         />
         <p class="figure-caption">
@@ -196,11 +195,11 @@ const schema = getScholarlyArticleSchema({
 
       <!-- Ablation Study -->
       <div class="figure-card">
-        <Image
+        <img
           src={tabAbl}
           alt="Ablation study results"
-          width={600}
-          height={400}
+          width="600"
+          height="400"
           loading="lazy"
         />
         <p class="figure-caption">
@@ -211,11 +210,11 @@ const schema = getScholarlyArticleSchema({
 
     <!-- Qualitative Results -->
     <div class="figure-card">
-      <Image
+      <img
         src={figExp}
         alt="Qualitative segmentation results"
-        width={1200}
-        height={500}
+        width="1200"
+        height="500"
         loading="lazy"
       />
       <p class="figure-caption">
