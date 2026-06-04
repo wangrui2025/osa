@@ -4,7 +4,6 @@ interface ScholarlyArticleSchema {
   description?: string;
   url: string;
   image?: string;
-  datePublished: string;
   venue: string;
   pdfUrl?: string;
   codeUrl?: string;
@@ -16,7 +15,6 @@ export function getScholarlyArticleSchema({
   description,
   url,
   image,
-  datePublished,
   venue,
   pdfUrl,
   codeUrl,
@@ -33,7 +31,6 @@ export function getScholarlyArticleSchema({
     description,
     url,
     image,
-    datePublished,
     publication: {
       '@type': 'PublicationEvent',
       name: venue,
