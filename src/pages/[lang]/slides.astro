@@ -27,12 +27,12 @@ const description = t(lang, 'slides.description');
     <span class="controls-label">Preview:</span>
     <span class="zoom-level" id="zoom-level">Fit</span>
     <div class="controls-group">
-      <button id="zoom-out" title="Zoom out (−)">−</button>
-      <button id="zoom-in" title="Zoom in (+)">+</button>
+      <button id="zoom-out" title="Zoom out (−)" aria-label={t(lang, 'slides.zoomOut')}>−</button>
+      <button id="zoom-in" title="Zoom in (+)" aria-label={t(lang, 'slides.zoomIn')}>+</button>
     </div>
-    <button id="zoom-fit" class="active" title="Fit to window (0)">Fit</button>
+    <button id="zoom-fit" class="active" title="Fit to window (0)" aria-label={t(lang, 'slides.fitScreen')}>Fit</button>
     <div class="divider"></div>
-    <button id="print-btn" title="Print / Save as PDF (P)">Print PDF</button>
+    <button id="print-btn" title="Print / Save as PDF (P)" aria-label={t(lang, 'slides.printPdf')}>Print PDF</button>
   </div>
 </Layout>
 
