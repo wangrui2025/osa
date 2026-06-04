@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import astroIcon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
+import stripWoffFallback from './src/integrations/strip-woff-fallback.mjs';
 
 export default defineConfig({
   output: 'static',
@@ -25,6 +26,7 @@ export default defineConfig({
   integrations: [
     sitemap(),
     astroIcon(),
+    stripWoffFallback(),
   ],
   vite: {
     plugins: [tailwindcss()],
