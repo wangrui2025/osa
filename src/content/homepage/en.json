@@ -11,6 +11,7 @@
   "codeLabel": "Code",
   "posterLabel": "Poster",
   "slidesLabel": "Slides",
+  "pdfLabel": "CVF Paper",
   "fig1Caption": "Overview of the proposed OSA framework. Top: unconstrained linear recurrent models suffer from rank collapse under severe speckle noise. Middle: our OSU mechanism constrains state evolution on the Stiefel manifold, preventing singular value decay. Bottom: the APFE module decouples anatomical structures from speckle noise via physics-driven decomposition, providing noise-resilient cues for temporal tracking.",
   "abstractTitle": "Abstract",
   "abstractP1": "Accurate and temporally consistent segmentation of the left ventricle from echocardiography videos is essential for estimating the ejection fraction and assessing cardiac function. However, modeling spatiotemporal dynamics remains difficult due to severe speckle noise and rapid non-rigid deformations.",
