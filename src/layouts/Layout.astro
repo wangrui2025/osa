@@ -103,7 +103,7 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     <ClientRouter fallback="none" />
     {structuredData && (
       /* TRUSTED: static JSON.stringify of academic data, served as application/ld+json. */
-      <script type="application/ld+json" set:html={structuredDataJson} />
+      <script is:inline type="application/ld+json" set:html={structuredDataJson} />
     )}
     <script is:inline>
       // SW registration disabled — no public/sw.js exists. The block was
