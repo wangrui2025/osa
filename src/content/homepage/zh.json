@@ -41,7 +41,7 @@
   "footerLicense": "代码基于 MIT 许可证发布",
   "notFound": "页面未找到",
   "backHome": "返回首页",
-  "bibtexEntry": "@InProceedings{Wang_2026_CVPR,\n    author    = {Wang, Rui and Wu, Huisi and Qin, Jing},\n    title     = {OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement},\n    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},\n    month     = {June},\n    year      = {2026},\n    pages     = {1428-1438}\n}",
+  "bibtexEntry": "@InProceedings{Wang_2026_CVPR,\n    author    = {Wang, Rui and Wu, Huisi and Qin, Jing},\n    title     = {{OSA}: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement},\n    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},\n    month     = {June},\n    year      = {2026},\n    pages     = {1428-1438}\n}",
   "slides.title": "osa slides",
   "slides.description": "OSA：基于正交状态更新与解剖先验感知特征增强的超声心动图视频分割。CVPR 2026 报告幻灯片，深圳大学王锐。",
   "slides.zoomIn": "放大",
