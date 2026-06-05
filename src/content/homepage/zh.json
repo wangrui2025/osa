@@ -25,6 +25,7 @@
   "methodApfeTitle": "解剖先验感知特征增强（APFE）",
   "methodApfeDesc": "APFE 将空间特征提取重新建模为物理驱动的解耦过程。它通过大核平均池化将特征图分解为低频声偏置场和高频结构残差。双路 Conv-BN-ReLU 通路分别处理结构几何和区域级语义，通过自适应门控机制融合。这为时序跟踪器提供了抗噪声的结构锚点。",
   "fig3Caption": "正交状态更新（OSU）机制架构。左：标准欧几里得递推允许状态偏离流形，导致秩崩溃。右：OSU 将无约束状态显式投影回 Stiefel 流形，保持正交性并防止奇异值衰减。",
+  "apfeCaption": "解剖先验感知特征增强（APFE）模块架构。大核平均池化将特征图分解为低频声偏置场与高频结构残差。双路 Conv-BN-ReLU 通路分别处理结构几何与区域级语义，经自适应门控机制融合，为时序跟踪提供抗噪声的结构锚点。",
   "resultsTitle": "实验结果",
   "resultsDesc": "OSA 在 CAMUS 和 EchoNet-Dynamic 数据集上达到了最先进的性能，mDice 达 94.82，实时推理速度为 35 fps。",
   "bibtexTitle": "BibTeX",

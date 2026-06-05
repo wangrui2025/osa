@@ -25,6 +25,7 @@
   "methodApfeTitle": "Anatomical Prior-aware Feature Enhancement (APFE)",
   "methodApfeDesc": "APFE reformulates spatial feature extraction as a physics-driven decoupling process. It decomposes the feature map into a low-frequency acoustic bias field and high-frequency structural residuals via large-kernel average pooling. Dual Conv-BN-ReLU pathways separately handle structural geometry and region-level semantics, fused via an adaptive gating mechanism. This provides noise-resilient structural anchors for the temporal tracker.",
   "fig3Caption": "Architecture of the Orthogonalized State Update (OSU) mechanism. Left: standard Euclidean recurrence allows the state to deviate from the manifold, causing rank collapse. Right: OSU explicitly projects the unconstrained state back onto the Stiefel manifold, preserving orthogonality and preventing singular value decay.",
+  "apfeCaption": "Architecture of the Anatomical Prior-aware Feature Enhancement (APFE) module. A large-kernel average pooling decomposes the feature map into a low-frequency acoustic bias field and high-frequency structural residuals. Dual Conv-BN-ReLU pathways separately process structural geometry and region-level semantics, fused via an adaptive gating mechanism to provide noise-resilient structural anchors for temporal tracking.",
   "resultsTitle": "Results",
   "resultsDesc": "OSA achieves state-of-the-art performance on CAMUS and EchoNet-Dynamic datasets, with 94.82 mDice and 35 fps real-time inference.",
   "bibtexTitle": "BibTeX",
