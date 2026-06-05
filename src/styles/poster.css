@@ -289,7 +289,8 @@ img.img-placeholder::after {
   align-items: start;
 }
 
-.osa-poster-footer-section h3 {
+.osa-poster-footer-section h3,
+.osa-poster-footer-title {
   font-size: 38pt;
   color: #000000;
   margin-top: 0;
