@@ -3,8 +3,8 @@
 @theme {
   --color-primary: oklch(55% 0.2 265);
   --color-primary-dark: oklch(25% 0.2 275);
-  --font-sans: 'Noto Sans', system-ui, sans-serif;
-  --font-display: 'Google Sans', sans-serif;
+  --font-sans: 'Times New Roman', 'Noto Serif SC', Times, serif;
+  --font-display: 'Times New Roman', 'Noto Serif SC', Times, serif;
 
   /* OSA compatibility — mapped to GDKVM-style palette */
   --color-text: oklch(25% 0 0);
