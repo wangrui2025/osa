@@ -251,18 +251,18 @@ const schema = getScholarlyArticleSchema({
     <div class="text-center">
       <h2 class="text-3xl font-semibold text-center mb-6 font-[Google_Sans]">{t(lang, 'resourcesTitle')}</h2>
       <div class="flex flex-wrap justify-center gap-3 mt-6">
-        <ActionButton href={getRelativeLocaleUrl(lang, 'poster')} icon="lucide:presentation">
-          {t(lang, 'posterLabel')}
-        </ActionButton>
-        <ActionButton href={getRelativeLocaleUrl(lang, 'slides')} icon="lucide:monitor">
-          {t(lang, 'slidesLabel')}
-        </ActionButton>
         <ActionButton
           href="https://openaccess.thecvf.com/content/CVPR2026/html/Wang_OSA_Echocardiography_Video_Segmentation_via_Orthogonalized_State_Update_and_Anatomical_CVPR_2026_paper.html"
           icon="lucide:file-text"
           target="_blank"
         >
           {t(lang, 'pdfLabel')}
+        </ActionButton>
+        <ActionButton href={getRelativeLocaleUrl(lang, 'poster')} icon="lucide:presentation">
+          {t(lang, 'posterLabel')}
+        </ActionButton>
+        <ActionButton href={getRelativeLocaleUrl(lang, 'slides')} icon="lucide:monitor">
+          {t(lang, 'slidesLabel')}
         </ActionButton>
       </div>
     </div>
