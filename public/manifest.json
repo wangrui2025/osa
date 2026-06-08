@@ -1,26 +1,26 @@
 {
   "name": "OSA - Orthogonalized State Attention",
   "short_name": "OSA",
-  "description": "OSA project page for efficient sequence modeling",
-  "start_url": "/osa/",
+  "description": "OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement (CVPR 2026)",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#c96442",
   "icons": [
     {
-      "src": "/osa/favicon.png",
+      "src": "./favicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/osa/favicon-maskable.png",
+      "src": "./favicon-maskable.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/osa/favicon-512.png",
+      "src": "./favicon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
