@@ -2,6 +2,10 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const target = getRelativeLocaleUrl('en', '/');
+// Canonical and hreflang should point to the actual English page (not the
+// bare /osa/ redirector). x-default explicitly tells crawlers the
+// default-locale URL, which prevents indexing the redirect itself.
+const canonical = `${Astro.site?.origin}${target}`;
 ---
 <!doctype html>
 <html>
@@ -9,7 +13,9 @@ const target = getRelativeLocaleUrl('en', '/');
     <title>Redirecting...</title>
     <meta http-equiv="refresh" content={`0;url=${target}`} />
     <meta name="robots" content="noindex" />
-    <link rel="canonical" href={`${Astro.site?.origin}${target}`} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
   </head>
   <body>
     <a href={target}>Redirecting to English version...</a>
