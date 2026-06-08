@@ -32,7 +32,7 @@
         (function() {
             var link = document.getElementById('pokemon-favicon');
             if (!link) return;
-            var CDN_BASE = 'https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@main/public/favicons';
+            var CDN_BASE = 'https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@b052ab8c8a5fe41433376f0bc67baa4af4875dfb/public/favicons';
             fetch(CDN_BASE + '/index.json')
                 .then(function(res) { return res.json(); })
                 .then(function(icons) {
@@ -44,7 +44,7 @@
                 });
         })();
     </script>
-    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@main/public/favicons/pikachu.png">
+    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@b052ab8c8a5fe41433376f0bc67baa4af4875dfb/public/favicons/pikachu.png">
 
     <!-- Fonts: Times New Roman + Noto Serif SC (self-hosted via @fontsource) -->
     <link rel="stylesheet" href="/fonts/chinese-simplified-400.css">
@@ -1407,7 +1407,6 @@
             }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
