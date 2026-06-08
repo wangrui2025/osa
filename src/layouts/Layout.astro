@@ -5,6 +5,7 @@ import { ClientRouter } from 'astro:transitions';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import LangSwitcher from '../components/LangSwitcher.astro';
 import Footer from '../components/Footer.astro';
+import { getAcademicImage } from '../utils/cdn';
 import '../styles/global.css';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 const {
   title,
   description = 'OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement',
-  image = 'https://cdn.jsdelivr.net/gh/mykcs/academic@v1.1.0/images/publications/cvpr2026-osa/fig/Met/fig_overview.png',
+  image = getAcademicImage('publications/cvpr2026-osa/fig/Met/fig_overview.png'),
   showFooter = true,
   structuredData,
 } = Astro.props;

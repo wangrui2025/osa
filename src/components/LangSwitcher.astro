@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { t } from '../i18n';
+import { getAcademicImage } from '../utils/cdn';
 
 const currentLocale = Astro.currentLocale ?? 'en';
 const targetLocale = currentLocale === 'en' ? 'zh' : 'en';
@@ -9,6 +10,7 @@ const currentPath = Astro.url.pathname
   .replace(/^\/(en|zh)/, '')
   .replace(/\/$/, '') || '/';
 const targetUrl = getRelativeLocaleUrl(targetLocale, currentPath);
+const translateIcon = getAcademicImage('icons/translate.svg');
 ---
 
 <a
@@ -17,5 +19,5 @@ const targetUrl = getRelativeLocaleUrl(targetLocale, currentPath);
   title="Switch Language"
   aria-label={currentLocale === 'zh' ? '切换语言' : 'Switch language'}
 >
-  <img src="https://cdn.jsdelivr.net/gh/mykcs/academic@v1.1.0/images/icons/translate.svg" alt={t(targetLocale, 'langSwitch')} class="h-4 w-auto" loading="lazy" decoding="async" />
+  <img src={translateIcon} alt={t(targetLocale, 'langSwitch')} class="h-4 w-auto" loading="lazy" decoding="async" />
 </a>
