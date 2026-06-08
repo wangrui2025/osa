@@ -35,7 +35,7 @@
   "table2Caption": "Ablation study results.",
   "fig4Caption": "Qualitative segmentation results on CAMUS and EchoNet-Dynamic. OSA consistently yields more accurate contours across varying imaging qualities, acoustic shadowing, and ambiguous boundaries.",
   "resourcesTitle": "Resources",
-  "langSwitch": "中文",
+  "langSwitchLabel": "中文",
   "footerTemplate": "Last updated: {date}",
   "notFound": "Page not found",
   "backHome": "Back to home",

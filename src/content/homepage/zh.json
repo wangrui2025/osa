@@ -35,7 +35,7 @@
   "table2Caption": "消融实验结果。",
   "fig4Caption": "在 CAMUS 和 EchoNet-Dynamic 数据集上的定性分割结果。OSA 在不同成像质量、声影和模糊边界等真实临床挑战下始终保持更准确的轮廓。",
   "resourcesTitle": "相关资源",
-  "langSwitch": "EN",
+  "langSwitchLabel": "EN",
   "footerTemplate": "最后更新：{date}",
   "notFound": "页面未找到",
   "backHome": "返回首页",

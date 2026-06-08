@@ -11,6 +11,9 @@ const currentPath = Astro.url.pathname
   .replace(/\/$/, '') || '/';
 const targetUrl = getRelativeLocaleUrl(targetLocale, currentPath);
 const translateIcon = getAcademicImage('icons/translate.svg');
+// `langSwitchLabel` is the LABEL of the OTHER locale (target), not an
+// action verb: en viewer sees "中文", zh viewer sees "EN". The key name
+// makes that semantic explicit. (Previously mis-named `langSwitch`.)
 ---
 
 <a
@@ -19,5 +22,5 @@ const translateIcon = getAcademicImage('icons/translate.svg');
   title="Switch Language"
   aria-label={currentLocale === 'zh' ? '切换语言' : 'Switch language'}
 >
-  <img src={translateIcon} alt={t(targetLocale, 'langSwitch')} class="h-4 w-auto" loading="lazy" decoding="async" />
+  <img src={translateIcon} alt={t(targetLocale, 'langSwitchLabel')} class="h-4 w-auto" loading="lazy" decoding="async" />
 </a>
