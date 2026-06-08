@@ -1,12 +1,18 @@
 ---
 import { t } from '../i18n';
 const lang = (Astro.currentLocale ?? 'en') as 'en' | 'zh';
+// `__OSA_LAST_UPDATED__` is injected at build time by astro.config.mjs (vite.define)
+// from `git log -1 --format=%cd --date=short`. This avoids silently-stale
+// hand-edited dates in the homepage content JSON.
+declare const __OSA_LAST_UPDATED__: string;
+const lastUpdated: string = typeof __OSA_LAST_UPDATED__ === 'string' ? __OSA_LAST_UPDATED__ : '';
+const label = t(lang, 'footerTemplate').replace('{date}', lastUpdated);
 ---
 
 <footer class="py-8 bg-gray-50 dark:bg-gray-800 mt-8">
   <div class="max-w-5xl mx-auto px-4 text-center">
     <p class="text-sm text-gray-500 dark:text-gray-400">
-      {t(lang, 'footerTemplate')}
+      {label}
     </p>
   </div>
 </footer>
