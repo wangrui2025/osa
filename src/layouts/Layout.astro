@@ -106,15 +106,6 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
       /* TRUSTED: static JSON.stringify of academic data, served as application/ld+json. */
       <script is:inline type="application/ld+json" set:html={structuredDataJson} />
     )}
-    <script is:inline>
-      // SW registration disabled — no public/sw.js exists. The block was
-      // emitting a 404 silently. Re-enable when a service worker is added.
-      // (function () {
-      //   if ('serviceWorker' in navigator) {
-      //     navigator.serviceWorker.register('/osa/sw.js').catch(() => {});
-      //   }
-      // })();
-    </script>
   </head>
   <body class="bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-200 transition-colors min-h-screen flex flex-col">
     <div class="fixed top-4 right-4 z-50 flex items-center gap-2">

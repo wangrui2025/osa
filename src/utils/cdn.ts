@@ -3,7 +3,10 @@
  * that serves `mykcs/academic` images. Pin to a commit/tag for cache
  * stability; bump here when the academic repo is updated.
  *
- * Used by: HomePage, Poster, PosterHeader, LangSwitcher, Layout, slides.
+ * Used by: HomePage, Poster, PosterHeader, LangSwitcher, Layout, Footer.
+ * (Previously also listed "slides" — that page is now generated at build
+ * time by `src/integrations/build-slides-html.mjs` and uses the
+ * ACADEMIC_CDN_BASE constant directly via a small inline transform.)
  */
 const ACADEMIC_CDN_VERSION = 'v1.1.0';
 const ACADEMIC_REPO = 'mykcs/academic';

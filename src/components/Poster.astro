@@ -40,7 +40,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
                 </ul>
               </div>
               <div class="osa-poster-figure">
-                <img loading="eager" src={figChallenge} alt="Challenges" class="osa-poster-img--near-full" onerror="this.classList.add('img-placeholder')">
+                <img loading="lazy" src={figChallenge} alt="Challenges" class="osa-poster-img--near-full" onerror="this.classList.add('img-placeholder')">
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.problemSettingFigureCaption')}</div>
               </div>
             </div>
@@ -213,7 +213,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
     <button data-action="zoom-in" aria-label={t(lang, 'poster.zoomIn')}>+</button>
     <button data-action="zoom-out" aria-label={t(lang, 'poster.zoomOut')}>&minus;</button>
     <button data-action="fit-screen" aria-label={t(lang, 'poster.fitScreen')}>Fit</button>
-    <button data-action="download-pdf" aria-label={t(lang, 'poster.downloadPdf')}>{t(lang, 'poster.downloadPdf')}</button>
+    <button data-action="save-pdf" aria-label={t(lang, 'poster.savePdf')}>{t(lang, 'poster.savePdf')}</button>
     <button data-action="print-pdf" aria-label={t(lang, 'poster.printPdf')}>{t(lang, 'poster.printPdf')}</button>
   </div>
 </div>
@@ -284,7 +284,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
       case 'zoom-out': zoomOut(); break;
       case 'fit-screen': fitToScreen(); break;
       case 'print-pdf': window.print(); break;
-      case 'download-pdf': window.print(); break;
+      case 'save-pdf': window.print(); break;
     }
   });
 </script>

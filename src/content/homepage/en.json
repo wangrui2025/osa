@@ -36,11 +36,12 @@
   "fig4Caption": "Qualitative segmentation results on CAMUS and EchoNet-Dynamic. OSA consistently yields more accurate contours across varying imaging qualities, acoustic shadowing, and ambiguous boundaries.",
   "resourcesTitle": "Resources",
   "langSwitchLabel": "中文",
+  "langSwitchAriaLabel": "Switch language",
   "footerTemplate": "Last updated: {date}",
   "notFound": "Page not found",
   "backHome": "Back to home",
   "bibtexEntry": "@InProceedings{Wang_2026_CVPR,\n    author    = {Wang, Rui and Wu, Huisi and Qin, Jing},\n    title     = {{OSA}: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement},\n    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},\n    month     = {June},\n    year      = {2026},\n    pages     = {1428-1438}\n}",
-  "slides.title": "osa slides",
+  "slides.title": "OSA Slides — CVPR 2026 Presentation",
   "slides.description": "OSA: Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement for Echocardiography Video Segmentation. CVPR 2026 presentation slides by Rui Wang, Shenzhen University.",
   "slides.zoomIn": "Zoom in",
   "slides.zoomOut": "Zoom out",
@@ -100,6 +101,7 @@
   "poster.fitScreen": "Fit to screen",
   "poster.printPdf": "Print PDF",
   "poster.downloadPdf": "Download PDF",
+  "poster.savePdf": "Save PDF",
   "poster.title": "osa poster",
   "poster.description": "OSA CVPR 2026 Poster"
 }

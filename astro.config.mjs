@@ -3,15 +3,22 @@ import sitemap from '@astrojs/sitemap';
 import astroIcon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 import stripWoffFallback from './src/integrations/strip-woff-fallback.mjs';
+import buildSlidesHtml from './src/integrations/build-slides-html.mjs';
 import { execSync } from 'node:child_process';
 
 // Build-time injection of the last commit date (used by Footer.astro for
 // "Last updated" / "最后更新" string). Avoids hand-edited, silently-stale
-// dates in the homepage content JSON.
-const lastUpdated = execSync('git log -1 --format=%cd --date=short', {
-  cwd: process.cwd(),
-  encoding: 'utf-8',
-}).trim();
+// dates in the homepage content JSON. Falls back to today's date in
+// non-git environments (e.g. tarball builds) so the build never breaks.
+let lastUpdated;
+try {
+  lastUpdated = execSync('git log -1 --format=%cd --date=short', {
+    cwd: process.cwd(),
+    encoding: 'utf-8',
+  }).trim();
+} catch {
+  lastUpdated = new Date().toISOString().split('T')[0];
+}
 
 export default defineConfig({
   output: 'static',
@@ -36,6 +43,7 @@ export default defineConfig({
     sitemap(),
     astroIcon(),
     stripWoffFallback(),
+    buildSlidesHtml(),
   ],
   vite: {
     plugins: [tailwindcss()],
