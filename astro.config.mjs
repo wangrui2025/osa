@@ -40,7 +40,9 @@ export default defineConfig({
     ],
   },
   integrations: [
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/404/'),
+    }),
     astroIcon(),
     stripWoffFallback(),
     buildSlidesHtml(),

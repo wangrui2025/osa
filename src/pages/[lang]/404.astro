@@ -16,7 +16,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: 'en' | 'zh' };
 ---
 
-<Layout title={`404 | OSA`} showFooter={false}>
+<Layout title={`404 | OSA`} showFooter={false} noindex>
   <div class="min-h-[60vh] flex flex-col items-center justify-center px-4">
     <h1 class="text-6xl font-bold text-primary mb-4">404</h1>
     <p class="text-lg text-text-muted dark:text-text-muted-dark mb-8">
