@@ -71,6 +71,12 @@ jobs:
       - name: Build with Astro
         run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+        working-directory: ${{ env.BUILD_PATH }}
+      - name: Run E2E tests
+        run: npx playwright test
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Verify hreflang base dedupe (§2.7)
         run: |
           node -e "
