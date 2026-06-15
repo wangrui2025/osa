@@ -101,7 +101,7 @@
   "poster.fitScreen": "适应屏幕",
   "poster.printPdf": "打印 PDF",
   "poster.downloadPdf": "下载 PDF",
-  "poster.savePdf": "另存 PDF",
+  "poster.savePdfHint": "在打印对话框中选择「另存为 PDF」",
   "poster.title": "osa poster",
   "poster.description": "OSA CVPR 2026 海报"
 }

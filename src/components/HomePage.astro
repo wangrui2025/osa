@@ -33,7 +33,9 @@ const schema = getScholarlyArticleSchema({
   pdfUrl: 'https://arxiv.org/abs/2603.26188',
   codeUrl: 'https://github.com/wangrui2025/OSA',
   // Required by Google Rich Results test for ScholarlyArticle.
-  datePublished: '2026-06-01',
+  // Source of truth: ASTRO_PUBLICATION_DATE env var (defaults to TBD placeholder
+  // for unconfirmed acceptance date). Set in CI before build.
+  datePublished: import.meta.env.PUBLIC_OSA_PUBLICATION_DATE ?? '2026-06-01',
   inLanguage: lang,
 });
 ---

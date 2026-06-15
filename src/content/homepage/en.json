@@ -101,7 +101,7 @@
   "poster.fitScreen": "Fit to screen",
   "poster.printPdf": "Print PDF",
   "poster.downloadPdf": "Download PDF",
-  "poster.savePdf": "Save PDF",
+  "poster.savePdfHint": "Use browser's \"Save as PDF\" in the print dialog",
   "poster.title": "osa poster",
   "poster.description": "OSA CVPR 2026 Poster"
 }
