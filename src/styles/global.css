@@ -63,15 +63,6 @@ a:hover {
 }
 
 /* Utilities ----------------------------------------------------------------- */
-.highlight-title {
-  background: linear-gradient(45deg, oklch(55% 0.25 25), oklch(55% 0.25 320), oklch(55% 0.2 265), oklch(55% 0.25 320), oklch(55% 0.25 25));
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradientShift 8s ease infinite;
-}
-
 .fade-in {
   animation: fadeIn 0.4s ease-in-out;
 }
@@ -102,19 +93,6 @@ a:hover {
 .dark .abstract-box {
   background-color: oklch(22% 0.02 260);
   box-shadow: 0 4px 20px oklch(0% 0 0 / 0.3);
-}
-
-/* Section heading ----------------------------------------------------------- */
-.section-heading {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: oklch(25% 0 0);
-}
-
-.dark .section-heading {
-  color: oklch(95% 0 0);
 }
 
 /* Action button (GDKVM pill style) ------------------------------------------ */
@@ -175,25 +153,6 @@ a:hover {
   color: oklch(70% 0 0);
 }
 
-/* Venue badge --------------------------------------------------------------- */
-.venue-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.375rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  background-color: oklch(95% 0.03 265);
-  color: var(--color-primary);
-  border: 1px solid oklch(85% 0.1 265);
-}
-
-.dark .venue-badge {
-  background-color: oklch(25% 0.05 260);
-  color: oklch(70% 0.17 250);
-  border-color: oklch(35% 0.1 260);
-}
-
 /* Code blocks --------------------------------------------------------------- */
 pre {
   background-color: oklch(96% 0 0);
@@ -232,45 +191,6 @@ pre {
 
 .copy-btn:hover {
   opacity: 1;
-}
-
-/* Results table ------------------------------------------------------------- */
-.results-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9375rem;
-}
-
-.results-table th,
-.results-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid oklch(90% 0 0);
-}
-
-.dark .results-table th,
-.dark .results-table td {
-  border-color: oklch(30% 0.02 260);
-}
-
-.results-table th {
-  font-weight: 600;
-  color: oklch(50% 0 0);
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.dark .results-table th {
-  color: oklch(70% 0 0);
-}
-
-.results-table tr:hover td {
-  background-color: oklch(96% 0 0);
-}
-
-.dark .results-table tr:hover td {
-  background-color: oklch(22% 0.02 260);
 }
 
 /* Animations ---------------------------------------------------------------- */
