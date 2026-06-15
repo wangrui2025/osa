@@ -2,6 +2,7 @@
 import '@fontsource/noto-sans/400.css';
 import '@fontsource/noto-sans/700.css';
 import { ClientRouter } from 'astro:transitions';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import LangSwitcher from '../components/LangSwitcher.astro';
 import Footer from '../components/Footer.astro';
@@ -85,15 +86,15 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
     <!-- Language alternates for SEO. Path-aware: /en/poster/ ↔ /zh/poster/.
-         Uses BASE_URL so the same code works for any subpath (avoid duplicate base in alt URLs). -->
+         Uses Astro's getAbsoluteLocaleUrl so base/locale handling stays in sync. -->
     {(() => {
-      const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
-      const altPath = Astro.url.pathname.replace(new RegExp(`^${baseUrl}/(en|zh)`), '') || '/';
+      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+      const altPath = Astro.url.pathname.replace(new RegExp(`^${base}/(en|zh)/?`), '/') || '/';
       return (
         <>
-          <link rel="alternate" hreflang="en" href={new URL(`${baseUrl}/en${altPath}`, Astro.site).href} />
-          <link rel="alternate" hreflang="zh" href={new URL(`${baseUrl}/zh${altPath}`, Astro.site).href} />
-          <link rel="alternate" hreflang="x-default" href={new URL(`${baseUrl}/en${altPath}`, Astro.site).href} />
+          <link rel="alternate" hreflang="en" href={getAbsoluteLocaleUrl('en', altPath)} />
+          <link rel="alternate" hreflang="zh" href={getAbsoluteLocaleUrl('zh', altPath)} />
+          <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl('en', altPath)} />
         </>
       );
     })()}
