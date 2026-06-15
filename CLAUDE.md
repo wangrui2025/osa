@@ -1,6 +1,6 @@
 # OSA — Astro 项目
 
-> 技术栈：Astro v6 + Tailwind + TypeScript
+> 技术栈：Astro v6.4.2 + Tailwind + TypeScript
 > 部署路径：`https://wangrui2025.github.io/osa/`
 
 ## 请参考
