@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>osa slides</title>
+    <title>OSA Slides — CVPR 2026</title>
 
     <!-- SEO -->
     <meta name="description" content="OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement. CVPR 2026 presentation slides by Rui Wang, Shenzhen University.">
@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://wangrui2025.github.io/osa/en/slides">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="en_US">
-    <meta property="og:image" content="https://wangrui2025.github.io/osa/paper/fig/Met/fig_overview.png">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mykcs/academic@v1.1.0/images/publications/cvpr2026-osa/fig/Met/fig_overview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
