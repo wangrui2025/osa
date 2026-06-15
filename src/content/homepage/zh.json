@@ -1,5 +1,5 @@
 {
-  "title": "OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement — CVPR 2026",
+  "title": "OSA：基于正交状态更新与解剖先验感知特征增强的超声心动图视频分割 — CVPR 2026",
   "description": "OSA：基于正交状态更新与解剖先验感知特征增强的超声心动图视频分割",
   "publicationTitle": "OSA：基于正交状态更新与解剖先验感知特征增强的超声心动图视频分割",
   "venueFull": "IEEE/CVF 计算机视觉与模式识别会议 (CVPR), 2026",
@@ -40,6 +40,7 @@
   "footerTemplate": "最后更新：{date}",
   "notFound": "页面未找到",
   "backHome": "返回首页",
+  "notFoundTitle": "404 | OSA",
   "bibtexEntry": "@InProceedings{Wang_2026_CVPR,\n    author    = {Wang, Rui and Wu, Huisi and Qin, Jing},\n    title     = {{OSA}: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement},\n    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},\n    month     = {June},\n    year      = {2026},\n    pages     = {1428-1438}\n}",
   "slides.title": "OSA 幻灯片 — CVPR 2026 演示",
   "slides.description": "OSA：基于正交状态更新与解剖先验感知特征增强的超声心动图视频分割。CVPR 2026 报告幻灯片，深圳大学王锐。",
@@ -100,8 +101,7 @@
   "poster.zoomOut": "缩小",
   "poster.fitScreen": "适应屏幕",
   "poster.printPdf": "打印 PDF",
-  "poster.downloadPdf": "下载 PDF",
   "poster.savePdfHint": "在打印对话框中选择「另存为 PDF」",
-  "poster.title": "osa poster",
+  "poster.title": "OSA 海报",
   "poster.description": "OSA CVPR 2026 海报"
 }
