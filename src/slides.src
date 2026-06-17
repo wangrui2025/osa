@@ -480,7 +480,8 @@
         .slide-contents {
             display: flex;
             flex-direction: row;
-            height: 100%;
+            /* 不加 height: 100% — 跟其他 slide 一样走 .slide var(--slide-height)=1080 fixed, transform scale 后视觉正常 */
+            /* 之前 height: 100% 导致 scale² 倍缩小 (1366x700 下视觉只有 453 而不是 700, 大黑边) */
         }
 
         .contents-sidebar {
