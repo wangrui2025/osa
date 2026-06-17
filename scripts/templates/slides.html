@@ -1576,7 +1576,9 @@
             const viewport = document.querySelector('.slide-viewport');
             const wrappers = document.querySelectorAll('.slide-wrapper');
             const vw = viewport.clientWidth;
-            const scale = Math.min(1, vw / 1920);
+            const vh = window.innerHeight;  /* 用 window.innerHeight (iframe 实际可视高度) 而不是 viewport.clientHeight */
+            /* 同时考虑宽度和高度, 避免 viewport 高度 < 1080 时 slide 顶部被截断 (slide 2 截断 bug 修复) */
+            const scale = Math.min(1, vw / 1920, vh / 1080);
 
             wrappers.forEach(wrapper => {
                 const slide = wrapper.querySelector('.slide');

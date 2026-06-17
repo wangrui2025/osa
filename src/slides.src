@@ -665,13 +665,20 @@
         }
 
         .method-header {
-            padding-bottom: 0;
+            padding: 0;
             display: block;
-            position: relative;
+            position: static;  /* override .slide-header { position: relative } 让 .method-title-group 的 absolute 锚到 .slide */
+            /* 撑出空间: 76 (h1 top) + 65 (h1 height) + 12 (divider margin-top) + 2.5 (divider) + 17 (gap) ≈ 170 */
+            min-height: 170px;
         }
 
+        /* 统一所有 slide 的 method-header 标题组 (h1 + divider) 跟 .slide-problem 完全一致 */
+        /* 用 absolute 定位相对 .slide (position: relative) 锚定 (top=76, left=150) — 跟 slide 3 (Problem Setting) h1 位置相同 */
         .method-header .method-title-group {
-            flex: 1;
+            position: absolute;
+            top: 76px;
+            left: 150px;
+            right: 0;
         }
 
         .method-header .method-title-group h1 {
@@ -1817,7 +1824,9 @@
             const viewport = document.querySelector('.slide-viewport');
             const wrappers = document.querySelectorAll('.slide-wrapper');
             const vw = viewport.clientWidth;
-            const scale = Math.min(1, vw / 1920);
+            const vh = window.innerHeight;  /* 用 window.innerHeight (iframe 实际可视高度) 而不是 viewport.clientHeight */
+            /* 同时考虑宽度和高度, 避免 viewport 高度 < 1080 时 slide 顶部被截断 (slide 2 截断 bug 修复) */
+            const scale = Math.min(1, vw / 1920, vh / 1080);
 
             wrappers.forEach(wrapper => {
                 const slide = wrapper.querySelector('.slide');
