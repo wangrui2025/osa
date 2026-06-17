@@ -1135,7 +1135,7 @@
         }
 
         .slide-limitation .slide-header h1 {
-            font-size: 44px;
+            /* 用 default 54px (跟 slide 3-10 一致); 之前 44px 显式覆盖, 2026-06-17 跟其他 slide 统一 */
         }
 
         .limitation-content {
