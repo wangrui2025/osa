@@ -233,6 +233,7 @@ diff <(node -e "console.log(Object.keys(require('./src/content/homepage/en.json'
 
 | 日期 | 变更 |
 |------|------|
+| 2026-06-17 | 新增 §14 Slides 设计规范（架构 / scaling / title 位置 / divider gutter / 字号 / height: 100% 教训） |
 | 2026-05-27 | 新增 §7 暗色模式规范、§8 i18n 对等规则、§9 完整组件清单、§10 Do/Don't 规则 |
 
 ---
@@ -259,3 +260,161 @@ diff <(node -e "console.log(Object.keys(require('./src/content/homepage/en.json'
 - 不暴露独立 PDF 文件 URL，所有交互都发生在海报页内部
 - 无需 Playwright / Puppeteer 等构建时依赖，CI 更快、依赖更少
 - `@media print` CSS 已在 `[lang]/poster.astro` 的 `is:global` 块中配置 `@page { size: 84in 42in; margin: 0 }`，确保打印尺寸正确
+
+---
+
+## 14. Slides 设计规范
+
+> 本文描述 `/[lang]/slides/` 页面的所有布局约束。任何 slide 布局 / CSS 修改必须遵守本规范。
+
+### 14.1 架构
+
+| 维度 | 值 |
+|------|-----|
+| slide 设计尺寸 | 1920 × 1080 px（16:9） |
+| 嵌入方式 | `<iframe src="/osa/slides">` 加载 `src/slides.src`（**不是** `scripts/templates/slides.html`，后者是孤儿） |
+| 真实 build source | `src/slides.src`（`src/integrations/build-slides-html.mjs` 的 `astro:config:setup` hook 渲染到 `public/slides/index.html`） |
+| 死代码警告 | `scripts/templates/slides.html` 标注说"由 sync-image-paths.mjs 同步"，但 `sync-image-paths.mjs` 在本项目**不存在**，改它不会影响 build |
+
+### 14.2 Scaling — `updateScales()` 必须用 vh 约束
+
+```js
+const scale = Math.min(1, vw / 1920, vh / 1080);
+```
+
+- 早期版本只算 `vw / 1920`，导致 viewport 高度 < 1080 时 slide 顶部被截断（slide 2 在 1366×700 出现明显截断）。
+- **硬规则**：任何 scale 公式必须同时考虑 `vw / 1920` 和 `vh / 1080`，取 `Math.min`。
+
+### 14.3 标题 h1 位置 — 统一相对 slide (relX=150, relY=76)
+
+所有 `.method-title-group`（slide 3-11 共 9 个）必须用以下 absolute 定位锚到 `.slide`：
+
+```css
+.method-header {
+    padding: 0;
+    position: static;  /* override .slide-header { position: relative } */
+    min-height: 170px; /* 撑出空间，避免 body 撞标题 */
+}
+.method-header .method-title-group {
+    position: absolute;
+    top: 76px;
+    left: 150px;
+    right: 0;
+}
+```
+
+**为什么需要 `position: static` on `.method-header`**：默认 `.slide-header` 有 `position: relative`，会让 `.method-title-group` 的 absolute 锚到 `.method-header`（不是 `.slide`），导致各 slide 起始 y 漂移（76 → -225）。改 static 后 absolute 跳过 `.method-header` 锚到 `.slide`（`position: relative`）。
+
+**为什么需要 `min-height: 170px`**：`.method-title-group` 改 absolute 后不占 flow 空间，body 会撞标题。`min-height: 170px` (= 76 top + 65 h1 height + 12 margin + 2.5 divider + 14 buffer) 撑出空间。
+
+### 14.4 `method-divider` logo gutter — 360px
+
+```css
+.method-divider {
+    width: calc(100% - 360px);
+    /* 100 (SZU logo) + 24 (gap) + 100 (PolyU logo) + 12 (buffer) + 124 (right margin) = 360 */
+}
+```
+
+- 早期用 260px，**远端 Playwright probe 实测** 100% overlap（1920×1080 重叠 39px，1366×700 重叠 25px）。
+- **硬规则**：360px 是经验值，所有 viewport 下（1920×1080 / 1366×700 / 1280×800）probe 验证 overlap=false。
+
+### 14.5 字号 — h1 统一 54px
+
+| 元素 | 字号 | 备注 |
+|------|------|------|
+| `.method-title-group h1` | **54px** | slide 3-11 全部统一，default `.slide-header h1, .method-title-group h1 { font-size: 54px }` |
+| `.title-banner` h1 | 60px | slide 1（title）独立 |
+| `.thanks-banner` h1 | 135px | slide 12（thanks）独立 |
+
+**禁用**：不要对单个 slide 的 `.slide-header h1` 显式覆盖 `font-size`（如早期 `.slide-limitation .slide-header h1 { font-size: 44px }`），会破坏跨 slide 视觉一致性。
+
+### 14.6 不要给 `.slide-XXX` 加 `height: 100%`
+
+```css
+/* ❌ 反例 — 会导致 scale² 缩小 */
+.slide-contents { height: 100%; }
+
+/* ✅ 正确 — 让 .slide 走 var(--slide-height)=1080 fixed */
+.slide-contents { /* 什么都不加 */ }
+```
+
+**根因**（commit `f72145b` 修复）：`.slide-contents` 用了 `height: 100%`，让 .slide 高度 = 100% of parent (slide-wrapper = `1080 × scale`)。其他 slide 走 fixed `var(--slide-height)` = 1080。transform scale 后：
+
+- 其他 slide 视觉 = `1080 × scale`（一次缩放，1366×700 = 700 ✓）
+- slide 2 视觉 = `(1080 × scale) × scale` = `1080 × scale²`（**两次缩放**，1366×700 = **453** ✗，247px 黑边）
+
+**硬规则**：所有 `.slide-XXX` 都不加 `height: 100%`，让 .slide 走 default 1080 fixed。
+
+### 14.7 slide 12 (Thanks) 底部 Paper/Code 链接 = **设计意图已移除**
+
+- `src/slides.src:1811` 显式注释 `<!-- Paper & Code links removed -->`。
+- CSS `.thanks-footer` (line 1287-1308) 现为 **dead code**。
+- 用户决策（2026-06-17）：保持当前状态，不恢复链接。
+- 死代码保留（不删）：避免破坏历史 commit 的 CSS history，方便以后恢复。
+
+### 14.8 校徽 (`header-logos`)
+
+```css
+.header-logos {
+    position: absolute;
+    top: 38px;
+    right: 75px;
+    z-index: 10;
+}
+.logo-szu-img, .logo-polyu-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+```
+
+- 2 个 logo 横向排列，gap 24px，总宽 224px。
+- 绝对定位在 slide 右上角，**不会**因为 transform scale 改变位置。
+
+### 14.9 视觉验证协议
+
+任何 slide CSS 改动后，**必须**用 Playwright + minimax image understanding 双验证：
+
+```js
+// probe divider vs logos overlap
+for (const ds of [3,4,7,8,9,10,11]) {
+  const db = await div.boundingBox();
+  const lb = await logos.boundingBox();
+  console.log(`slide ${ds}: div [${db.x}..${db.x+db.width}] logos [${lb.x}..${lb.x+lb.width}] overlap=${db.x+db.width > lb.x}`);
+}
+```
+
+```js
+// probe h1 位置统一
+for (const ds of [3,4,7,8,9,10,11]) {
+  const fs = await h1.evaluate(el => getComputedStyle(el).fontSize);
+  console.log(`slide ${ds} h1 font-size: ${fs}`);  // 必须都是 54px
+}
+```
+
+### 14.10 Do / Don't
+
+| ✅ 可以 | ❌ 禁止 |
+|--------|---------|
+| 改 `src/slides.src`（build 真正读的 source） | 改 `scripts/templates/slides.html`（孤儿，build 不读） |
+| 用 `Math.min(1, vw/1920, vh/1080)` 算 scale | 漏 `vh / 1080`（slide 2 截断 bug 复发） |
+| 标题用 `top: 76; left: 150; right: 0` 锚 `.slide` | 用 `margin-top: -Xpx` 算 pixel 偏移（X 算不准） |
+| `.method-divider` 用 `calc(100% - 360px)` | 用 `260px` 或更小（overlap 100%） |
+| `.method-header { min-height: 170px }` | 不加 min-height（body 撞 absolute 标题） |
+| `.method-header { position: static }` | 漏 `position: static`（absolute 锚错到 .method-header） |
+| `.slide-XXX` 不加 `height: 100%` | 加 `height: 100%`（scale² 缩小，黑边） |
+| h1 走 default 54px | 单 slide 显式覆盖 h1 字号（破坏一致性） |
+| 改完硬刷新浏览器 (Cmd+Shift+R) | 信任 soft refresh（CDN/browser cache 假象） |
+| Playwright probe + minimax 视觉双验证 | 只看 build / dist（build-pass theater） |
+
+### 14.11 变更历史
+
+| 日期 | 变更 |
+|------|------|
+| 2026-06-17 | 新增 §14 Slides 设计规范（含 14.1-14.10） |
+| 2026-06-17 | 修复 §14.2：scale 必须用 vh 约束（commit `cc3f78a`） |
+| 2026-06-17 | 修复 §14.4：divider gutter 260→360px（commit `30b69b0`） |
+| 2026-06-17 | 修复 §14.5：slide 11 h1 44→54px 统一（commit `5a10e7b`） |
+| 2026-06-17 | 修复 §14.6：删 `.slide-contents { height: 100% }`（commit `f72145b`） |
+
