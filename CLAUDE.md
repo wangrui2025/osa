@@ -36,3 +36,32 @@ npm install
 npm run dev
 npm run build
 ```
+
+## Slides Architecture — Read Before Editing
+
+OSA slides 通过 `<iframe src="/osa/slides">` 嵌入，**build 流程有两个看似相关、实则分层的源文件**：
+
+| 路径 | 角色 | Build 是否读它 |
+|------|------|---------------|
+| `src/slides.src` | **真正的 build source** | ✅ `src/integrations/build-slides-html.mjs` 的 `astro:config:setup` hook 读这个，渲染后输出 `public/slides/index.html` |
+| `scripts/templates/slides.html` | 孤儿 template（首行注释声称由 `sync-image-paths.mjs` 同步） | ❌ **`sync-image-paths.mjs` 在本项目不存在**，build 不读此文件，编辑它**不会**影响部署 |
+| `public/slides/index.html` | Build 输出 | 🔒 自动生成，`astro:config:setup` 时覆盖，不要手改 |
+
+### Workflow — Change Slides Content
+
+```bash
+# 改 src/slides.src (NOT scripts/templates/slides.html, NOT public/slides/index.html)
+$EDITOR src/slides.src
+
+# 验证 build
+npm run build
+
+# 提交 + 推送
+~/.claude/scripts/smart-push.sh ~/Repo/webs/active/OSA "fix(slides): ..." done
+```
+
+**Warning**：
+1. 改 `scripts/templates/slides.html` 不会生效——`src/slides.src` 才是真正的 source。两者内容已出现 drift（如 `src/slides.src` 包含 slide 10 Conclusion + slide 11 Limitation，`scripts/templates/slides.html` 还停在 slide 9 THANKS）。
+2. 改 `public/slides/index.html` 不会持久——下次 `npm run dev` / `npm run build` 会被 `build-slides-html` 覆盖。
+3. CSS 改完后浏览器需**硬刷新 (Cmd+Shift+R / Ctrl+Shift+R)** 才能看到效果。
+
