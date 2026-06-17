@@ -226,8 +226,8 @@
             background: var(--brand);
             margin: 12px 0 30px;
             border-radius: 1px;
-            /* 留 260px 给 header-logos (100+24+100+24+12 buffer) 避免横线穿过校徽 */
-            width: calc(100% - 260px);
+            /* 留 360px 给 header-logos (100 logo + 24 gap + 100 logo + 12 buffer + 124 right margin/buffer) 避免横线穿过校徽 */
+            width: calc(100% - 360px);
         }
 
         .slide-divider {
