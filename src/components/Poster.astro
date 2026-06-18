@@ -40,7 +40,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
                 </ul>
               </div>
               <div class="osa-poster-figure">
-                <img loading="lazy" src={figChallenge} alt="Challenges" class="osa-poster-img--near-full" onerror="this.classList.add('img-placeholder')">
+                <img loading="lazy" src={figChallenge} alt="Challenges" class="osa-poster-img--near-full" data-image-fallback>
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.problemSettingFigureCaption')}</div>
               </div>
             </div>
@@ -85,7 +85,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
                 </ul>
               </div>
               <div class="osa-poster-figure">
-                <img loading="eager" src={figFirst} alt="OSA Teaser" class="osa-poster-img--95" onerror="this.classList.add('img-placeholder')">
+                <img loading="eager" src={figFirst} alt="OSA Teaser" class="osa-poster-img--95" data-image-fallback>
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.ourApproachFigureCaption')}</div>
               </div>
             </div>
@@ -95,7 +95,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
               <div class="osa-poster-section-body" set:html={t(lang, 'poster.methodOverviewBody')}>
               </div>
               <div class="osa-poster-figure">
-                <img loading="eager" src={figOverview} alt="OSA Architecture" class="osa-poster-img--near-full" onerror="this.classList.add('img-placeholder')">
+                <img loading="eager" src={figOverview} alt="OSA Architecture" class="osa-poster-img--near-full" data-image-fallback>
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.methodOverviewFigureCaption')}</div>
               </div>
               <div class="osa-poster-section-body">
@@ -137,7 +137,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
                 {t(lang, 'poster.osuBody2')}
               </div>
               <div class="osa-poster-figure osa-poster-figure--flush">
-                <img loading="eager" src={figOsu} alt="OSU Detail" class="osa-poster-img--95" onerror="this.classList.add('img-placeholder')">
+                <img loading="eager" src={figOsu} alt="OSU Detail" class="osa-poster-img--95" data-image-fallback>
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.osuFigureCaption')}</div>
               </div>
             </div>
@@ -147,7 +147,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
               <div class="osa-poster-section-body" set:html={t(lang, 'poster.apfeBody')}>
               </div>
               <div class="osa-poster-figure osa-poster-figure--flush">
-                <img loading="eager" src={figApfe} alt="APFE Detail" class="osa-poster-img--95" onerror="this.classList.add('img-placeholder')">
+                <img loading="eager" src={figApfe} alt="APFE Detail" class="osa-poster-img--95" data-image-fallback>
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.apfeFigureCaption')}</div>
               </div>
             </div>
@@ -162,7 +162,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
               <div class="osa-poster-section-body" set:html={t(lang, 'poster.quantitativeResultsBody')}>
               </div>
               <div class="osa-poster-table-wrap">
-                <img loading="eager" src={tabCap} alt="Main Results" onerror="this.classList.add('img-placeholder')">
+                <img loading="eager" src={tabCap} alt="Main Results" data-image-fallback>
               </div>
               <div class="osa-poster-figure-caption">{t(lang, 'poster.quantitativeResultsTableCaption')}</div>
             </div>
@@ -173,7 +173,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
                 {t(lang, 'poster.qualitativeComparisonBody')}
               </div>
               <div class="osa-poster-figure osa-poster-figure--flush">
-                <img loading="eager" src={figExp} alt="Qualitative Results" onerror="this.classList.add('img-placeholder')">
+                <img loading="eager" src={figExp} alt="Qualitative Results" data-image-fallback>
                 <div class="osa-poster-figure-caption">{t(lang, 'poster.qualitativeComparisonFigureCaption')}</div>
               </div>
             </div>

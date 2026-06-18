@@ -1,3 +1,12 @@
+// Delegated image fallback: when any <img data-image-fallback> fails to load,
+// add the `img-placeholder` class so the page can show a placeholder.
+document.addEventListener('error', (event) => {
+  const target = event.target as HTMLElement | null;
+  if (target && target instanceof HTMLImageElement && target.hasAttribute('data-image-fallback')) {
+    target.classList.add('img-placeholder');
+  }
+}, true);
+
 document.addEventListener('click', (event: Event) => {
   const target = event.target as HTMLElement;
 
