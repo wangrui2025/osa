@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>osa slides</title>
+    <title>OSA Slides — CVPR 2026</title>
 
     <!-- SEO -->
     <meta name="description" content="OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement. CVPR 2026 presentation slides by Rui Wang, Shenzhen University.">
@@ -12,18 +12,18 @@
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="Rui Wang">
-    <meta property="og:title" content="osa slides">
+    <meta property="og:title" content="OSA — Echocardiography Segmentation (CVPR 2026)">
     <meta property="og:description" content="CVPR 2026 presentation slides by Rui Wang, Shenzhen University.">
     <meta property="og:url" content="https://wangrui2025.github.io/osa/en/slides">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="en_US">
-    <meta property="og:image" content="https://wangrui2025.github.io/osa/paper/fig/Met/fig_overview.png">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mykcs/academic@v1.1.0/images/publications/cvpr2026-osa/fig/Met/fig_overview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="osa slides">
+    <meta name="twitter:title" content="OSA — Echocardiography Segmentation (CVPR 2026)">
     <meta name="twitter:description" content="CVPR 2026 presentation slides by Rui Wang, Shenzhen University.">
 
     <!-- Favicon: random Pokemon sprite -->
@@ -32,7 +32,7 @@
         (function() {
             var link = document.getElementById('pokemon-favicon');
             if (!link) return;
-            var CDN_BASE = 'https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@main/public/favicons';
+            var CDN_BASE = 'https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@b052ab8c8a5fe41433376f0bc67baa4af4875dfb/public/favicons';
             fetch(CDN_BASE + '/index.json')
                 .then(function(res) { return res.json(); })
                 .then(function(icons) {
@@ -44,12 +44,12 @@
                 });
         })();
     </script>
-    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@main/public/favicons/pikachu.png">
+    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@b052ab8c8a5fe41433376f0bc67baa4af4875dfb/public/favicons/pikachu.png">
 
-    <!-- Fonts: Times New Roman + Noto Serif SC -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts: Times New Roman + Noto Serif SC (self-hosted via @fontsource) -->
+    <link rel="stylesheet" href="/fonts/chinese-simplified-400.css">
+    <link rel="stylesheet" href="/fonts/chinese-simplified-600.css">
+    <link rel="stylesheet" href="/fonts/chinese-simplified-700.css">
 
     <!-- KaTeX for math rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -206,18 +206,19 @@
             font-weight: 700;
             color: var(--brand);
             letter-spacing: -0.02em;
-            display: inline;
+            display: block;
             line-height: 1.2;
         }
 
         .method-label {
             font-family: var(--font-display);
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 600;
             color: var(--brand);
             letter-spacing: 0.02em;
-            display: inline-block;
-            margin-left: 16px;
+            display: block;
+            margin-left: 0;
+            margin-top: 4px;
         }
 
         .method-divider {
@@ -225,8 +226,8 @@
             background: var(--brand);
             margin: 12px 0 30px;
             border-radius: 1px;
-            /* 留 260px 给 header-logos (100+24+100+24+12 buffer) 避免横线穿过校徽 */
-            width: calc(100% - 260px);
+            /* 留 360px 给 header-logos (100 logo + 24 gap + 100 logo + 12 buffer + 124 right margin/buffer) 避免横线穿过校徽 */
+            width: calc(100% - 360px);
         }
 
         .slide-divider {
@@ -237,7 +238,7 @@
         }
 
         .method-title-group {
-            display: inline-block;
+            display: block;
         }
 
         /* ===========================================
@@ -479,7 +480,8 @@
         .slide-contents {
             display: flex;
             flex-direction: row;
-            height: 100%;
+            /* 不加 height: 100% — 跟其他 slide 一样走 .slide var(--slide-height)=1080 fixed, transform scale 后视觉正常 */
+            /* 之前 height: 100% 导致 scale² 倍缩小 (1366x700 下视觉只有 453 而不是 700, 大黑边) */
         }
 
         .contents-sidebar {
@@ -664,13 +666,20 @@
         }
 
         .method-header {
-            padding-bottom: 0;
+            padding: 0;
             display: block;
-            position: relative;
+            position: static;  /* override .slide-header { position: relative } 让 .method-title-group 的 absolute 锚到 .slide */
+            /* 撑出空间: 76 (h1 top) + 65 (h1 height) + 12 (divider margin-top) + 2.5 (divider) + 17 (gap) ≈ 170 */
+            min-height: 170px;
         }
 
+        /* 统一所有 slide 的 method-header 标题组 (h1 + divider) 跟 .slide-problem 完全一致 */
+        /* 用 absolute 定位相对 .slide (position: relative) 锚定 (top=76, left=150) — 跟 slide 3 (Problem Setting) h1 位置相同 */
         .method-header .method-title-group {
-            flex: 1;
+            position: absolute;
+            top: 76px;
+            left: 150px;
+            right: 0;
         }
 
         .method-header .method-title-group h1 {
@@ -695,9 +704,9 @@
             align-items: stretch;
         }
 
-        /* ---- Left column: Manifold diagram (30% width) ---- */
+        /* ---- Left column: Manifold diagram (48% width) ---- */
         .osu-col-left {
-            width: 30%;
+            width: 48%;
             height: 100%;
             min-width: 0;
             display: flex;
@@ -720,9 +729,9 @@
             object-fit: contain;
         }
 
-        /* ---- Center column: Formulas (26% width) ---- */
+        /* ---- Center column: Formulas (52% width) ---- */
         .osu-col-center {
-            width: 26%;
+            width: 52%;
             height: 100%;
             min-width: 0;
             display: flex;
@@ -746,10 +755,10 @@
             overflow: visible;
         }
         .osu-col-center .formula-box .katex {
-            font-size: 16px !important;
+            font-size: 26px !important;
         }
         .osu-col-center .formula-box.proj-formula .katex {
-            font-size: 16px !important;
+            font-size: 26px !important;
             font-weight: 600;
         }
         .osu-col-center .formula-box + .formula-box {
@@ -1046,6 +1055,156 @@
         }
 
         /* ===========================================
+           SLIDE 10: CONCLUSION
+           =========================================== */
+        .slide-conclusion {
+            padding: 0 75px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide-conclusion .slide-header {
+            padding-top: 30px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+
+        .slide-conclusion .slide-header h1 {
+            font-size: 54px;
+        }
+
+        .conclusion-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1650px;
+        }
+
+        .conclusion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            background: var(--bg-light);
+            border-left: 8px solid var(--brand);
+            border-radius: 0 10px 10px 0;
+            padding: 24px 36px;
+        }
+
+        .conclusion-item .bullet {
+            width: 42px;
+            height: 42px;
+            background: var(--brand);
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .conclusion-item p {
+            font-size: 32px;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        .conclusion-item .hl-brand {
+            color: var(--brand);
+            font-weight: 700;
+        }
+
+        /* ===========================================
+           SLIDE 11: LIMITATION
+           =========================================== */
+        .slide-limitation {
+            padding: 0 75px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide-limitation .slide-header {
+            padding-top: 15px;
+            padding-bottom: 8px;
+            width: 100%;
+        }
+
+        .slide-limitation .slide-header h1 {
+            /* 用 default 54px (跟 slide 3-10 一致); 之前 44px 显式覆盖, 2026-06-17 跟其他 slide 统一 */
+        }
+
+        .limitation-content {
+            display: flex;
+            gap: 45px;
+            flex: 1;
+            align-items: stretch;
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .limitation-left {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .limitation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--bg-light);
+            border-left: 5px solid var(--text-secondary);
+            border-radius: 0 6px 6px 0;
+            padding: 10px 20px;
+        }
+
+        .limitation-item .bullet {
+            font-size: 22px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+
+        .limitation-item p {
+            font-size: 22px;
+            line-height: 1.35;
+        }
+
+        .limitation-item .label {
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .limitation-right {
+            width: 52%;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            padding: 18px;
+            background: var(--bg-light);
+            border-radius: 15px;
+        }
+
+        .limitation-right img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 9px;
+        }
+
+        .limitation-figure {
+            display: none;
+        }
+
+        /* ===========================================
            SLIDE 10: THANKS
            =========================================== */
         .slide-thanks {
@@ -1282,7 +1441,6 @@
             }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -1428,12 +1586,7 @@
                 </div>
                 <div class="osu-content">
                     <div class="osu-grid">
-                        <!-- Left: Manifold diagram -->
-                        <div class="osu-col-left">
-                            <picture><img src="/academic/images/publications/cvpr2026-osa/fig/osu/fig_osu.png" alt="Stiefel manifold optimization illustration"></picture>
-                        </div>
-
-                        <!-- Center: 4 formulas -->
+                        <!-- Left: 4 formulas -->
                         <div class="osu-col-center">
                             <div class="formula-box">
                                 <span class="katex-display">$$\mathbf{S}_t^{\text{Euc}} = \mathbf{S}_{t-1}\left(\alpha_t (\mathbf{I}_{C_k} - \beta_t \mathbf{k}_t \mathbf{k}_t^\top)\right) + \beta_t \mathbf{v}_t \mathbf{k}_t^\top.$$</span>
@@ -1449,13 +1602,11 @@
                             </div>
                         </div>
 
-                        <!-- Right: Two different vector images only -->
-                        <div class="osu-col-right">
-                            <div class="vector-pair">
-                                <picture><img src="/academic/images/publications/cvpr2026-osa/fig/landscape_2d/image.png" alt="Euclidean update direction visualization"></picture>
-                                <picture><img src="/academic/images/publications/cvpr2026-osa/fig/landscape/fig_landscape.png" alt="Orthogonalized State Update direction visualization"></picture>
-                            </div>
+                        <!-- Right: Manifold diagram -->
+                        <div class="osu-col-left">
+                            <picture><img src="/academic/images/publications/cvpr2026-osa/fig/osu/fig_osu.png" alt="Stiefel manifold optimization illustration"></picture>
                         </div>
+
                     </div>
                 </div>
                 <div class="slide-number">5</div>
@@ -1531,7 +1682,7 @@
                         </div>
                         <div class="exp-highlight">
                             <div class="num">04</div>
-                            <p>Lightweight design: only <span class="hl-brand">+3.2%</span> params vs. baseline.</p>
+                            <p>Lightweight design: only <span class="hl-brand">+8.8%</span> params vs. GDKVM (38.3 vs 35.2 M).</p>
                         </div>
                     </div>
                 </div>
@@ -1555,7 +1706,6 @@
                 <div class="exp-content-wrapper">
                     <div class="exp-grid-2-1">
                         <picture><img src="/academic/images/publications/cvpr2026-osa/fig/abl/fig_abl.png" alt="Ablation study results for OSU and APFE modules" class="exp-img"></picture>
-                        <picture><img src="/academic/images/publications/cvpr2026-osa/fig/fail/fig_fail.png" alt="Failure case analysis on challenging echocardiography sequences" class="exp-img"></picture>
                         <picture><img src="/academic/images/publications/cvpr2026-osa/tab/tab_abl.png" alt="Quantitative ablation results table comparing module contributions" class="exp-img exp-img-table"></picture>
                     </div>
                 </div>
@@ -1583,20 +1733,95 @@
                     </div>
                     <div class="discussion-item">
                         <span class="bullet">•</span>
-                        <p><span class="label">Harder video tasks:</span> Tackle longer sequences, complex rhythms, and difficult cases.</p>
+                        <p><span class="label">Longer sequences:</span> Tackle longer videos, complex rhythms, difficult cases.</p>
                     </div>
                     <div class="discussion-item">
                         <span class="bullet">•</span>
-                        <p><span class="label">Hardware-aware:</span> Optimize the matrix state for parallel acceleration.</p>
+                        <p><span class="label">Hardware:</span> Optimize matrix state for parallel acceleration.</p>
                     </div>
                 </div>
                 <div class="slide-number">9</div>
             </section>
         </div>
 
-        <!-- ========== SLIDE 10: THANKS ========== -->
+        <!-- ========== SLIDE 10: CONCLUSION ========== -->
         <div class="slide-wrapper">
-            <section class="slide slide-thanks" data-slide="10" role="region" aria-roledescription="slide" aria-label="Thank You">
+            <section class="slide slide-conclusion" data-slide="10" role="region" aria-roledescription="slide" aria-label="Conclusion">
+                <div class="header-logos">
+                    <img src="/academic/images/logos/szu.svg" alt="SZU" class="logo-szu-img">
+                    <img src="/academic/images/logos/polyu.svg" alt="PolyU" class="logo-polyu-img">
+                </div>
+                <div class="slide-header method-header">
+                    <div class="method-title-group">
+                        <h1 class="reveal">Conclusion</h1>
+                        <div class="method-divider"></div>
+                    </div>
+                </div>
+                <div class="conclusion-content">
+                    <div class="conclusion-item">
+                        <span class="bullet">1</span>
+                        <p>Propose <span class="hl-brand">OSA</span>: orthogonalized state updates for echocardiography video segmentation.</p>
+                    </div>
+                    <div class="conclusion-item">
+                        <span class="bullet">2</span>
+                        <p><span class="hl-brand">OSU</span> prevents rank collapse via Stiefel manifold constraint.</p>
+                    </div>
+                    <div class="conclusion-item">
+                        <span class="bullet">3</span>
+                        <p><span class="hl-brand">APFE</span> decouples anatomical structures from speckle noise.</p>
+                    </div>
+                    <div class="conclusion-item">
+                        <span class="bullet">4</span>
+                        <p>State-of-the-art on CAMUS and EchoNet-Dynamic.</p>
+                    </div>
+                </div>
+                <div class="slide-number">10</div>
+            </section>
+        </div>
+
+        <!-- ========== SLIDE 11: LIMITATION ========== -->
+        <div class="slide-wrapper">
+            <section class="slide slide-limitation" data-slide="11" role="region" aria-roledescription="slide" aria-label="Limitation">
+                <div class="header-logos">
+                    <img src="/academic/images/logos/szu.svg" alt="SZU" class="logo-szu-img">
+                    <img src="/academic/images/logos/polyu.svg" alt="PolyU" class="logo-polyu-img">
+                </div>
+                <div class="slide-header method-header">
+                    <div class="method-title-group">
+                        <h1 class="reveal">Limitation</h1>
+                        <div class="method-divider"></div>
+                    </div>
+                </div>
+                <div class="limitation-content">
+                    <div class="limitation-left">
+                        <div class="limitation-item">
+                            <span class="bullet">•</span>
+                            <p><span class="label">Fixed-length:</span> Constrained to fixed-length sequences.</p>
+                        </div>
+                        <div class="limitation-item">
+                            <span class="bullet">•</span>
+                            <p><span class="label">Online inference:</span> Stable memory propagation is difficult.</p>
+                        </div>
+                        <div class="limitation-item">
+                            <span class="bullet">•</span>
+                            <p><span class="label">Failure cases:</span> May occur in some situations.</p>
+                        </div>
+                        <div class="limitation-item">
+                            <span class="bullet">•</span>
+                            <p><span class="label">Domain shift:</span> May lack robustness to varying equipment.</p>
+                        </div>
+                    </div>
+                    <div class="limitation-right">
+                        <picture><img src="/academic/images/publications/cvpr2026-osa/fig/fail/fig_fail.png" alt="Failure cases on CAMUS and EchoNet-Dynamic"></picture>
+                    </div>
+                </div>
+                <div class="slide-number">11</div>
+            </section>
+        </div>
+
+        <!-- ========== SLIDE 12: THANKS ========== -->
+        <div class="slide-wrapper">
+            <section class="slide slide-thanks" data-slide="12" role="region" aria-roledescription="slide" aria-label="Thank You">
                 <div class="header-logos">
                     <img src="/academic/images/logos/szu.svg" alt="SZU" class="logo-szu-img">
                     <img src="/academic/images/logos/polyu.svg" alt="PolyU" class="logo-polyu-img">
@@ -1609,11 +1834,8 @@
                 <div class="thanks-banner">
                     <h1 class="reveal-scale">Thanks!</h1>
                 </div>
-                <div class="thanks-footer">
-                    <div class="contact">Paper: <a href="https://arxiv.org/abs/2603.26188">arXiv:2603.26188</a></div>
-                    <div class="contact">Code: <a href="https://github.com/wangrui2025/osa">github.com/wangrui2025/osa</a></div>
-                </div>
-                <div class="slide-number">10</div>
+                <!-- Paper & Code links removed -->
+                <div class="slide-number">12</div>
             </section>
         </div>
 

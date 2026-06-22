@@ -1330,51 +1330,71 @@
         }
 
         /* ===========================================
-           PRINT STYLES — One slide per page, full-bleed A3 landscape
+           PRINT STYLES — One slide per page, full-bleed 16:9
            =========================================== */
         @media print {
             @page {
-                size: A3 landscape;
+                /* Exact pixel-to-mm mapping at 96 DPI:
+                   1920px × (25.4mm / 96px) = 508mm
+                   1080px × (25.4mm / 96px) = 286mm
+                   This lets each slide render at its native 1920×1080 size
+                   with NO scaling transform needed. */
+                size: 508mm 286mm;
                 margin: 0;
             }
 
-            /* Force background colors to print without requiring browser setting */
+            /* Force backgrounds and gradients to print */
             * {
                 print-color-adjust: exact !important;
                 -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
             }
 
-            /* A3 landscape in pt: 1190 × 842pt */
-            /* Slide: 1920×1080px → scale to 1190×669pt (16:9) */
+            /* Force reveal animations to be fully visible */
+            .reveal, .reveal-fade, .reveal-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
             html, body {
-                width: 1190pt;
-                height: auto;
-                overflow: visible;
-                background: #fff;
+                width: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+                background: #fff !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
             .slide-viewport {
-                width: 1190pt;
-                height: auto;
-                overflow: visible;
+                width: auto !important;
+                max-width: none !important;
+                height: auto !important;
+                overflow: visible !important;
+                position: static !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: transparent !important;
             }
 
             .slide-track {
-                display: block;
-                width: 1190pt;
-                height: auto;
-                padding: 0;
-                gap: 0;
-                overflow: visible;
+                display: block !important;
+                width: auto !important;
+                height: auto !important;
+                padding: 0 !important;
+                gap: 0 !important;
+                overflow: visible !important;
+                background: #fff !important;
             }
 
             .slide-wrapper {
-                width: 100%;
-                height: auto;
+                width: var(--slide-width) !important;
+                height: var(--slide-height) !important;  /* override JS inline height */
                 page-break-after: always;
                 break-after: page;
                 overflow: hidden;
-                padding: 0;
+                padding: 0 !important;
+                margin: 0 !important;
             }
 
             .slide-wrapper:last-child {
@@ -1383,9 +1403,14 @@
             }
 
             .slide {
-                width: 100%;
-                height: auto;
-                display: block;
+                width: var(--slide-width) !important;
+                height: var(--slide-height) !important;
+                display: block !important;
+                transform: none !important;  /* override JS inline scale(X) */
+                transform-origin: 0 0;
+                margin: 0 !important;
+                page-break-inside: avoid;
+                break-inside: avoid;
             }
 
             /* Slide 5 OSU grid: force two columns in print */
