@@ -1,0 +1,32 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+// Bare /slides/ is the iframe src for the /[lang]/slides/ wrapper pages.
+// The raw slide asset used to live at /slides/ (written by
+// build-slides-html.mjs to public/slides/index.html), but that made
+// /slides/ a publicly served URL — direct visitors (and search engines)
+// would see raw slide content with no Astro chrome. We now serve the
+// raw asset from /slides-raw/ (see build-slides-html.mjs) and turn
+// /slides/ into a meta-refresh redirector to the locale-prefixed
+// wrapper, matching the index.astro redirector pattern for `/`.
+//
+// See docs/adr/0006-slides-asset-redirect.md for the full rationale.
+const target = getRelativeLocaleUrl('en', '/slides/');
+const canonical = `${Astro.site?.origin}${target}`;
+const zhTarget = `${Astro.site?.origin}${getRelativeLocaleUrl('zh', '/slides/')}`;
+---
+<!doctype html>
+<html>
+  <head>
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="alternate" hreflang="zh" href={zhTarget} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+  </head>
+  <body>
+    <a href={target}>Redirecting to slides page...</a>
+  </body>
+</html>
