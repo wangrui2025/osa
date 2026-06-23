@@ -63,6 +63,27 @@ export function renderSlidesHtml({ slidesSrcPath, baseUrl }) {
   // Step 6: Inject KaTeX CSS (removed CDN version above, need styles for pre-rendered formulas)
   html = html.replace('</head>', `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css" /></head>`);
 
+  // Step 7: Inject iframe-detection script + robots noindex — prevent direct access & indexing
+  // The raw slide content lives at /osa/slides/ and is loaded inside an iframe
+  // by the wrapper pages at /osa/en/slides/ and /osa/zh/slides/. If a user
+  // navigates directly to /osa/slides/, redirect them to the wrapper.
+  const noindexAndRedirect = `<meta name="robots" content="noindex, nofollow">
+  <script>
+    if (window.self === window.top) {
+      try {
+        var ref = document.referrer || '';
+        if (ref.indexOf('/zh/') !== -1) {
+          window.location.replace('${baseUrl}/zh/slides/');
+        } else {
+          window.location.replace('${baseUrl}/en/slides/');
+        }
+      } catch(e) {
+        window.location.replace('${baseUrl}/en/slides/');
+      }
+    }
+  </script>`;
+  html = html.replace('</head>', `${noindexAndRedirect}</head>`);
+
   return html;
 }
 
