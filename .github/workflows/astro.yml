@@ -27,6 +27,10 @@ concurrency:
 env:
   BUILD_PATH: "." # default value when not using subfolders
   # BUILD_PATH: subfolder
+  # PUBLIC_OSA_PUBLICATION_DATE: source of truth for structured data
+  # datePublished in HomePage.astro. Update when CVPR 2026 acceptance
+  # date is confirmed; placeholder '2026-06-01' is used as fallback.
+  PUBLIC_OSA_PUBLICATION_DATE: "2026-06-01"
 
 jobs:
   build:

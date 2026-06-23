@@ -226,6 +226,12 @@ img.img-placeholder {
   object-fit: none;
 }
 img.img-placeholder::after {
+  /* NOTE: ::after on <img> is a known browser limitation — replaced
+     elements like <img> do not render pseudo-elements in WebKit/Blink
+     or Firefox. This rule is effectively a no-op in modern browsers;
+     visual fallback is provided by the `alt` attribute and the
+     data-image-fallback delegation handler in Poster.astro. Kept for
+     reference / future <picture> wrappers or <figure> containers. */
   content: attr(alt);
   position: absolute;
   top: 50%;
