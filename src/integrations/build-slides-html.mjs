@@ -22,8 +22,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import katex from 'katex';
+import academicCdnConfig from '../config/academic-cdn.json' with { type: 'json' };
 
-const ACADEMIC_CDN_VERSION = 'v1.1.0';
+const ACADEMIC_CDN_VERSION = academicCdnConfig.version;
 const ACADEMIC_CDN_BASE = `https://cdn.jsdelivr.net/gh/mykcs/academic@${ACADEMIC_CDN_VERSION}/images`;
 
 /**

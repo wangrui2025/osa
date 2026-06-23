@@ -9,6 +9,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as 'en' | 'zh';
 const title = t(lang, 'slides.title');
 const description = t(lang, 'slides.description');
+const iframeTitle = t(lang, 'slides.title');
 ---
 <Layout title={title} description={description} showFooter={false}>
   <!-- iframe wrapper: fixed height, overflow hidden so scaled iframe doesn't cause page scroll -->
@@ -17,7 +18,7 @@ const description = t(lang, 'slides.description');
       <iframe
         id="slides-iframe"
         src={`${import.meta.env.BASE_URL}/slides`}
-        title="OSA Slides"
+        title={iframeTitle}
       ></iframe>
     </div>
   </div>

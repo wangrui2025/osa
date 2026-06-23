@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "4.1.18",
     "astro": "^6.4.2",
     "astro-icon": "^1.1.5",
+    "katex": "^0.17.0",
     "tailwindcss": "4.1.18"
   },
   "devDependencies": {
@@ -21,7 +22,6 @@
     "@iconify-json/lucide": "^1.2.111",
     "@iconify-json/simple-icons": "^1.2.84",
     "@playwright/test": "^1.60.0",
-    "katex": "^0.17.0",
     "playwright": "^1.60.0",
     "typescript": "^6.0.3"
   }

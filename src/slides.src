@@ -1,4 +1,13 @@
 <!-- SOURCE TEMPLATE for sync-image-paths.mjs — EDIT THIS FILE. Changes are copied to astro/public/ on dev/build. -->
+<!--
+  CDN VERSION NOTE: The version numbers in this file (`@v1.1.0` on og:image,
+  `@0.16.9` on KaTeX CDN URLs) DUPLICATE the values in src/config/academic-cdn.json.
+  src/utils/cdn.ts and src/integrations/build-slides-html.mjs read from JSON
+  automatically, but this file is build-source-like and is patched as a whole
+  by build-slides-html.mjs. When bumping versions, update BOTH:
+    1. src/config/academic-cdn.json (canonical)
+    2. The hardcoded URLs in this file (og:image line ~20, KaTeX CDN lines ~55-57)
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>

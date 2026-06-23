@@ -1,0 +1,5 @@
+{
+  "_comment": "Centralized CDN version for mykcs/academic repo. Bump `version` when the academic repo is updated; bump `katex_version` when the KaTeX CDN package updates. Read by src/utils/cdn.ts and src/integrations/build-slides-html.mjs. src/slides.src still embeds these as raw URLs (it's a build-source artifact); update there too when bumping.",
+  "version": "v1.1.0",
+  "katex_version": "v0.16.9"
+}
