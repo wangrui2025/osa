@@ -72,6 +72,13 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
+      # P1 fix: catch production-only dependency regressions (undici, vite, etc.)
+      # before they ship. `npm audit --omit=dev` skips devDependencies so transient
+      # build-time issues don't block deploys. Fails the build on high/critical vulns.
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+        working-directory: ${{ env.BUILD_PATH }}
+        continue-on-error: false
       - name: Build with Astro
         run: npm run build
         working-directory: ${{ env.BUILD_PATH }}

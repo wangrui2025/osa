@@ -63,3 +63,22 @@ npm run build
 1. 改 `public/slides/index.html` 不会持久——下次 `npm run dev` / `npm run build` 会被 `build-slides-html` 覆盖。
 2. CSS 改完后浏览器需**硬刷新 (Cmd+Shift+R / Ctrl+Shift+R)** 才能看到效果。
 
+## /slides-raw/ — 故意仅 en (2026-06-24)
+
+`public/slides-raw/index.html` 是 iframe 嵌入的技术性 slide 产物，由 `src/slides.src` build-time 生成，**故意保持 en-only**：
+
+- **不**走 i18n 系统（src/content/homepage/{en,zh}.json）—— 内容是 paper slide 演示稿，本身就是英文 CVPR 报告
+- **`lang="en"`** 故意保留（不是 zh 错配）
+- iframe 父页面（`/en/slides/` + `/zh/slides/`）做 i18n 包装层，slide 本身是底层资产
+
+**禁止**：将 slides-raw 改造成 zh 翻译版。**禁止**移除 `lang="en"`。
+
+## 404.html — 静态 fallback (2026-06-24)
+
+`public/404.html` 是 GH Pages 在 dynamic route 解析前的静态 fallback，必须保留：
+
+- 路径：`public/404.html`（**不要**改为 `src/pages/...`，会与 `[lang]/404.astro` 冲突）
+- 内容：自包含 HTML（GH Pages 静态服务，**不**走 Astro 渲染管线）
+- i18n fallback：en 内容 + 指向 `/osa/zh/` 的链接（dynamic `/zh/404/` 解析失败时仍能 fallback）
+- 同步在 src/pages/[lang]/404.astro 保持动态版（en + zh 完整版）
+

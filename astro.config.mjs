@@ -41,7 +41,13 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/404/'),
+      filter: (page) => {
+        // Exclude 404 pages and the legacy /osa/ + /osa/slides/ redirector stubs.
+        // Sitemap integration passes fully-qualified URLs (e.g. https://...osa/slides/),
+        // so strip protocol+host and re-anchor the path match.
+        const path = page.replace(/^https?:\/\/[^/]+/, '');
+        return !path.includes('/404/') && !/^\/osa\/(slides\/)?$/.test(path);
+      },
     }),
     astroIcon(),
     stripWoffFallback(),
