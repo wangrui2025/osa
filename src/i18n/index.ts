@@ -23,10 +23,23 @@ export function t(lang: Locale, key: string): string {
         if (fallback && typeof fallback === 'object' && fk in fallback) {
           fallback = (fallback as Record<string, unknown>)[fk];
         } else {
+          // Loud fallback: warn in dev so missing keys surface instead of
+          // leaking the key string as user-visible text. The caller still
+          // gets the key as a last resort (prevents empty-string bugs in
+          // production rendering).
+          if (typeof console !== 'undefined') {
+            console.warn(`[i18n] missing key "${key}" for locale "${lang}" — falling back to key string`);
+          }
           return key;
         }
       }
-      return typeof fallback === 'string' ? fallback : key;
+      if (typeof fallback === 'string') {
+        if (typeof console !== 'undefined' && lang !== 'en') {
+          console.warn(`[i18n] missing key "${key}" for locale "${lang}" — fell back to English`);
+        }
+        return fallback;
+      }
+      return key;
     }
   }
 
