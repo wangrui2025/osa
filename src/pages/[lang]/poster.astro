@@ -11,26 +11,28 @@ const lang = Astro.params.lang as 'en' | 'zh';
 const title = t(lang, 'poster.title');
 const description = t(lang, 'poster.description');
 ---
-<Layout title={title} description={description} showFooter={false}>
+<Layout title={title} description={description} showFooter={false} class="osa-poster-page">
   <Poster lang={lang} />
 </Layout>
 
 <style is:global>
+  /* Scoped to the poster page only via the .osa-poster-page class on the
+     <html> root element, set through Layout's class prop. Without this
+     scope, the @page rule and html:has(.osa-poster-root) selectors would
+     leak into any other page that happens to render a Poster component. */
+  .osa-poster-page {
+    overflow: hidden;
+  }
   @page {
     size: 84in 42in;
     margin: 0;
   }
-  html:has(.osa-poster-root),
-  html:has(.osa-poster-root) body {
-    overflow: hidden;
-  }
   @media print {
-    html:has(.osa-poster-root),
-    html:has(.osa-poster-root) body {
+    .osa-poster-page {
       overflow: visible !important;
       margin: 0 !important;
     }
-    body > div.fixed {
+    .osa-poster-page body > div.fixed {
       display: none !important;
     }
   }
