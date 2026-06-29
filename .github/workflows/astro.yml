@@ -37,8 +37,10 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      # Supply-chain hardening (Round 15 P2): pin to commit SHA instead of @v6
+      # mutable tag. Auto-update via Dependabot: .github/dependabot.yml.
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       # OSA uses npm (per package-lock.json in repo). Use the standard
       # Astro Pages template npm detection — earlier I assumed pnpm
       # based on a stale pnpm.onlyBuiltDependencies key that was
@@ -61,14 +63,14 @@ jobs:
             exit 1
           fi
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
           cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
@@ -118,7 +120,7 @@ jobs:
           console.log('OK: no hreflang base duplication');
           "
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: ${{ env.BUILD_PATH }}/dist
 
@@ -132,4 +134,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

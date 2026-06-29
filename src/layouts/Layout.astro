@@ -119,11 +119,12 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     )}
   </head>
   <body class="bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-200 transition-colors min-h-screen flex flex-col">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
       <ThemeToggle />
       <LangSwitcher />
     </div>
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
     {showFooter && <Footer />}
