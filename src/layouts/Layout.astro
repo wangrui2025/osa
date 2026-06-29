@@ -13,6 +13,8 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   showFooter?: boolean;
   structuredData?: object;
   noindex?: boolean;
@@ -23,6 +25,8 @@ const {
   title,
   description = 'OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement',
   image = getAcademicImage('publications/cvpr2026-osa/fig/Met/fig_overview.png'),
+  imageWidth = 2510,
+  imageHeight = 652,
   showFooter = true,
   structuredData,
   noindex = false,
@@ -70,21 +74,24 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     </script>
     <meta name="description" content={description}>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Clickjacking protection: GitHub Pages has no server config, so we
-         rely on a CSP meta tag. frame-ancestors 'none' blocks iframing
-         the slides/poster pages from third-party origins. -->
-    <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none'" />
+    <!-- Security headers (GitHub Pages has no server config, so we rely on meta tags):
+         - CSP frame-ancestors 'none' blocks iframing from third-party origins (clickjacking)
+         - base-uri 'self' prevents <base> hijacking
+         - form-action 'self' blocks form submission to external origins
+         - Referrer-Policy strict-origin-when-cross-origin limits referrer leakage -->
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={title} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="OSA Project" />
-    <!-- og:image dimensions omitted: the default image (fig_overview) is a
-         content figure, not a 1200x630 OG card. Specifying mismatched
-         width/height triggers aspect-ratio warnings in crawlers. -->
     <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta property="og:locale:alternate" content={lang === 'zh' ? 'en_US' : 'zh_CN'} />
     <meta name="twitter:card" content="summary_large_image" />
