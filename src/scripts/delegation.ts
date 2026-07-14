@@ -31,19 +31,56 @@ document.addEventListener('click', (event: Event) => {
     if (!source) return;
 
     const text = source.innerText;
-    const showSuccess = () => {
+    const flashLabel = (iconName: string, message: string) => {
       const icon = copyBtn.querySelector('.copy-icon');
       const span = copyBtn.querySelector('span');
-      if (icon) icon.setAttribute('name', 'lucide:check');
-      if (span) span.textContent = successLabel;
+      if (icon) icon.setAttribute('name', iconName);
+      if (span) span.textContent = message;
       setTimeout(() => {
         if (icon) icon.setAttribute('name', 'lucide:copy');
         if (span) span.textContent = label;
       }, 2000);
     };
+    const showSuccess = () => flashLabel('lucide:check', successLabel);
+    const showError = () => flashLabel('lucide:x', 'Copy failed');
+
+    // Legacy / non-secure-context fallback: the async Clipboard API is only
+    // available on HTTPS (or localhost). On plain-HTTP previews or older
+    // browsers, fall back to the deprecated execCommand path so the button
+    // still works instead of silently doing nothing.
+    const legacyCopy = (): boolean => {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.top = '-9999px';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      let ok = false;
+      try {
+        // `execCommand` is deprecated but remains the only synchronous copy
+        // path in non-secure contexts. Access it off a narrowed cast so the
+        // deprecated-symbol reference doesn't trip the type-checker's hint.
+        const exec = (document as unknown as {
+          execCommand?: (command: string) => boolean;
+        }).execCommand;
+        ok = typeof exec === 'function' ? exec.call(document, 'copy') : false;
+      } catch {
+        ok = false;
+      }
+      document.body.removeChild(textarea);
+      return ok;
+    };
 
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(showSuccess).catch(() => {});
+      navigator.clipboard.writeText(text).then(showSuccess).catch(() => {
+        // Permission denied or transient failure — try the legacy path,
+        // and surface an error state if that also fails.
+        legacyCopy() ? showSuccess() : showError();
+      });
+    } else {
+      legacyCopy() ? showSuccess() : showError();
     }
   }
 });
