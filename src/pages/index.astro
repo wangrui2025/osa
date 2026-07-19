@@ -6,6 +6,7 @@ const target = getRelativeLocaleUrl('en', '/');
 // bare /osa/ redirector). x-default explicitly tells crawlers the
 // default-locale URL, which prevents indexing the redirect itself.
 const canonical = `${Astro.site?.origin}${target}`;
+const zhTarget = `${Astro.site?.origin}${getRelativeLocaleUrl('zh', '/')}`;
 ---
 <!doctype html>
 <html>
@@ -15,6 +16,7 @@ const canonical = `${Astro.site?.origin}${target}`;
     <meta name="robots" content="noindex" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="alternate" hreflang="zh" href={zhTarget} />
     <link rel="alternate" hreflang="x-default" href={canonical} />
   </head>
   <body>

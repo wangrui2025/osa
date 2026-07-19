@@ -1,4 +1,4 @@
-<!-- SOURCE TEMPLATE for sync-image-paths.mjs — EDIT THIS FILE. Changes are copied to astro/public/ on dev/build. -->
+<!-- SOURCE TEMPLATE — EDIT THIS FILE. Rendered by src/integrations/build-slides-html.mjs to public/slides-raw/index.html on dev/build. -->
 <!--
   CDN VERSION NOTE: The version numbers in this file (`@v1.1.0` on og:image,
   `@0.16.9` on KaTeX CDN URLs) DUPLICATE the values in src/config/academic-cdn.json.

@@ -10,9 +10,9 @@
 | 属性 | 值 |
 |------|-----|
 | 总尺寸 | 84in × 42in |
-| Header 高度 | 8in |
-| Content 高度 | 32in（**硬约束，不可突破**） |
-| Footer 高度 | 2in |
+| Header 高度 | 7.4in |
+| Content 高度 | 33in（= 42 − 7.4 − 1.6，**硬约束，不可突破**） |
+| Footer 高度 | 1.6in |
 | 列数 | 4 列等宽 |
 
 ---
@@ -21,15 +21,15 @@
 
 ```
 +----------------------------------------------------------+
-|                        Header (8in)                       |
+|                        Header (7.4in)                     |
 +----------------------------------------------------------+
-| Col 1  |  Col 2  |  Col 3  |  Col 4  |   Content (32in)  |
+| Col 1  |  Col 2  |  Col 3  |  Col 4  |   Content (33in)  |
 |        |         |         |         |                   |
 | 问题    |  方法   |  OSU   |  实验   |                   |
 | 设定    |  概览   |  APFE  |  结果   |                   |
 |        |         |         |         |                   |
 +----------------------------------------------------------+
-|                        Footer (2in)                       |
+|                        Footer (1.6in)                     |
 +----------------------------------------------------------+
 ```
 
@@ -57,9 +57,10 @@
 | Section 子标题 | 52pt |
 | 正文 | 46pt |
 | 图注 | 30pt |
-| 公式 | 28pt |
-| Footer 标题 | 44pt |
-| Footer 链接 | 37pt |
+| 公式 | 36pt |
+| Footer 标题 | 38pt |
+| Footer 正文 | 26pt |
+| Footer 链接 | 24pt |
 
 ---
 
@@ -84,16 +85,18 @@
 
 ### 5.1 高度约束
 
-- **Content 区域高度 = 32in**。任何增加内容高度的改动（增大字号、增加 padding、增加 gap）必须通过压缩其他区域来补偿。
+- **Content 区域高度 = 33in**（`grid-template-rows: 7.4in minmax(0, 1fr) 1.6in`）。任何增加内容高度的改动（增大字号、增加 padding、增加 gap）必须通过压缩其他区域来补偿。
 - 每列 `scrollHeight` 必须等于 `clientHeight`（无溢出）。
 
 ### 5.2 图片约束
 
 ```css
-.figure img {
-  max-height: 6in;    /* 硬约束：防止图片无限放大挤占空间 */
+.osa-poster-figure img {
+  max-height: 8in;    /* 默认值：防止图片无限放大挤占空间 */
 }
 ```
+
+实际上限（`src/styles/poster.css`）：默认 figure `8in`，`--flush` `7in`，`--flush .img--95` `8.5in`，table-wrap `6in`。任何调大都必须先跑 §12 checklist 的溢出验证。
 
 ### 5.3 弹性压缩
 
@@ -108,7 +111,7 @@
 
 ```css
 .column-inner {
-  gap: 0.25in;        /* 不可超过 0.3in，否则总高度会超 */
+  gap: 0.15in;        /* 不可超过 0.3in，否则总高度会超 */
 }
 ```
 
@@ -116,7 +119,7 @@
 
 ```css
 .formula-box {
-  font-size: 28pt;    /* 不可超过 30pt */
+  font-size: 36pt;    /* 当前值；调大必须重跑溢出验证 */
   padding: 0.05in;    /* 不可超过 0.08in */
 }
 ```
@@ -220,7 +223,7 @@ diff <(node -e "console.log(Object.keys(require('./src/content/homepage/en.json'
 
 | ✅ 可以 | ❌ 禁止 |
 |--------|---------|
-| 修改 poster 布局前验证 4 列 `scrollHeight === clientHeight` | 随意修改 Content 区域高度（32in 硬约束） |
+| 修改 poster 布局前验证 4 列 `scrollHeight === clientHeight` | 随意修改 Content 区域高度（33in 硬约束） |
 | 修改前检查 `npm run build` | 增大字号超过规范值 |
 | 新增 key 时同步 en/zh JSON | 添加硬编码双语文本（必须用 `t()`） |
 | 使用 `data-action="theme-toggle"` 事件委托 | 直接 `onclick` 绑定 ThemeToggle |
@@ -233,6 +236,7 @@ diff <(node -e "console.log(Object.keys(require('./src/content/homepage/en.json'
 
 | 日期 | 变更 |
 |------|------|
+| 2026-07-19 | 对齐代码现状：§1/§2 尺寸（7.4/33/1.6in）、§3 字号（公式 36pt、Footer 38/26/24pt）、§5.2 figure max-height 实际上限（8/8.5/7/6in）、§5.4 gap 0.15in、§5.5 公式 36pt、§12 checklist、§14.1 slides-raw 架构（ADR 0006） |
 | 2026-06-17 | 新增 §14 Slides 设计规范（架构 / scaling / title 位置 / divider gutter / 字号 / height: 100% 教训） |
 | 2026-05-27 | 新增 §7 暗色模式规范、§8 i18n 对等规则、§9 完整组件清单、§10 Do/Don't 规则 |
 
@@ -244,7 +248,7 @@ diff <(node -e "console.log(Object.keys(require('./src/content/homepage/en.json'
 
 1. [ ] `npm run build` 通过（0 errors）
 2. [ ] 4 列 `scrollHeight === clientHeight`
-3. [ ] `maxFigureHeight <= 576px`（6in）
+3. [ ] figure img 渲染高度 ≤ 对应 `max-height` 上限（默认 8in / flush 7in / flush img--95 8.5in / table-wrap 6in）
 4. [ ] WebKit 截图无溢出
 
 ---
@@ -272,9 +276,9 @@ diff <(node -e "console.log(Object.keys(require('./src/content/homepage/en.json'
 | 维度 | 值 |
 |------|-----|
 | slide 设计尺寸 | 1920 × 1080 px（16:9） |
-| 嵌入方式 | `<iframe src="/osa/slides">` 加载 `src/slides.src`（**不是** `scripts/templates/slides.html`，后者是孤儿） |
-| 真实 build source | `src/slides.src`（`src/integrations/build-slides-html.mjs` 的 `astro:config:setup` hook 渲染到 `public/slides/index.html`） |
-| 死代码警告 | `scripts/templates/slides.html` 标注说"由 sync-image-paths.mjs 同步"，但 `sync-image-paths.mjs` 在本项目**不存在**，改它不会影响 build |
+| 嵌入方式 | `<iframe src="/osa/slides-raw">` 加载 `src/slides.src` 的渲染产物（ADR 0006 后裸内容在 `/slides-raw/`，`/slides/` 是 meta-refresh redirector） |
+| 真实 build source | `src/slides.src`（`src/integrations/build-slides-html.mjs` 的 `astro:config:setup` hook 渲染到 `public/slides-raw/index.html`） |
+| 孤儿模板 | `scripts/templates/slides.html` 曾是从主站拷贝的死代码，**已删除**（2026-07-19 确认 `scripts/templates/` 不存在）；build 只读 `src/slides.src` |
 
 ### 14.2 Scaling — `updateScales()` 必须用 vh 约束
 
@@ -397,7 +401,7 @@ for (const ds of [3,4,7,8,9,10,11]) {
 
 | ✅ 可以 | ❌ 禁止 |
 |--------|---------|
-| 改 `src/slides.src`（build 真正读的 source） | 改 `scripts/templates/slides.html`（孤儿，build 不读） |
+| 改 `src/slides.src`（build 真正读的 source） | 复活 `scripts/templates/slides.html`（历史孤儿，已删除，build 不读） |
 | 用 `Math.min(1, vw/1920, vh/1080)` 算 scale | 漏 `vh / 1080`（slide 2 截断 bug 复发） |
 | 标题用 `top: 76; left: 150; right: 0` 锚 `.slide` | 用 `margin-top: -Xpx` 算 pixel 偏移（X 算不准） |
 | `.method-divider` 用 `calc(100% - 360px)` | 用 `260px` 或更小（overlap 100%） |
