@@ -1,4 +1,0 @@
-Contact: mailto:wangrui2025@users.noreply.github.com
-Expires: 2027-12-31T23:59:59z
-Preferred-Languages: en, zh
-Canonical: https://wangrui2025.github.io/osa/.well-known/security.txt

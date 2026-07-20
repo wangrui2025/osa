@@ -55,6 +55,26 @@ export default defineConfig({
           zh: 'zh',
         },
       },
+      // Round 19 P1: @astrojs/sitemap v3.7.3 only emits en+zh xhtml:link
+      // entries from the i18n config — it does NOT auto-emit x-default
+      // even though every per-page <link rel="alternate"> tag in the
+      // site does (see Layout.astro). Use the `serialize` hook to append
+      // an x-default xhtml:link pointing at the default-locale URL for
+      // every multi-locale path group. The site has 3 multi-locale paths
+      // (/, /poster/, /slides/) × 2 locales = 6 URLs; each will gain a
+      // third xhtml:link entry. (x-default is the canonical SEO signal
+      // for "this URL group is a language cluster, pick your preferred
+      // language" — Google Search Console flags sitemap entries that
+      // lack it when per-page tags reference x-default.)
+      serialize: (item) => {
+        if (item.links && Array.isArray(item.links) && item.links.length > 1) {
+          const en = item.links.find((l) => l.lang === 'en');
+          if (en && !item.links.some((l) => l.lang === 'x-default')) {
+            item.links.push({ url: en.url, lang: 'x-default' });
+          }
+        }
+        return item;
+      },
       filter: (page) => {
         // Exclude 404 pages and the legacy /osa/ + /osa/slides/ redirector stubs.
         // Sitemap integration passes fully-qualified URLs (e.g. https://...osa/slides/),
@@ -67,6 +87,18 @@ export default defineConfig({
     stripWoffFallback(),
     buildSlidesHtml(),
   ],
+  // Round 19 P2 (known platform limitation): GitHub Pages intercepts
+  // every /.well-known/ URL at the platform level (verified 2026-07-20
+  // across user site + project sites — `curl
+  // https://<any>.github.io/.well-known/security.txt` returns 404
+  // regardless of whether a file is on disk, even when an Astro
+  // `redirects:` entry writes a meta-refresh HTML stub to dist/).
+  // Therefore security.txt lives at /security.txt (200 OK) and its
+  // `Canonical:` field points at that same path, which is the
+  // reachable URL. The /osa/.well-known/security.txt URL stays
+  // unreachable until GH Pages changes this behavior or the project
+  // migrates to a different host (Cloudflare Pages / Netlify).
+  // Same root cause as Round 11 mysite's .well-known/security.txt 404.
   vite: {
     plugins: [tailwindcss()],
     define: {
