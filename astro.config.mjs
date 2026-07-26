@@ -4,6 +4,7 @@ import astroIcon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 import stripWoffFallback from './src/integrations/strip-woff-fallback.mjs';
 import buildSlidesHtml from './src/integrations/build-slides-html.mjs';
+import sitemapSeo from './src/integrations/sitemap-seo.mjs';
 import { execSync } from 'node:child_process';
 
 // Build-time injection of the last commit date (used by Footer.astro for
@@ -98,6 +99,7 @@ export default defineConfig({
     astroIcon(),
     stripWoffFallback(),
     buildSlidesHtml(),
+    sitemapSeo(),
   ],
   // Round 19 P2 (known platform limitation): GitHub Pages intercepts
   // every /.well-known/ URL at the platform level (verified 2026-07-20
