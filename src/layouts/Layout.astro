@@ -24,7 +24,12 @@ interface Props {
 const {
   title,
   description = 'OSA: Echocardiography Video Segmentation via Orthogonalized State Update and Anatomical Prior-aware Feature Enhancement',
-  image = getAcademicImage('publications/cvpr2026-osa/fig/Met/fig_overview.png'),
+  // Per-page image override (e.g. paper hero from getAcademicImage()).
+  // Default falls back to a locale-aware OG image (og-home-en/zh.png)
+  // so social share cards on /en/ and /zh/ differ. Round 22 P1
+  // (cross-site audit 2026-07-26). Paper pages still pass a CDN-hosted
+  // hero via the `image` prop and keep their override.
+  image,
   imageWidth = 2510,
   imageHeight = 652,
   showFooter = true,
@@ -35,6 +40,8 @@ const {
 
 const lang = Astro.currentLocale ?? 'en';
 const structuredDataJson = structuredData ? JSON.stringify(structuredData) : null;
+const defaultOgImage = `${import.meta.env.BASE_URL}/images/og-home-${lang}.png`;
+const ogImage = image ?? defaultOgImage;
 ---
 
 <!DOCTYPE html>
@@ -85,7 +92,7 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     <title>{title}</title>
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
     <meta property="og:image:alt" content={title} />
@@ -97,7 +104,7 @@ const structuredDataJson = structuredData ? JSON.stringify(structuredData) : nul
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
     <!-- Language alternates for SEO. Path-aware: /en/poster/ ↔ /zh/poster/.
