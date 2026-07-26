@@ -41,6 +41,18 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      // P2 SEO: emit <lastmod> so GSC sees freshness signals (cross-site
+      // audit 2026-07-26: 0/6 urls had lastmod before this fix).
+      // Reuse the lastUpdated var already computed at module top for
+      // Footer.astro so sitemap lastmod stays in sync with the visible
+      // "Last updated" string on the page.
+      lastmod: (() => {
+        // lastUpdated is a `YYYY-MM-DD` string (execSync git log %cd --date=short);
+        // sitemap expects a Date instance. Fall back to build time in
+        // tarball / non-git environments where execSync throws.
+        const parsed = Date.parse(lastUpdated);
+        return Number.isNaN(parsed) ? new Date() : new Date(parsed);
+      })(),
       // Emit <xhtml:link rel="alternate" hreflang="..."> in the sitemap for
       // every localized URL. Without this, Google Search Console sees the
       // sitemap as monolingual and the per-page <link rel="alternate"> tags
