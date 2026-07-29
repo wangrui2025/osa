@@ -25,15 +25,15 @@ const iframeTitle = t(lang, 'slides.title');
 
   <!-- Controls: fixed at bottom center -->
   <div class="controls">
-    <span class="controls-label">Preview:</span>
-    <span class="zoom-level" id="zoom-level">Fit</span>
+    <span class="controls-label">{t(lang, 'poster.previewLabel')}</span>
+    <span class="zoom-level" id="zoom-level" data-fit-label={t(lang, 'slides.fitScreen')}>{t(lang, 'slides.fitScreen')}</span>
     <div class="controls-group">
-      <button id="zoom-out" title="Zoom out (−)" aria-label={t(lang, 'slides.zoomOut')}>−</button>
-      <button id="zoom-in" title="Zoom in (+)" aria-label={t(lang, 'slides.zoomIn')}>+</button>
+      <button id="zoom-out" title={`${t(lang, 'slides.zoomOut')} (−)`} aria-label={t(lang, 'slides.zoomOut')}>−</button>
+      <button id="zoom-in" title={`${t(lang, 'slides.zoomIn')} (+)`} aria-label={t(lang, 'slides.zoomIn')}>+</button>
     </div>
-    <button id="zoom-fit" class="active" title="Fit to window (0)" aria-label={t(lang, 'slides.fitScreen')}>Fit</button>
+    <button id="zoom-fit" class="active" title={`${t(lang, 'slides.fitScreen')} (0)`} aria-label={t(lang, 'slides.fitScreen')}>{t(lang, 'slides.fitScreen')}</button>
     <div class="divider"></div>
-    <button id="print-btn" title="Print / Save as PDF (P)" aria-label={t(lang, 'slides.printPdf')}>Print PDF</button>
+    <button id="print-btn" title={`${t(lang, 'slides.printPdf')} (P)`} aria-label={t(lang, 'slides.printPdf')}>{t(lang, 'slides.printPdf')}</button>
   </div>
 </Layout>
 
@@ -178,6 +178,7 @@ const iframeTitle = t(lang, 'slides.title');
     const zo = zoomOutBtn!;
     const zf = zoomFitBtn!;
     const pb = printBtn!;
+    const fitLabel = zl.dataset.fitLabel ?? 'Fit';
 
   const zoomSteps = [0.2, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
   let currentZoomIndex = -1; // -1 = fit
@@ -192,7 +193,7 @@ const iframeTitle = t(lang, 'slides.title');
     if (index === -1) {
       s.style.transform = '';
       s.style.width = '';
-      zl.textContent = 'Fit';
+      zl.textContent = fitLabel;
       zf.classList.add('active');
     } else {
       const z = zoomSteps[index];
