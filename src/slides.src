@@ -55,11 +55,6 @@
     </script>
     <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/wangrui2025/sprites-gallery@b052ab8c8a5fe41433376f0bc67baa4af4875dfb/public/favicons/pikachu.png">
 
-    <!-- Fonts: Times New Roman + Noto Serif SC (self-hosted via @fontsource) -->
-    <link rel="stylesheet" href="/fonts/chinese-simplified-400.css">
-    <link rel="stylesheet" href="/fonts/chinese-simplified-600.css">
-    <link rel="stylesheet" href="/fonts/chinese-simplified-700.css">
-
     <!-- KaTeX for math rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>

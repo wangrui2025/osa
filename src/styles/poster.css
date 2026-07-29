@@ -397,6 +397,29 @@ img.img-placeholder::after {
   background: #e5b128;
 }
 
+@media screen and (max-width: 640px) {
+  .osa-poster-preview-controls {
+    right: 10px;
+    left: 10px;
+    bottom: 10px;
+    padding: 10px 12px;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+
+  .osa-poster-preview-controls button {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .osa-poster-pdf-hint {
+    flex-basis: 100%;
+    text-align: center;
+  }
+}
+
 @media screen {
   .osa-poster-root {
     min-height: 100vh;
