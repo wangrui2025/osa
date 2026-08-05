@@ -26,7 +26,8 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "fast-uri": "^3.1.4",
+    "fast-uri": "^3.1.5",
+    "undici": "^7.29.0",
     "svgo": "^4.0.2",
     "esbuild": "^0.28.1",
     "tar": "^7.5.19",
