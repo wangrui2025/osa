@@ -71,9 +71,10 @@ function buildSlidesHtml() {
     name: 'build-slides-html',
     hooks: {
       'astro:config:setup': ({ config, command }) => {
-        // Only run for build/dev (not for `astro preview` of an existing dist).
-        // For dev, we still want the file so the iframe works.
-        if (command === 'preview') return;
+        // The generated asset is needed only by the dev server and real builds.
+        // `astro check` runs a `sync` command; generating the same 124KB file
+        // during sync is an unnecessary write that the following build repeats.
+        if (command !== 'dev' && command !== 'build') return;
 
         const cwd = fileURLToPath(config.root || path.resolve(process.cwd()));
         const slidesSrcPath = path.join(cwd, 'src/slides.src');
