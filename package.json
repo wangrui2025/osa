@@ -11,8 +11,8 @@
   "dependencies": {
     "@fontsource/noto-sans": "^5.2.10",
     "@tailwindcss/vite": "4.1.18",
-    "astro": "^6.4.6",
-    "astro-icon": "^1.1.5",
+    "astro": "^7.3.2",
+    "astro-icon": "^1.2.0",
     "katex": "^0.17.0",
     "tailwindcss": "4.1.18"
   },
@@ -33,6 +33,7 @@
     "tar": "^7.5.19",
     "js-yaml": "^4.2.1",
     "postcss": "^8.5.18",
-    "sharp": ">=0.35.0"
+    "sharp": ">=0.35.0",
+    "nanoid": ">=3.3.18 <4"
   }
 }
