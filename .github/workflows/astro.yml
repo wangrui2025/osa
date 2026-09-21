@@ -84,8 +84,20 @@ jobs:
       - name: Build with Astro
         run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+      - name: Restore Playwright Chromium cache
+        id: playwright-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium
+        working-directory: ${{ env.BUILD_PATH }}
+
+      - name: Install Playwright system deps
+        run: npx playwright install-deps chromium
         working-directory: ${{ env.BUILD_PATH }}
       - name: Run E2E tests
         run: npx playwright test
@@ -125,6 +137,7 @@ jobs:
           path: ${{ env.BUILD_PATH }}/dist
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
