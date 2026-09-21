@@ -5,11 +5,19 @@
 name: Deploy Astro site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Production work only runs when the built site can change. CI/workflow/docs-only merges use manual/other checks instead.
   push:
     branches: ["main"]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - 'astro.config.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows exact-branch validation without publishing a feature branch.
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
