@@ -96,9 +96,6 @@ jobs:
         run: npx playwright install chromium
         working-directory: ${{ env.BUILD_PATH }}
 
-      - name: Install Playwright system deps
-        run: npx playwright install-deps chromium
-        working-directory: ${{ env.BUILD_PATH }}
       - name: Run E2E tests
         run: npx playwright test
         working-directory: ${{ env.BUILD_PATH }}
