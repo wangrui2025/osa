@@ -19,6 +19,13 @@ OSA 论文项目页面，展示论文的标题、作者、摘要、方法图、�
 npm run build    # 必须成功
 ```
 
+## CI 与部署
+
+- 共享 CI 决策合同：[`mykcs/.agents/docs/agents/CI_STANDARD.md`](https://github.com/mykcs/.agents/blob/main/docs/agents/CI_STANDARD.md)。
+- 本项目模式：`DEPLOY_ONLY`；GitHub Pages 工作流拥有 Astro build 与 Playwright 验收，并在 main 产品输入变化后部署。
+- `.github/workflows/astro.yml` 的 PR 不发布 Pages；`.github/workflows/multi-site-checks.yml` 提供 PR 一致性检查。文档改动不触发 Pages 部署。
+- required gate 以 GitHub ruleset 与 branch protection 的实时状态为准；PR 一致性检查本身不证明 merge protection 已启用。
+
 ## 项目结构
 
 - `src/pages/` — 页面路由
@@ -83,4 +90,3 @@ npm run build
 - 内容：自包含 HTML（GH Pages 静态服务，**不**走 Astro 渲染管线）
 - i18n fallback：en 内容 + 指向 `/osa/zh/` 的链接（dynamic `/zh/404/` 解析失败时仍能 fallback）
 - 同步在 src/pages/[lang]/404.astro 保持动态版（en + zh 完整版）
-
