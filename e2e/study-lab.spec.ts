@@ -73,7 +73,7 @@ test.describe('OSA A/B explorable paper prototypes', () => {
 
   test('comparison route and home affordance link to both preview versions', async ({ page }) => {
     await page.goto('en/');
-    await expect(page.getByRole('link', { name: /Compare A and B/i })).toHaveAttribute('href', '/osa/en/explore/');
+    await expect(page.getByRole('link', { name: 'Under development, not ready yet' })).toHaveAttribute('href', '/osa/en/explore/');
     await page.goto('en/explore/');
     await expect(page.getByRole('heading', { name: /How should a paper teach its own idea/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /Explore version A/ })).toBeVisible();
