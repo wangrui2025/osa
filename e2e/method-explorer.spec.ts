@@ -1,15 +1,23 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('OSA interactive method walkthrough', () => {
-  test('development notice stays at the top in both languages', async ({ page }) => {
-    await page.goto('en/');
-    const enNotice = page.locator('[data-development-notice]');
-    await expect(enNotice.getByText('Under development')).toBeVisible();
-    expect(await enNotice.evaluate((element) => element.getBoundingClientRect().top)).toBe(0);
-    await page.goto('zh/');
-    const zhNotice = page.locator('[data-development-notice]');
-    await expect(zhNotice.getByText('开发中')).toBeVisible();
-    expect(await zhNotice.evaluate((element) => element.getBoundingClientRect().top)).toBe(0);
+  test('unfinished A/B work is only a quiet, last-section footer link in both languages', async ({ page }) => {
+    for (const [lang, label] of [
+      ['en', 'Under development, not ready yet'],
+      ['zh', '开发中，还没做好']
+    ]) {
+      await page.goto(lang + '/');
+      await expect(page.locator('[data-development-notice]')).toHaveCount(0);
+      await expect(page.getByText('New: explore two interactive OSA explanations')).toHaveCount(0);
+      await expect(page.getByText('新体验：两种交互式 OSA 原理解读')).toHaveCount(0);
+      const footer = page.locator('[data-ab-development-footer]');
+      await expect(footer).toHaveText(label);
+      await expect(footer).toHaveAttribute('href', '/osa/' + lang + '/explore/');
+      const section = footer.locator('xpath=..');
+      const isLast = await section.evaluate(el => el === el.parentElement?.lastElementChild);
+      expect(isLast).toBe(true);
+      await expect(footer).toHaveCount(1);
+    }
   });
 
   test('feature decomposition changes with sliders and renders pixels', async ({ page }) => {
