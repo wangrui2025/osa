@@ -1,0 +1,283 @@
+---
+import Section from './Section.astro';
+import { t } from '../i18n';
+
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
+const copy = (key: string) => t(lang, 'interactive.' + key);
+---
+
+<Section id="explore-osa">
+  <div class="osa-explainer" data-osa-explainer>
+    <header class="osa-explainer-header">
+      <p class="osa-eyebrow">{copy('eyebrow')}</p>
+      <h2>{copy('title')}</h2>
+      <p class="osa-intro">{copy('intro')}</p>
+    </header>
+
+    <nav class="osa-flow" aria-label={copy('flowLabel')}>
+      <span>{copy('flowInput')}</span>
+      <b aria-hidden="true">→</b>
+      <a href="#osa-apfe-demo">{copy('flowApfe')}</a>
+      <b aria-hidden="true">→</b>
+      <a href="#osa-osu-demo">{copy('flowOsu')}</a>
+      <b aria-hidden="true">→</b>
+      <span>{copy('flowOutput')}</span>
+    </nav>
+
+    <article id="osa-apfe-demo" class="osa-lab" data-osa-apfe>
+      <div class="osa-lab-topline">
+        <span class="osa-step">01 / {copy('stepApfe')}</span>
+        <span class="osa-lab-type">{copy('formulaDemo')}</span>
+      </div>
+      <div class="osa-lab-head">
+        <div>
+          <h3>{copy('apfeTitle')}</h3>
+          <p>{copy('apfeIntro')}</p>
+        </div>
+        <p class="osa-equation" aria-label={copy('apfeEquationAlt')}>
+          X = M + X<sup>+</sup> − X<sup>−</sup>
+        </p>
+      </div>
+
+      <div class="osa-apfe-panels">
+        <figure>
+          <div class="osa-image-frame"><canvas width="88" height="88" data-apfe-canvas="input" role="img" aria-label={copy('apfeInputAlt')}>{copy('canvasFallback')}</canvas></div>
+          <figcaption><span class="osa-index">01</span><strong>{copy('apfeInput')}</strong><small>{copy('apfeInputHint')}</small></figcaption>
+        </figure>
+        <figure>
+          <div class="osa-image-frame"><canvas width="88" height="88" data-apfe-canvas="mean" role="img" aria-label={copy('apfeMeanAlt')}>{copy('canvasFallback')}</canvas></div>
+          <figcaption><span class="osa-index">02</span><strong>{copy('apfeMean')}</strong><small>{copy('apfeMeanHint')}</small></figcaption>
+        </figure>
+        <figure>
+          <div class="osa-image-frame"><canvas width="88" height="88" data-apfe-canvas="positive" role="img" aria-label={copy('apfePositiveAlt')}>{copy('canvasFallback')}</canvas></div>
+          <figcaption><span class="osa-index osa-index-plus">03</span><strong>{copy('apfePositive')}</strong><small>{copy('apfePositiveHint')}</small></figcaption>
+        </figure>
+        <figure>
+          <div class="osa-image-frame"><canvas width="88" height="88" data-apfe-canvas="negative" role="img" aria-label={copy('apfeNegativeAlt')}>{copy('canvasFallback')}</canvas></div>
+          <figcaption><span class="osa-index osa-index-minus">04</span><strong>{copy('apfeNegative')}</strong><small>{copy('apfeNegativeHint')}</small></figcaption>
+        </figure>
+      </div>
+
+      <div class="osa-controls osa-apfe-controls">
+        <div class="osa-slider-field">
+          <label for="osa-speckle">{copy('speckleLabel')} <output for="osa-speckle" data-apfe-speckle-value>45%</output></label>
+          <input id="osa-speckle" type="range" min="0" max="100" value="45" step="1" data-apfe-speckle />
+        </div>
+        <div class="osa-slider-field">
+          <label for="osa-attenuation">{copy('attenuationLabel')} <output for="osa-attenuation" data-apfe-attenuation-value>50%</output></label>
+          <input id="osa-attenuation" type="range" min="0" max="100" value="50" step="1" data-apfe-attenuation />
+        </div>
+      </div>
+      <div class="osa-teaching-note">
+        <span aria-hidden="true" class="osa-note-icon">i</span>
+        <p>{copy('apfeLesson')}</p>
+      </div>
+    </article>
+
+    <article id="osa-osu-demo" class="osa-lab" data-osa-osu>
+      <div class="osa-lab-topline">
+        <span class="osa-step">02 / {copy('stepOsu')}</span>
+        <span class="osa-lab-type">{copy('matrixDemo')}</span>
+      </div>
+      <div class="osa-lab-head">
+        <div>
+          <h3>{copy('osuTitle')}</h3>
+          <p>{copy('osuIntro')}</p>
+        </div>
+        <p class="osa-equation" aria-label={copy('osuEquationAlt')}>S<sup>⊤</sup>S = I</p>
+      </div>
+
+      <div class="osa-osu-panels">
+        <figure class="osa-vector-panel">
+          <figcaption>
+            <span class="osa-status-dot osa-dot-euc" aria-hidden="true"></span>
+            <strong>{copy('osuBaseline')}</strong>
+            <small>{copy('osuBaselineHint')}</small>
+          </figcaption>
+          <svg viewBox="0 0 230 155" role="img" aria-label={copy('osuBaselineAlt')}>
+            <path d="M 12 86 H 218 M 110 8 V 146" class="osa-axis"/>
+            <path d="M 50 8 V 146 M 170 8 V 146 M 12 26 H 218 M 12 146 H 218" class="osa-axis osa-axis-minor"/>
+            <circle cx="110" cy="86" r="3.5" class="osa-origin"/>
+            <line data-osu-vector="e0" x1="110" y1="86" x2="170" y2="86" class="osa-vector osa-vector-a"/>
+            <circle data-osu-dot="e0" cx="170" cy="86" r="4" class="osa-vector-a-dot"/>
+            <line data-osu-vector="e1" x1="110" y1="86" x2="110" y2="26" class="osa-vector osa-vector-b"/>
+            <circle data-osu-dot="e1" cx="110" cy="26" r="4" class="osa-vector-b-dot"/>
+          </svg>
+          <div class="osa-spectrum">
+            <span>{copy('singularValues')}</span>
+            <div class="osa-spectrum-row"><b>σ₁</b><div class="osa-spectrum-track"><i data-osu-bar="e0" class="osa-bar-a"></i></div><output data-osu-value="e0">1.00</output></div>
+            <div class="osa-spectrum-row"><b>σ₂</b><div class="osa-spectrum-track"><i data-osu-bar="e1" class="osa-bar-b"></i></div><output data-osu-value="e1">1.00</output></div>
+          </div>
+        </figure>
+
+        <figure class="osa-vector-panel">
+          <figcaption>
+            <span class="osa-status-dot osa-dot-osu" aria-hidden="true"></span>
+            <strong>{copy('osuProposed')}</strong>
+            <small>{copy('osuProposedHint')}</small>
+          </figcaption>
+          <svg viewBox="0 0 230 155" role="img" aria-label={copy('osuProposedAlt')}>
+            <path d="M 12 86 H 218 M 110 8 V 146" class="osa-axis"/>
+            <path d="M 50 8 V 146 M 170 8 V 146 M 12 26 H 218 M 12 146 H 218" class="osa-axis osa-axis-minor"/>
+            <circle cx="110" cy="86" r="3.5" class="osa-origin"/>
+            <line data-osu-vector="o0" x1="110" y1="86" x2="170" y2="86" class="osa-vector osa-vector-a"/>
+            <circle data-osu-dot="o0" cx="170" cy="86" r="4" class="osa-vector-a-dot"/>
+            <line data-osu-vector="o1" x1="110" y1="86" x2="110" y2="26" class="osa-vector osa-vector-b"/>
+            <circle data-osu-dot="o1" cx="110" cy="26" r="4" class="osa-vector-b-dot"/>
+          </svg>
+          <div class="osa-spectrum">
+            <span>{copy('singularValues')}</span>
+            <div class="osa-spectrum-row"><b>σ₁</b><div class="osa-spectrum-track"><i data-osu-bar="o0" class="osa-bar-a"></i></div><output data-osu-value="o0">1.00</output></div>
+            <div class="osa-spectrum-row"><b>σ₂</b><div class="osa-spectrum-track"><i data-osu-bar="o1" class="osa-bar-b"></i></div><output data-osu-value="o1">1.00</output></div>
+          </div>
+        </figure>
+      </div>
+
+      <div class="osa-controls osa-osu-controls">
+        <div class="osa-slider-field">
+          <label for="osa-step">{copy('frameLabel')} <output for="osa-step" data-osu-step-value>0 / 30</output></label>
+          <input id="osa-step" type="range" min="0" max="30" value="0" step="1" data-osu-step />
+        </div>
+        <div class="osa-control-buttons">
+          <button class="osa-control-btn osa-control-primary" type="button" data-osu-play data-label-play={copy('play')} data-label-pause={copy('pause')} data-label-next={copy('next')}>{copy('play')}</button>
+          <button class="osa-control-btn" type="button" data-osu-reset>{copy('reset')}</button>
+        </div>
+      </div>
+      <div class="osa-teaching-note">
+        <span aria-hidden="true" class="osa-note-icon">i</span>
+        <p>{copy('osuLesson')}</p>
+      </div>
+    </article>
+
+    <footer class="osa-disclaimer">
+      {copy('disclaimer')}
+      <a href="https://arxiv.org/html/2603.26188v1#S3" target="_blank" rel="noopener noreferrer">{copy('paperLink')} <span aria-hidden="true">↗</span></a>
+    </footer>
+  </div>
+</Section>
+
+<script>
+  import '../scripts/method-explorer';
+</script>
+
+<style>
+  .osa-explainer {
+    --osa-ink: #19253b;
+    --osa-muted: #59657a;
+    --osa-surface: #ffffff;
+    --osa-wash: #f7f8fc;
+    --osa-line: #dfe4ef;
+    --osa-accent: #555fc3;
+    --osa-a: #4f67bd;
+    --osa-b: #d78b58;
+    --osa-range: #555fc3;
+    border: 1px solid var(--osa-line);
+    border-radius: 1.4rem;
+    background: linear-gradient(148deg, #f3f5ff 0, #fff 37%, #f7fafc 100%);
+    padding: clamp(1.15rem, 4vw, 2.7rem);
+    color: var(--osa-ink);
+  }
+  :global(html.dark) .osa-explainer {
+    --osa-ink: #f3f5fc;
+    --osa-muted: #c2cadd;
+    --osa-surface: #222e42;
+    --osa-wash: #1a2435;
+    --osa-line: #42516a;
+    --osa-accent: #a7b3ff;
+    --osa-a: #9db1ff;
+    --osa-b: #ffb887;
+    --osa-range: #a7b3ff;
+    background: linear-gradient(148deg, #242b47 0, #141e30 40%, #172635 100%);
+  }
+  .osa-explainer-header { text-align: center; max-width: 48rem; margin-inline: auto; }
+  .osa-eyebrow, .osa-step { text-transform: uppercase; font: 700 .76rem/1.3 system-ui, sans-serif; letter-spacing: .14em; color: var(--osa-accent); }
+  .osa-explainer h2 { font-family: var(--font-display); font-size: clamp(1.9rem, 3.8vw, 2.6rem); line-height: 1.18; font-weight: 700; margin: .65rem 0 1rem; }
+  .osa-intro { color: var(--osa-muted); font-size: 1.1rem; line-height: 1.65; }
+  .osa-flow { display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: .65rem; margin: 2rem auto 2.4rem; }
+  .osa-flow a, .osa-flow span { display: inline-flex; padding: .55rem .9rem; border-radius: 99px; background: var(--osa-surface); border: 1px solid var(--osa-line); color: var(--osa-ink); font-size: .95rem; font-weight: 600; text-decoration: none; }
+  .osa-flow a { color: var(--osa-accent); border-color: var(--osa-accent); }
+  .osa-flow a:hover { background: var(--osa-wash); text-decoration: underline; }
+  .osa-flow b { font-family: system-ui, sans-serif; color: var(--osa-muted); }
+  .osa-lab { background: var(--osa-surface); border: 1px solid var(--osa-line); border-radius: 1.15rem; padding: clamp(.9rem, 3vw, 1.7rem); margin-top: 1.35rem; scroll-margin-top: 2rem; box-shadow: 0 9px 28px #1828460a; }
+  .osa-lab-topline, .osa-lab-head { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+  .osa-lab-type { color: var(--osa-muted); font-size: .8rem; }
+  .osa-lab-head { margin: .65rem 0 1.4rem; align-items: center; }
+  .osa-lab-head h3 { font-size: 1.43rem; font-weight: 700; line-height: 1.25; margin-bottom: .45rem; }
+  .osa-lab-head p:not(.osa-equation) { color: var(--osa-muted); line-height: 1.6; max-width: 43rem; }
+  .osa-lab-head .osa-equation { flex: 0 0 auto; font: 600 1.05rem/1.3 Georgia, serif; color: var(--osa-accent); padding: .55rem .8rem; border: 1px solid var(--osa-line); border-radius: .6rem; background: var(--osa-wash); white-space: nowrap; }
+  .osa-apfe-panels { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .8rem; }
+  .osa-apfe-panels figure { margin: 0; min-width: 0; border: 1px solid var(--osa-line); border-radius: .85rem; overflow: hidden; background: var(--osa-wash); }
+  .osa-image-frame { aspect-ratio: 1.15; display: grid; place-items: center; overflow: hidden; background: #0f1827; }
+  .osa-image-frame canvas { width: 100%; height: 100%; object-fit: cover; image-rendering: auto; display: block; }
+  .osa-apfe-panels figcaption { padding: .7rem .75rem .85rem; display: grid; gap: .26rem; }
+  .osa-apfe-panels strong { font-size: .91rem; line-height: 1.25; }
+  .osa-apfe-panels small { font-size: .8rem; color: var(--osa-muted); line-height: 1.4; }
+  .osa-index { font: 700 .72rem system-ui,sans-serif; color: var(--osa-muted); }
+  .osa-index-plus { color: #3a978a; }
+  .osa-index-minus { color: #c57e49; }
+  .osa-controls { border: 1px solid var(--osa-line); border-radius: .85rem; padding: .9rem 1.05rem; background: var(--osa-wash); margin-top: 1.15rem; display: flex; align-items: center; gap: 1.3rem; }
+  .osa-apfe-controls .osa-slider-field { flex: 1 1 0; }
+  .osa-slider-field { min-width: 0; flex: 1; display: grid; gap: .5rem; }
+  .osa-slider-field label { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; font-weight: 600; color: var(--osa-ink); }
+  .osa-slider-field output { color: var(--osa-accent); font: 600 .9rem system-ui,sans-serif; font-variant-numeric: tabular-nums; }
+  .osa-slider-field input { width: 100%; accent-color: var(--osa-range); cursor: pointer; height: 1.45rem; }
+  .osa-teaching-note { display: flex; align-items: flex-start; gap: .7rem; color: var(--osa-muted); line-height: 1.55; margin-top: 1.05rem; }
+  .osa-teaching-note p { font-size: .94rem; }
+  .osa-note-icon { font: 700 .7rem/1.5 system-ui,sans-serif; flex: 0 0 1.15rem; height: 1.15rem; color: var(--osa-accent); border: 1px solid var(--osa-accent); text-align: center; border-radius: 50%; margin-top: .15rem; }
+  .osa-osu-panels { display: grid; grid-template-columns: 1fr 1fr; gap: .95rem; }
+  .osa-vector-panel { border: 1px solid var(--osa-line); border-radius: .9rem; padding: .9rem 1rem; background: var(--osa-wash); min-width: 0; margin: 0; }
+  .osa-vector-panel figcaption { display: grid; grid-template-columns: .65rem 1fr; align-items: center; gap: .15rem .55rem; }
+  .osa-vector-panel strong { font-weight: 700; line-height: 1.3; }
+  .osa-vector-panel figcaption small { grid-column: 2; color: var(--osa-muted); line-height: 1.45; }
+  .osa-status-dot { width: .6rem; height: .6rem; border-radius: 50%; }
+  .osa-dot-euc { background: #d07f5a; }
+  .osa-dot-osu { background: #3b9b8d; }
+  .osa-vector-panel svg { width: 100%; max-height: 185px; margin: .65rem auto; }
+  .osa-axis { fill: none; stroke: var(--osa-muted); stroke-opacity: .28; stroke-width: 1; }
+  .osa-axis-minor { stroke-opacity: .1; }
+  .osa-origin { fill: var(--osa-muted); }
+  .osa-vector { stroke-width: 4.7; stroke-linecap: round; }
+  .osa-vector-a { stroke: var(--osa-a); }
+  .osa-vector-b { stroke: var(--osa-b); }
+  .osa-vector-a-dot { fill: var(--osa-a); }
+  .osa-vector-b-dot { fill: var(--osa-b); }
+  .osa-spectrum { border-top: 1px solid var(--osa-line); padding-top: .8rem; display: grid; gap: .45rem; }
+  .osa-spectrum > span { color: var(--osa-muted); font-size: .83rem; font-weight: 600; margin-bottom: .1rem; }
+  .osa-spectrum-row { display: grid; grid-template-columns: 1.3rem minmax(0,1fr) 3rem; gap: .55rem; align-items: center; font: .8rem system-ui,sans-serif; }
+  .osa-spectrum-row b { font-family: Georgia, serif; font-size: 1rem; }
+  .osa-spectrum-row output { text-align: right; font-variant-numeric: tabular-nums; }
+  .osa-spectrum-track { background: var(--osa-line); height: .48rem; border-radius: 1rem; overflow: hidden; }
+  .osa-spectrum-track i { display: block; height: 100%; border-radius: 1rem; width: 100%; }
+  .osa-bar-a { background: var(--osa-a); }
+  .osa-bar-b { background: var(--osa-b); }
+  .osa-control-buttons { flex: 0 0 auto; display: flex; gap: .6rem; }
+  .osa-control-btn { border: 1px solid var(--osa-line); background: var(--osa-surface); color: var(--osa-ink); border-radius: .65rem; cursor: pointer; padding: .65rem 1rem; font-weight: 600; min-width: 5.5rem; }
+  .osa-control-btn:hover { filter: brightness(.96); }
+  .osa-control-primary { background: var(--osa-accent); color: var(--osa-surface); border-color: transparent; }
+  :global(html.dark) .osa-control-primary { color: #0c1b32; }
+  .osa-disclaimer { margin-top: 1.5rem; color: var(--osa-muted); font-size: .87rem; line-height: 1.5; text-align: center; }
+  .osa-disclaimer a { color: var(--osa-accent); font-weight: 600; margin-left: .45rem; white-space: nowrap; }
+  @media (max-width: 740px) {
+    .osa-lab-head { display: block; }
+    .osa-lab-head .osa-equation { display: inline-block; margin-top: .7rem; }
+    .osa-apfe-panels { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .osa-osu-panels { grid-template-columns: 1fr; }
+    .osa-controls { flex-direction: column; align-items: stretch; }
+    .osa-control-buttons { align-self: stretch; }
+    .osa-control-btn { flex: 1 1 0; }
+    .osa-flow { gap: .4rem; }
+    .osa-flow a, .osa-flow span { padding: .42rem .62rem; font-size: .87rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .osa-explainer *, .osa-explainer *::before, .osa-explainer *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+  @media print {
+    .osa-controls { display: none; }
+    .osa-explainer { box-shadow: none; }
+    .osa-lab { break-inside: avoid; }
+  }
+</style>
