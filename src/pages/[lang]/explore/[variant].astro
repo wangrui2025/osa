@@ -1,0 +1,23 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import StudyLab from '../../../components/StudyLab.astro';
+import '../../../styles/study-lab.css';
+
+export function getStaticPaths() {
+  return ['en', 'zh'].flatMap(lang =>
+    (['video-first', 'network-first'] as const).map(variant => ({
+      params: { lang, variant }
+    }))
+  );
+}
+const lang = Astro.params.lang as 'en' | 'zh';
+const variant = Astro.params.variant as 'video-first' | 'network-first';
+const title = (lang === 'zh' ? 'OSA 交互式论文 · ' : 'OSA Interactive Paper · ') +
+  (variant === 'video-first' ? (lang === 'zh' ? '动效优先' : 'Motion First') : (lang === 'zh' ? '架构优先' : 'Network First'));
+const description = lang === 'zh'
+  ? 'OSA 科学原理交互式教学实验：同一套 APFE 和 OSU 机制的两种呈现方式。'
+  : 'An interactive educational walkthrough of OSA with two presentation variants for the same APFE and OSU science.';
+---
+<Layout title={title} description={description} noindex>
+  <StudyLab lang={lang} variant={variant}/>
+</Layout>

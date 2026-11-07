@@ -1,0 +1,144 @@
+---
+import MethodExplorer from './MethodExplorer.astro';
+import { t } from '../i18n';
+import { getAcademicImage } from '../utils/cdn';
+interface Props { lang: 'en' | 'zh'; variant: 'video-first' | 'network-first'; }
+const { lang, variant } = Astro.props;
+const copy = (key: string) => t(lang, 'study.' + key);
+const base = import.meta.env.BASE_URL + '/' + lang + '/explore/';
+const isVideo = variant === 'video-first';
+const figOverview = getAcademicImage('publications/cvpr2026-osa/fig/Met/fig_overview.png');
+---
+
+<div class={'osa-study osa-study--' + variant} data-osa-study data-variant={variant} data-lang={lang} data-play-text={copy('play')} data-pause-text={copy('pause')} data-next-text={copy('next')} data-angle-orthogonal={copy('angleOrthogonal')} data-angle-near={copy('angleNear')} data-angle-neutral={copy('angleNeutral')}>
+  <nav class="study-topbar" aria-label={copy('navLabel')}>
+    <a class="study-brand" href={import.meta.env.BASE_URL + '/' + lang + '/'}><span class="study-brand-mark">O</span><span>OSA <small>EXPLORABLE PAPER</small></span></a>
+    <div class="study-topnav">
+      <a href={base} class="study-topnav-compare">{copy('compareLink')}</a>
+      <a href={base + 'video-first/'} aria-current={isVideo ? 'page' : undefined}>A · {copy('videoShort')}</a>
+      <a href={base + 'network-first/'} aria-current={!isVideo ? 'page' : undefined}>B · {copy('networkShort')}</a>
+      <a href={import.meta.env.BASE_URL + '/' + (lang === 'en' ? 'zh' : 'en') + '/explore/' + variant + '/'}>{lang === 'en' ? '中文' : 'EN'}</a>
+    </div>
+  </nav>
+  <div class="study-main">
+    <header class="study-intro">
+      <p class="study-kicker"><span class="study-status-dot"></span>{copy('prototype')} <span class="study-kicker-divider">/</span> {isVideo ? 'A' : 'B'} / 02</p>
+      <h1>{isVideo ? copy('videoTitle') : copy('networkTitle')}</h1>
+      <p>{copy('intro')}</p>
+      <div class="study-intro-meta">
+        <span>◉ {copy('sameScience')}</span>
+        <span>◇ {copy('noClinical')}</span>
+        <a href="https://openaccess.thecvf.com/content/CVPR2026/html/Wang_OSA_Echocardiography_Video_Segmentation_via_Orthogonalized_State_Update_and_Anatomical_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">{copy('paper')} ↗</a>
+      </div>
+    </header>
+
+    <section class="study-stage" aria-labelledby="study-entry-title">
+      <div class="study-stage-heading">
+        <div>
+          <p class="study-section-id">01 — {copy('sectionOrientation')}</p>
+          <h2 id="study-entry-title">{copy('entryTitle')}</h2>
+          <p>{copy('entryDesc')}</p>
+        </div>
+        <span class="study-stage-pill">{copy('stagePill')}</span>
+      </div>
+      <div class="study-stage-grid">
+        <div class="study-video-block">
+          <div class="study-media-topline"><span><i class="study-live-dot"></i>{copy('synthetic')}</span><span>F<sub>t</sub> <output data-frame-output>00 / 30</output></span></div>
+          <div class="study-scan">
+            <canvas data-study-scan width="320" height="240" role="img" aria-label={copy('scanAlt')}>{copy('scanFallback')}</canvas>
+            <div class="study-scan-overlay"><span class="study-scan-tag">{copy('toyMask')}</span><span class="study-scan-corner">{copy('scanCorner')}</span></div>
+          </div>
+          <div class="study-playline">
+            <button type="button" data-study-play class="study-play" aria-label={copy('play')} aria-pressed="false"><span data-play-icon aria-hidden="true">▶</span><span data-play-label>{copy('play')}</span></button>
+            <label for={'study-time-' + variant}>{copy('timeLabel')}</label>
+            <input id={'study-time-' + variant} data-study-time type="range" min="0" max="30" value="0" step="1" aria-label={copy('timeLabel')}/>
+            <button type="button" data-study-reset class="study-plain-button">{copy('reset')}</button>
+          </div>
+          <p class="study-media-note">{copy('scanNote')}</p>
+          <aside class="study-motion-explainer">
+            <span>{copy('whyKicker')}</span>
+            <h4>{copy('whyTitle')}</h4>
+            <p>{copy('whyDesc')}</p>
+          </aside>
+        </div>
+        <div class="study-flow-block">
+          <div class="study-flow-head"><div><span class="study-label-technical">{copy('flowKicker')}</span><h3>{copy('architectureTitle')}</h3></div><span>{copy('selectModule')}</span></div>
+          <div class="study-flow-track" aria-label={copy('flowAlt')}>
+            <button class="study-node" type="button" data-study-node="backbone" aria-pressed="true"><span class="study-node-n">01</span><span class="study-node-symbol"><svg viewBox="0 0 34 34" aria-hidden="true"><rect x="5" y="7" width="24" height="20" rx="4"/><path d="M9 15 H25 M9 21 H21"/></svg></span><strong>ResNet-50</strong><small>{copy('backboneSub')}</small></button>
+            <span class="study-flow-arrow" aria-hidden="true">→</span>
+            <button class="study-node" type="button" data-study-node="apfe" aria-pressed="false"><span class="study-node-n">02</span><span class="study-node-symbol"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M3 9 H30 M3 17 H30 M3 25 H30"/><circle cx="11" cy="9" r="3"/><circle cx="24" cy="17" r="3"/><circle cx="17" cy="25" r="3"/></svg></span><strong>APFE</strong><small>{copy('apfeSub')}</small></button>
+            <span class="study-flow-arrow" aria-hidden="true">→</span>
+            <button class="study-node" type="button" data-study-node="osu" aria-pressed="false"><span class="study-node-n">03</span><span class="study-node-symbol"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M8 9 A11 11 0 1 1 5 24 M6 13 L8 9 L12 12"/><path d="M13 17 H24 M19 11 V23"/></svg></span><strong>OSU</strong><small>{copy('osuSub')}</small></button>
+            <span class="study-flow-arrow" aria-hidden="true">→</span>
+            <button class="study-node" type="button" data-study-node="decoder" aria-pressed="false"><span class="study-node-n">04</span><span class="study-node-symbol"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M6 4 V29 H30"/><path d="M9 22 L16 15 L21 18 L28 8"/></svg></span><strong>{copy('decoder')}</strong><small>{copy('decoderSub')}</small></button>
+          </div>
+          <div class="study-recurrence"><svg viewBox="0 0 500 36" preserveAspectRatio="none" aria-hidden="true"><path d="M375 3 V22 Q375 31 363 31 H322 Q312 31 312 22 V14 M306 19 L312 12 L318 19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 5"/></svg><span>S<sub>t−1</sub> → S<sub>t</sub> · {copy('feedbackLoop')}</span></div>
+          <div class="study-inspector">
+            <div class="study-inspector-line"><span>{copy('focusLabel')}</span><span data-study-current-code>01 / ResNet-50</span></div>
+            <div data-study-panel="backbone"><h4>{copy('backboneTitle')}</h4><p>{copy('backboneDesc')}</p></div>
+            <div data-study-panel="apfe" hidden><h4>{copy('apfeTitle')}</h4><p>{copy('apfeDesc')}</p></div>
+            <div data-study-panel="osu" hidden><h4>{copy('osuTitle')}</h4><p>{copy('osuDesc')}</p></div>
+            <div data-study-panel="decoder" hidden><h4>{copy('decoderTitle')}</h4><p>{copy('decoderDesc')}</p></div>
+            <p class="study-inspector-tip">{copy('inspectorHint')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="study-narrative" aria-labelledby="study-why-heading">
+      <div class="study-narrative-copy"><p class="study-section-id">02 — {copy('sectionProblem')}</p><h2 id="study-why-heading">{copy('whyTitle')}</h2><p>{copy('whyDesc')}</p></div>
+      <div class="study-narrative-metrics">
+        <div><span>01</span><strong>{copy('difficulty1')}</strong><p>{copy('difficulty1Desc')}</p></div>
+        <div><span>02</span><strong>{copy('difficulty2')}</strong><p>{copy('difficulty2Desc')}</p></div>
+        <div><span>03</span><strong>{copy('difficulty3')}</strong><p>{copy('difficulty3Desc')}</p></div>
+      </div>
+    </section>
+
+    <section class="study-geometry" aria-labelledby="study-concept-heading" data-geometry-lab>
+      <div class="study-geometry-head"><div><p class="study-section-id">03 — {copy('sectionGeometry')}</p><h2 id="study-concept-heading">{copy('conceptTitle')}</h2><p>{copy('conceptIntro')}</p></div><span class="study-pill-simple">{copy('mathToy')}</span></div>
+      <div class="study-geometry-grid">
+        <div class="study-geometry-canvas">
+          <svg viewBox="0 0 370 235" role="img" aria-label={copy('vectorAlt')}>
+            <path d="M10 181 H359 M94 16 V225" stroke="currentColor" stroke-opacity=".16" stroke-width="1" fill="none"/>
+            <path d="M94 181 L244 181" stroke="#4a6fcd" stroke-width="6" stroke-linecap="round"/>
+            <path data-geometry-vector d="M94 181 L145 41" stroke="#ee9c66" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="94" cy="181" r="5" fill="currentColor"/>
+            <text x="250" y="185" fill="#4a6fcd" font-size="16">v₁</text>
+            <text data-geometry-label x="150" y="39" fill="#cb7440" font-size="16">v₂</text>
+          </svg>
+          <label for={'study-angle-' + variant}>{copy('angleLabel')} <output data-angle-readout>70°</output></label>
+          <input id={'study-angle-' + variant} data-study-angle type="range" min="0" max="90" step="1" value="70"/>
+          <div class="study-preset-row"><button type="button" data-study-preset="90">90° · {copy('orthogonal')}</button><button type="button" data-study-preset="10">10° · {copy('nearlySame')}</button></div>
+        </div>
+        <div class="study-geometry-explanation">
+          <div class="study-stat-pair"><div><span>{copy('sigmaLabel')}</span><strong data-sigma-readout>0.811</strong><small>{copy('sigmaShort')}</small></div><div><span>{copy('conditionLabel')}</span><strong data-condition-readout>1.43</strong><small>{copy('conditionShort')}</small></div></div>
+          <p data-geometry-outcome>{copy('angleNeutral')}</p>
+          <details open><summary>{copy('sigmaQuestion')}</summary><p>{copy('sigmaExplanation')}</p></details>
+          <details><summary>{copy('conditionQuestion')}</summary><p>{copy('conditionExplanation')}</p></details>
+          <details><summary>{copy('projectionQuestion')}</summary><p>{copy('projectionExplanation')}</p></details>
+          <p class="study-toy-disclaimer">{copy('geometryDisclaimer')}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="study-existing-lab">
+    <div class="study-section-wrap"><p class="study-section-id">04 — {copy('sectionDeepDive')}</p><h2>{copy('deepDiveTitle')}</h2><p>{copy('deepDiveDesc')}</p></div>
+    <MethodExplorer lang={lang}/>
+  </div>
+
+  <div class="study-main">
+    <section class="study-evidence">
+      <div><p class="study-section-id">05 — {copy('sectionEvidence')}</p><h2>{copy('evidenceTitle')}</h2><p>{copy('evidenceDesc')}</p><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Wang_OSA_Echocardiography_Video_Segmentation_via_Orthogonalized_State_Update_and_Anatomical_CVPR_2026_paper.html" target="_blank" rel="noopener noreferrer">{copy('viewPaper')} ↗</a></div>
+      <figure><img src={figOverview} alt={copy('paperFigureAlt')} loading="lazy" width="1200" height="600"/><figcaption>{copy('figureCaption')}</figcaption></figure>
+    </section>
+    <div class="study-footer">
+      <div><strong>{copy('switchTitle')}</strong><p>{copy('switchDesc')}</p></div>
+      <div class="study-footer-actions"><a href={base + (isVideo ? 'network-first/' : 'video-first/')} class="study-switch-button">{copy('switchVersion')} {isVideo ? 'B' : 'A'} ↗</a><a href={base} class="study-other-button">{copy('backToCompare')}</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/study-lab';
+</script>

@@ -1,0 +1,181 @@
+---
+import { t } from '../i18n';
+interface Props { lang: 'en' | 'zh'; }
+const { lang } = Astro.props;
+const txt = (key: string) => t(lang, 'compare.' + key);
+const root = import.meta.env.BASE_URL + '/' + lang + '/';
+const base = root + 'explore/';
+const cards = [
+  {id:'A',kind:'video-first',label:txt('aName'),tag:txt('aTag'),desc:txt('aDesc')},
+  {id:'B',kind:'network-first',label:txt('bName'),tag:txt('bTag'),desc:txt('bDesc')}
+];
+---
+<div class="osa-study" data-osa-comparison data-lang={lang}>
+  <nav class="study-topbar" aria-label={txt('navLabel')}>
+    <a class="study-brand" href={root}><span class="study-brand-mark">O</span><span>OSA <small>EXPLORABLE PAPER</small></span></a>
+    <div class="study-topnav"><a href={root}>{txt('returnPaper')}</a><a href={import.meta.env.BASE_URL + '/' + (lang === 'en' ? 'zh' : 'en') + '/explore/'}>{lang === 'en' ? '中文' : 'EN'}</a></div>
+  </nav>
+  <div class="comparison-shell">
+    <div class="comparison-hero">
+      <p class="study-kicker"><span class="study-status-dot"></span>{txt('eyebrow')}</p>
+      <h1>{txt('title')}</h1>
+      <p>{txt('intro')}</p>
+      <div class="comparison-rules"><span>{txt('rule1')}</span><span>{txt('rule2')}</span><span>{txt('rule3')}</span></div>
+    </div>
+    <div class="comparison-cards">
+      {cards.map(card => (
+        <article class="comparison-card">
+          <div class={'comparison-thumbnail comparison-thumbnail--' + card.kind}>
+            <div class="comparison-thumb-top"><span>OSA / {card.id}</span><span>{card.tag}</span></div>
+            {card.id === 'A' ? (
+              <div class="comparison-ultrasound" aria-hidden="true">
+                <svg viewBox="0 0 300 150">
+                  <defs><radialGradient id="echoPreview"><stop stop-color="#839ca4" stop-opacity=".56"/><stop offset=".6" stop-color="#34475d"/><stop offset="1" stop-color="#0e1d30"/></radialGradient></defs>
+                  <path d="M150 5 L280 143 H20 Z" fill="url(#echoPreview)" stroke="#507183" stroke-width="1"/>
+                  <ellipse cx="150" cy="91" rx="48" ry="34" fill="#15283d" stroke="#91efd9" stroke-width="3"/>
+                  <path d="M100 69 Q150 30 203 75" stroke="#b1d1d4" stroke-opacity=".65" stroke-width="3" fill="none"/>
+                </svg>
+                <div><span class="comparison-thumb-timeline"></span></div>
+              </div>
+            ) : (
+              <div class="comparison-diagram" aria-hidden="true">
+                <span>ResNet</span><b>→</b><span>APFE</span><b>→</b><span>OSU</span><b>→</b><span>Mask</span>
+                <div>Sₜ₋₁ ↶ Sₜ</div>
+              </div>
+            )}
+          </div>
+          <div class="comparison-card-body">
+            <div class="comparison-card-number">{card.id} / 02</div>
+            <h2>{card.label}</h2>
+            <p>{card.desc}</p>
+            <a class="comparison-open" href={base + card.kind + '/'}>{txt('open')} {card.id} <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <section class="comparison-constants">
+      <h2>{txt('heldConstant')}</h2>
+      <p>{txt('heldConstantDesc')}</p>
+      <div class="comparison-constant-grid">
+        <div><span>01</span><strong>{txt('constant1')}</strong><p>{txt('constant1Desc')}</p></div>
+        <div><span>02</span><strong>{txt('constant2')}</strong><p>{txt('constant2Desc')}</p></div>
+        <div><span>03</span><strong>{txt('constant3')}</strong><p>{txt('constant3Desc')}</p></div>
+      </div>
+    </section>
+
+    <section class="comparison-feedback" aria-labelledby="comparison-feedback-title">
+      <div>
+        <p class="study-section-id">{txt('feedbackEyebrow')}</p>
+        <h2 id="comparison-feedback-title">{txt('feedbackTitle')}</h2>
+        <p>{txt('feedbackDesc')}</p>
+        <p class="comparison-privacy">{txt('privacyNote')}</p>
+      </div>
+      <form class="comparison-form" data-comparison-form>
+        <fieldset>
+          <legend>{txt('choose')}</legend>
+          <label><input type="radio" name="preferred" value="A"/> A · {txt('aName')}</label>
+          <label><input type="radio" name="preferred" value="B"/> B · {txt('bName')}</label>
+          <label><input type="radio" name="preferred" value="Hybrid"/> {txt('mixed')}</label>
+          <label><input type="radio" name="preferred" value="Undecided" checked/> {txt('undecided')}</label>
+        </fieldset>
+        <label class="comparison-write">{txt('feedbackPrompt')}
+          <textarea data-comparison-comment rows="4" placeholder={txt('placeholder')}></textarea>
+        </label>
+        <div class="comparison-form-bottom">
+          <button type="button" data-comparison-copy>{txt('copyFeedback')}</button>
+          <span data-comparison-status role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+    <div class="comparison-source">
+      <span>{txt('scienceBoundary')}</span>
+      <a href="https://github.com/wangrui2025/osa" target="_blank" rel="noopener noreferrer">{txt('sourceCode')} ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function mountComparison() {
+    const root = document.querySelector<HTMLElement>('[data-osa-comparison]');
+    if (!root || root.dataset.mounted === 'true') return;
+    root.dataset.mounted = 'true';
+    const form = root.querySelector<HTMLFormElement>('[data-comparison-form]');
+    const button = root.querySelector<HTMLButtonElement>('[data-comparison-copy]');
+    const feedback = root.querySelector<HTMLTextAreaElement>('[data-comparison-comment]');
+    const status = root.querySelector<HTMLElement>('[data-comparison-status]');
+    if (!form || !button || !feedback || !status) return;
+    button.addEventListener('click', async () => {
+      const selected = form.querySelector<HTMLInputElement>('input[name="preferred"]:checked')?.value || 'Undecided';
+      const message = 'OSA INTERACTIVE PAPER — AB COMPARISON\n'
+        + 'Version A: https://wangrui2025.github.io/osa/en/explore/video-first/\n'
+        + 'Version B: https://wangrui2025.github.io/osa/en/explore/network-first/\n'
+        + 'Preference: ' + selected + '\n'
+        + 'Specific likes / dislikes / what was difficult: ' + (feedback.value || '(not provided)') + '\n'
+        + 'Please compare this feedback with my prior OSA preferences and record any confirmed changes.';
+      try {
+        await navigator.clipboard.writeText(message);
+        status.textContent = root.dataset.lang === 'zh' ? '已复制。请粘贴到 ChatGPT 对话。' : 'Copied. Paste into our ChatGPT discussion.';
+      } catch {
+        status.textContent = root.dataset.lang === 'zh' ? '复制失败；请直接在对话中告诉我反馈。' : 'Copy unavailable; share the feedback in the conversation.';
+      }
+    });
+  }
+  document.addEventListener('astro:page-load', mountComparison);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountComparison, {once:true});
+  else mountComparison();
+</script>
+<style>
+  .comparison-shell{max-width:1160px;margin:auto;padding:0 clamp(20px,4vw,46px) 90px}
+  .comparison-hero{max-width:880px;padding:70px 0 35px}
+  .comparison-hero h1{font:700 clamp(36px,5vw,60px)/1.08 Georgia,serif;letter-spacing:-.035em;margin:10px 0 19px}
+  .comparison-hero>p:not(.study-kicker){font-size:18px;color:#627084;line-height:1.65}
+  .comparison-rules{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .comparison-rules span{font:700 12px system-ui;color:#5866a0;background:#f1f3fc;border:1px solid #e1e6f7;padding:7px 12px;border-radius:100px}
+  .comparison-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .comparison-card{min-width:0;border:1px solid #dbe3ed;border-radius:19px;overflow:hidden;background:#fff;box-shadow:0 12px 35px #2734500a}
+  .comparison-thumbnail{background:#1b2a40;color:#e0eaff;min-height:220px;padding:20px 25px}
+  .comparison-thumbnail--network-first{background:#f3f6ff;color:#2b3c5c}
+  .comparison-thumb-top{display:flex;justify-content:space-between;font:700 10px system-ui;letter-spacing:.11em;text-transform:uppercase}
+  .comparison-ultrasound{max-width:325px;margin:auto}
+  .comparison-ultrasound svg{display:block;width:100%;height:155px}
+  .comparison-thumb-timeline{display:block;background:#78d8ca;height:4px;width:70%;border-radius:5px;margin:5px auto}
+  .comparison-diagram{display:flex;gap:9px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:165px}
+  .comparison-diagram span{font:700 13px system-ui;background:#fff;border:1px solid #ccd5ef;padding:15px 12px;border-radius:9px;color:#495bac}
+  .comparison-diagram b{color:#8493ba}
+  .comparison-diagram div{flex-basis:100%;text-align:center;font:600 11px system-ui;color:#7681ac}
+  .comparison-card-body{padding:26px 28px 30px}
+  .comparison-card-number{color:#6575b5;letter-spacing:.1em;font:750 11px system-ui}
+  .comparison-card h2{font:700 30px/1.15 Georgia,serif;margin:7px 0}
+  .comparison-card p{color:#627187;min-height:63px;line-height:1.6;font-size:14px}
+  .osa-study .comparison-open{display:inline-flex;justify-content:space-between;align-items:center;gap:38px;background:#344686;color:#fff;padding:12px 17px;font-weight:700;border-radius:9px;margin-top:12px}
+  .comparison-constants{margin-top:54px;border-top:1px solid #dde6f0;padding-top:38px}
+  .comparison-constants h2,.comparison-feedback h2{font:700 30px Georgia,serif}
+  .comparison-constants>p,.comparison-feedback>div>p{color:#657488;margin:11px 0 20px}
+  .comparison-constant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .comparison-constant-grid>div{background:#f5f7fb;border:1px solid #e1e7f2;padding:18px;border-radius:12px}
+  .comparison-constant-grid span{color:#6776b8;font:700 11px system-ui;display:block}
+  .comparison-constant-grid strong{display:block;font-size:16px;margin:8px 0}
+  .comparison-constant-grid p{font-size:12px;color:#6c798c;line-height:1.6}
+  .comparison-feedback{margin-top:58px;display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;padding:28px;background:#f1f5fc;border:1px solid #e0e7f1;border-radius:18px}
+  .comparison-feedback .comparison-privacy{font-size:12px;color:#64758b}
+  .comparison-form{display:grid;gap:14px}
+  .comparison-form fieldset{border:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+  .comparison-form legend{font-weight:750;margin-bottom:10px}
+  .comparison-form fieldset label{display:inline-flex;align-items:center;gap:7px;cursor:pointer;background:#fff;border:1px solid #dce4ef;border-radius:100px;padding:7px 11px;font-size:12px}
+  .comparison-form input{accent-color:#545fc0}
+  .comparison-write{display:grid;gap:8px;font-size:13px;font-weight:700}
+  .comparison-write textarea{border:1px solid #ccd8e8;border-radius:9px;resize:vertical;min-height:110px;padding:11px 13px;background:#fff;color:#24344d;font-size:13px}
+  .comparison-form-bottom{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .comparison-form-bottom button{background:#344686;color:#fff;padding:11px 17px;border:0;border-radius:9px;font-weight:700}
+  .comparison-form-bottom span{font-size:12px;color:#5269a5}
+  .comparison-source{border-top:1px solid #e2e8f2;margin-top:50px;padding-top:20px;display:flex;justify-content:space-between;gap:15px;color:#77859a;font-size:12px}
+  .comparison-source a{font-weight:700;color:#495cba}
+  @media(max-width:730px){
+    .comparison-hero{padding-top:44px}
+    .comparison-cards,.comparison-constant-grid,.comparison-feedback{grid-template-columns:1fr}
+    .comparison-card p{min-height:0}
+    .comparison-feedback{padding:20px}
+    .comparison-source{flex-direction:column}
+  }
+</style>
