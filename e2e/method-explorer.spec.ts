@@ -8,6 +8,8 @@ test.describe('OSA interactive method walkthrough', () => {
     ]) {
       await page.goto(lang + '/');
       await expect(page.locator('[data-development-notice]')).toHaveCount(0);
+      await expect(page.locator('[data-osa-explainer]')).toHaveCount(0);
+      await expect(page.locator('[data-osa-study]')).toHaveCount(0);
       await expect(page.getByText('New: explore two interactive OSA explanations')).toHaveCount(0);
       await expect(page.getByText('新体验：两种交互式 OSA 原理解读')).toHaveCount(0);
       const footer = page.locator('[data-ab-development-footer]');
@@ -21,7 +23,7 @@ test.describe('OSA interactive method walkthrough', () => {
   });
 
   test('feature decomposition changes with sliders and renders pixels', async ({ page }) => {
-    await page.goto('en/');
+    await page.goto('en/explore/video-first/');
     const demo = page.locator('[data-osa-apfe]');
     await expect(demo.getByRole('heading', { name: 'What does APFE separate?' })).toBeVisible();
     await expect(demo.locator('canvas')).toHaveCount(4);
@@ -41,7 +43,7 @@ test.describe('OSA interactive method walkthrough', () => {
   });
 
   test('OSU toy follows the expected ideal projection and reset', async ({ page }) => {
-    await page.goto('en/');
+    await page.goto('en/explore/video-first/');
     const demo = page.locator('[data-osa-osu]');
     await demo.locator('[data-osu-step]').fill('30');
     await expect(demo.locator('[data-osu-step-value]')).toHaveText('30 / 30');
@@ -58,7 +60,7 @@ test.describe('OSA interactive method walkthrough', () => {
 
   test('respects reduced motion and retains keyboard stepping', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('en/');
+    await page.goto('en/explore/video-first/');
     const demo = page.locator('[data-osa-osu]');
     await demo.getByRole('button', { name: 'Next step' }).click();
     await expect(demo.locator('[data-osu-step-value]')).toHaveText('1 / 30');
@@ -72,14 +74,14 @@ test.describe('OSA interactive method walkthrough', () => {
 
   test('Chinese copy and responsive panels survive language navigation', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('zh/');
+    await page.goto('zh/explore/video-first/');
     const demo = page.locator('[data-osa-explainer]');
     await expect(demo.getByRole('heading', { name: '亲手操作，理解 OSA 的核心机制' })).toBeVisible();
     await expect(demo.locator('canvas')).toHaveCount(4);
     const overflow = await demo.evaluate((element) => element.scrollWidth > element.clientWidth + 2);
     expect(overflow).toBe(false);
 
-    await page.goto('en/');
+    await page.goto('en/explore/video-first/');
     await expect(page.locator('[data-osa-explainer]')).toBeVisible();
     await expect(page.locator('[data-osa-osu] [data-osu-step-value]')).toHaveText('0 / 30');
   });
