@@ -37,7 +37,9 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    # Playwright 1.60 does not support Ubuntu 26.04 yet; ubuntu-latest now rolls to 26.04.
+    # Keep the E2E gate on a supported runner until a tested Playwright upgrade.
+    runs-on: ubuntu-24.04
     steps:
       # Supply-chain hardening (Round 15 P2): pin to commit SHA instead of @v6
       # mutable tag. Auto-update via Dependabot: .github/dependabot.yml.
