@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import Section from './Section.astro';
 import ActionButton from './ActionButton.astro';
 import CopyButton from './CopyButton.astro';
-import MethodExplorer from './MethodExplorer.astro';
 import { getScholarlyArticleSchema } from '../utils/structuredData';
 import { t } from '../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
@@ -149,9 +148,6 @@ const schema = getScholarlyArticleSchema({
       <strong>Figure 2.</strong> {t(lang, 'fig2Caption')}
     </p>
   </Section>
-
-  <!-- Interactive explanation: APFE feature cues → OSU temporal stability -->
-  <MethodExplorer lang={lang} />
 
   <!-- Method -->
   <Section>
