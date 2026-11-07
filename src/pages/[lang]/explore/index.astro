@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import StudyComparison from '../../../components/StudyComparison.astro';
+import '../../../styles/study-lab.css';
+
+export function getStaticPaths() {
+  return [{params:{lang:'en'}},{params:{lang:'zh'}}];
+}
+const lang = Astro.params.lang as 'en' | 'zh';
+const title = lang === 'zh' ? 'OSA 交互式论文 · A/B 预览' : 'OSA Interactive Paper · A/B previews';
+---
+<Layout title={title} noindex>
+  <StudyComparison lang={lang}/>
+</Layout>

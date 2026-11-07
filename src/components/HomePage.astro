@@ -111,6 +111,17 @@ const schema = getScholarlyArticleSchema({
     </div>
   </section>
 
+  <!-- A/B explorable learning study: original paper sections stay intact. -->
+  <section class="px-4 pt-6">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4 rounded-xl border border-indigo-200 bg-indigo-50 px-5 py-4 dark:border-indigo-800 dark:bg-indigo-950/30">
+      <div>
+        <p class="text-sm font-bold text-indigo-900 dark:text-indigo-100">{t(lang, 'compare.ctaTitle')}</p>
+        <p class="text-xs mt-1 text-gray-600 dark:text-gray-300">{t(lang, 'compare.ctaDesc')}</p>
+      </div>
+      <a class="text-sm font-bold underline underline-offset-4 text-indigo-700 dark:text-indigo-300" href={import.meta.env.BASE_URL + '/' + lang + '/explore/'}>{t(lang, 'compare.ctaLink')} ↗</a>
+    </div>
+  </section>
+
   <!-- Architecture Overview -->
   <Section>
     <div class="figure-card">
