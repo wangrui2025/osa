@@ -42,6 +42,15 @@ const schema = getScholarlyArticleSchema({
 ---
 
 <Layout title={t(lang, 'title')} description={t(lang, 'description')} structuredData={schema}>
+  <!-- Project status: visible above the hero without opening any disclosure. -->
+  <div data-development-notice class="border-b border-amber-200 bg-amber-50 text-amber-950 dark:border-amber-900/70 dark:bg-amber-950/40 dark:text-amber-100">
+    <div class="max-w-5xl mx-auto flex min-h-11 items-center gap-2 px-4 pr-36 text-sm leading-snug">
+      <span aria-hidden="true">🚧</span>
+      <strong class="font-semibold">{t(lang, 'developmentLabel')}</strong>
+      <span class="hidden sm:inline">{t(lang, 'developmentDescription')}</span>
+    </div>
+  </div>
+
   <!-- Hero -->
   <section class="relative bg-gray-50 dark:bg-gray-800 pb-12 pt-8">
     <div class="max-w-5xl mx-auto px-4">

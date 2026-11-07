@@ -152,5 +152,7 @@
   "interactive.reset": "Reset",
   "interactive.osuLesson": "This toy example uses the paper's gated recurrence (Eq. 1) and an ideal 2D polar projection. Actual OSU uses a scaled, finite-step Newton–Schulz approximation; these bars are computed from toy matrices, not measured model states.",
   "interactive.disclaimer": "Educational illustrations, not patient scans, network predictions, or reported experimental trajectories. Residual colors are visually amplified for clarity.",
-  "interactive.paperLink": "Read the method"
+  "interactive.paperLink": "Read the method",
+  "developmentLabel": "Under development",
+  "developmentDescription": "We are refining the interactive method explanations."
 }

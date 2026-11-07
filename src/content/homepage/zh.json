@@ -152,5 +152,7 @@
   "interactive.reset": "重置",
   "interactive.osuLesson": "这个简化实验采用论文的门控递推公式（式 1）与理想二维极分解投影。实际 OSU 使用带缩放、有限步的 Newton–Schulz 近似；这里的柱状条来自示例矩阵，而非真实模型测量。",
   "interactive.disclaimer": "这些是教学示意，不是真实患者影像、网络预测或论文实验轨迹。残差颜色为了可读性进行了视觉增强。",
-  "interactive.paperLink": "阅读方法原文"
+  "interactive.paperLink": "阅读方法原文",
+  "developmentLabel": "开发中",
+  "developmentDescription": "我们正在持续完善交互式方法讲解。"
 }
