@@ -1,0 +1,7 @@
+---
+import { calendarParts, formatCalendar } from '../utils/date-format.mjs';
+interface Props { value: string; lang?: 'en' | 'zh'; }
+const { value, lang = 'en' } = Astro.props;
+const { precision } = calendarParts(value);
+---
+<time datetime={value} data-calendar={precision} data-calendar-lang={lang}>{formatCalendar(value, lang)}</time>

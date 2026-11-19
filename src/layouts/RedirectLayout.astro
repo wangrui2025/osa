@@ -1,0 +1,24 @@
+---
+import '../styles/global.css';
+interface Props { target: string; canonical: string; zhTarget: string; label: string; }
+const { target, canonical, zhTarget, label } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-site-standards="osa-v1" data-standard-surface="redirect">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="alternate" hreflang="zh" href={zhTarget} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+  </head>
+  <body class="bg-white text-gray-700">
+    <main class="max-w-page mx-auto px-4 py-16">
+      <p class="text-body"><a href={target}>{label}</a></p>
+    </main>
+  </body>
+</html>

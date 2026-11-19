@@ -19,6 +19,11 @@ on:
 
   # Allows exact-branch validation without publishing a feature branch.
   workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Full reviewed commit SHA for this branch (prevents testing a moved ref)
+        required: true
+        type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -45,6 +50,19 @@ jobs:
       # mutable tag. Auto-update via Dependabot: .github/dependabot.yml.
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+      - name: Verify the selected source
+        env:
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
+        run: |
+          set -euo pipefail
+          actual_sha=$(git rev-parse HEAD)
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            [[ "$EXPECTED_SHA" =~ ^[0-9a-f]{40}$ && "$actual_sha" == "$EXPECTED_SHA" ]] || { echo 'Selected ref moved or expected_sha is invalid'; exit 1; }
+          fi
+          mkdir -p test-results/standards
+          printf '{"sha":"%s","ref":"%s","run":"%s"}\n' "$actual_sha" "$GITHUB_REF" "$GITHUB_RUN_ID" > test-results/standards/source.json
       # OSA uses npm (per package-lock.json in repo). Use the standard
       # Astro Pages template npm detection — earlier I assumed pnpm
       # based on a stale pnpm.onlyBuiltDependencies key that was
@@ -85,24 +103,38 @@ jobs:
         run: npm audit --omit=dev --audit-level=high
         working-directory: ${{ env.BUILD_PATH }}
         continue-on-error: false
+      - name: Test standards guard and date precision
+        run: npm run test:standards
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: npm run build
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Restore Playwright Chromium cache
+      - name: Restore Playwright browser cache
         id: playwright-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-two-engines-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
 
-      - name: Install Playwright Chromium
+      - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install chromium
+        run: npx playwright install chromium webkit
         working-directory: ${{ env.BUILD_PATH }}
 
+      - name: Install browser system libraries
+        run: npx playwright install-deps chromium webkit
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Run E2E tests
         run: npx playwright test
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Upload exact-source browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: osa-standards-${{ github.sha }}
+          path: test-results
+          retention-days: 3
+          if-no-files-found: warn
       - name: Verify hreflang base dedupe (§2.7)
         run: |
           node -e "

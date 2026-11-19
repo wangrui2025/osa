@@ -43,7 +43,7 @@ const cvprLogo = getAcademicImage('logos/cvpr2026.png');
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.2in 0.4in;
+    padding: calc(var(--osa-poster-space-unit) * 20) calc(var(--osa-poster-space-unit) * 40);
     position: relative;
     overflow: hidden;
     border-bottom: 7pt solid #7F9EE6;
@@ -63,7 +63,7 @@ const cvprLogo = getAcademicImage('logos/cvpr2026.png');
   .osa-poster-header-left {
     display: flex;
     align-items: center;
-    gap: 0.6in;
+    gap: calc(var(--osa-poster-space-unit) * 60);
     z-index: 1;
   }
 
@@ -77,32 +77,32 @@ const cvprLogo = getAcademicImage('logos/cvpr2026.png');
     text-align: center;
     flex: 1;
     z-index: 1;
-    padding: 0 0.5in;
+    padding: 0 calc(var(--osa-poster-space-unit) * 50);
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
   .osa-poster-paper-title {
-    font-size: 119pt;
-    font-weight: bold;
-    line-height: 1.1;
-    letter-spacing: -0.3pt;
+    font-size: var(--osa-poster-text-title);
+    font-weight: var(--osa-weight-bold);
+    line-height: var(--osa-leading-display);
+    letter-spacing: var(--osa-poster-title-tracking);
     margin-top: 0;
-    margin-bottom: 0.05in;
+    margin-bottom: calc(var(--osa-poster-space-unit) * 5);
     color: #000000;
   }
 
   .osa-poster-authors {
-    font-size: 53pt;
-    margin-bottom: 0.05in;
+    font-size: var(--osa-poster-text-authors);
+    margin-bottom: calc(var(--osa-poster-space-unit) * 5);
     color: #000000;
   }
 
   .osa-poster-affiliations {
-    font-size: 37pt;
+    font-size: var(--osa-poster-text-affiliation);
     color: #000000;
-    line-height: 1.1;
+    line-height: var(--osa-leading-display);
     margin-bottom: 0;
   }
 
@@ -110,7 +110,7 @@ const cvprLogo = getAcademicImage('logos/cvpr2026.png');
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.05in;
+    gap: calc(var(--osa-poster-space-unit) * 5);
     z-index: 1;
     min-width: 3.5in;
   }

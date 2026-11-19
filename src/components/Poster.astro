@@ -1,4 +1,6 @@
 ---
+import DateText from './DateText.astro';
+import { conferenceDate } from '../utils/date-format.mjs';
 import { t } from '../i18n';
 import PosterHeader from './PosterHeader.astro';
 import { getAcademicImage } from '../utils/cdn';
@@ -9,6 +11,8 @@ interface Props {
 }
 
 const { lang } = Astro.props;
+const [conferencePlace, conferenceMonth] = t(lang, 'poster.footerConferenceInfo').split(' · ');
+const conferenceValue = conferenceDate(conferenceMonth);
 
 const figChallenge = getAcademicImage('publications/cvpr2026-osa/fig/challenge/image.png');
 const figFirst = getAcademicImage('publications/cvpr2026-osa/fig/first/fig_first.png');
@@ -100,7 +104,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
               </div>
               <div class="osa-poster-section-body">
                 <strong>{t(lang, 'poster.methodOverviewPipeline')}</strong>
-                <ol style="padding-left: 0.52in; margin: 0.15in 0;">
+                <ol class="osa-poster-ordered-list">
                   <li set:html={t(lang, 'poster.pipelineStep1')} />
                   <li set:html={t(lang, 'poster.pipelineStep2')} />
                   <li set:html={t(lang, 'poster.pipelineStep3')} />
@@ -193,7 +197,7 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
         </div>
         <div class="osa-poster-footer-section">
           <h3 class="osa-poster-footer-title">{t(lang, 'poster.footerConference')}</h3>
-          <p>{t(lang, 'poster.footerConferenceInfo')}</p>
+          <p>{conferencePlace} · <DateText value={conferenceValue} lang={lang} /></p>
         </div>
         <div class="osa-poster-footer-section">
           <h3 class="osa-poster-footer-title">{t(lang, 'poster.footerContact')}</h3>

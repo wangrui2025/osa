@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import RedirectLayout from '../layouts/RedirectLayout.astro';
 
 // Bare /slides/ is the iframe src for the /[lang]/slides/ wrapper pages.
 // The raw slide asset used to live at /slides/ (written by
@@ -15,18 +16,4 @@ const target = getRelativeLocaleUrl('en', '/slides/');
 const canonical = `${Astro.site?.origin}${target}`;
 const zhTarget = `${Astro.site?.origin}${getRelativeLocaleUrl('zh', '/slides/')}`;
 ---
-<!doctype html>
-<html>
-  <head>
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content={`0;url=${target}`} />
-    <meta name="robots" content="noindex" />
-    <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={canonical} />
-    <link rel="alternate" hreflang="zh" href={zhTarget} />
-    <link rel="alternate" hreflang="x-default" href={canonical} />
-  </head>
-  <body>
-    <a href={target}>Redirecting to slides page...</a>
-  </body>
-</html>
+<RedirectLayout target={target} canonical={canonical} zhTarget={zhTarget} label="Redirecting to slides page..." />

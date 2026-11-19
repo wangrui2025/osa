@@ -21,6 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import katex from 'katex';
+import { tokenStyle, syncStandalone } from '../../scripts/sync-standalone-styles.mjs';
 import academicCdnConfig from '../config/academic-cdn.json' with { type: 'json' };
 
 const ACADEMIC_CDN_VERSION = academicCdnConfig.version;
@@ -33,6 +34,8 @@ const ACADEMIC_CDN_BASE = `https://cdn.jsdelivr.net/gh/mykcs/academic@${ACADEMIC
  */
 export function renderSlidesHtml({ slidesSrcPath, baseUrl }) {
   let html = fs.readFileSync(slidesSrcPath, 'utf-8');
+  if (!html.includes('<!-- OSA_CANONICAL_TOKENS -->')) throw new Error('Slides token boundary missing');
+  html = html.replace('<!-- OSA_CANONICAL_TOKENS -->', tokenStyle());
 
   // Step 1: Remove KaTeX CDN scripts/styles first (before formula replacement)
   html = html.replace(/<link[^>]*href="[^"]*katex[^"]*"[^>]*>/gi, '');
@@ -89,6 +92,7 @@ function buildSlidesHtml() {
           return;
         }
 
+        syncStandalone();
         const html = renderSlidesHtml({
           slidesSrcPath,
           baseUrl: config.base || '/',

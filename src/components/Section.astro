@@ -8,7 +8,7 @@ const { class: className = '', id } = Astro.props;
 ---
 
 <section class={`py-12 px-4 ${className}`.trim()} id={id}>
-  <div class="max-w-5xl mx-auto">
+  <div class="max-w-page mx-auto">
     <slot />
   </div>
 </section>

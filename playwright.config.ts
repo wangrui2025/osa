@@ -7,11 +7,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'list',
+  outputDir: './test-results/browser',
   use: {
     baseURL: 'http://localhost:3333/osa/',
     trace: 'on-first-retry',
   },
   projects: [
+    { name: 'webkit', testMatch: /site-standards\.spec\.ts/, use: { ...devices['Desktop Safari'] } },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
