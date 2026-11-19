@@ -12,31 +12,41 @@ async function settle(page: any) {
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 }
 async function readText(page: any) {
-  return page.evaluate((names: string[]) => {
+  return page.evaluate(async (names: string[]) => {
     const root = document.documentElement;
     const declared = getComputedStyle(root);
-    const probe = document.createElement('span');
-    probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
-    document.body.append(probe);
+    // Each canonical value gets a fresh node. Reusing and rewriting one empty,
+    // hidden span can return stale computed values within the same browser task.
+    const probes: { name: string; kind: string; raw: string; element: HTMLSpanElement }[] = [];
     const sizes: number[] = [], families: string[] = [], lines: number[] = [], weights: string[] = [];
     for (const name of names) {
-      if (!declared.getPropertyValue(name)) continue;
-      if (name.includes('-text-') && !/^-?[\d.]+em$/.test(declared.getPropertyValue(name).trim())) {
-        probe.style.fontSize = `var(${name})`;
-        sizes.push(parseFloat(getComputedStyle(probe).fontSize));
-      }
-      if (name.startsWith('--osa-font-')) {
-        probe.style.fontFamily = `var(${name})`;
-        families.push(getComputedStyle(probe).fontFamily);
-      }
-      if (name.includes('-leading-')) {
-        probe.style.fontSize = '100px';
-        probe.style.lineHeight = `var(${name})`;
-        lines.push(parseFloat(getComputedStyle(probe).lineHeight) / 100);
-      }
-      if (name.includes('-weight-')) weights.push(declared.getPropertyValue(name).trim());
+      const raw = declared.getPropertyValue(name).trim();
+      if (!raw) continue;
+      let kind = '';
+      if (name.includes('-text-') && !/^-?[\d.]+em$/.test(raw)) kind = 'size';
+      else if (name.startsWith('--osa-font-')) kind = 'family';
+      else if (name.includes('-leading-')) kind = 'leading';
+      else if (name.includes('-weight-')) { weights.push(raw); continue; }
+      else continue;
+      const element = document.createElement('span');
+      element.textContent = 'Ag';
+      element.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;left:0;top:0';
+      if (kind === 'size') element.style.fontSize = `var(${name})`;
+      if (kind === 'family') element.style.fontFamily = `var(${name})`;
+      if (kind === 'leading') { element.style.fontSize = '100px'; element.style.lineHeight = `var(${name})`; }
+      document.body.append(element);
+      probes.push({ name, kind, raw, element });
     }
-    probe.remove();
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const canonical = probes.map(({ name, kind, raw, element }) => {
+      const style = getComputedStyle(element);
+      const size = parseFloat(style.fontSize), leading = parseFloat(style.lineHeight) / size;
+      if (kind === 'size') sizes.push(size);
+      if (kind === 'family') families.push(style.fontFamily);
+      if (kind === 'leading') lines.push(leading);
+      return { name, kind, raw, size, leading, family: style.fontFamily };
+    });
+    for (const { element } of probes) element.remove();
     const errors: any[] = [], styles = new Map(), scrollRegions: any[] = [];
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let node: Node | null;
@@ -74,13 +84,13 @@ async function readText(page: any) {
         }
       }
     }
-    return { contract: declared.getPropertyValue('--osa-contract-version').trim(), textStyles: [...styles.values()], errors, scrollRegions, viewportOverflow: root.scrollWidth - innerWidth };
+    return { contract: declared.getPropertyValue('--osa-contract-version').trim(), textStyles: [...styles.values()], canonical, errors, scrollRegions, viewportOverflow: root.scrollWidth - innerWidth };
   }, tokenNames);
 }
 function assertText(result: any, allowCanvasOverflow = false) {
   expect(result.contract).toBe('1');
   expect(result.textStyles.length).toBeGreaterThan(0);
-  expect(result.errors).toEqual([]);
+  expect(result.errors, JSON.stringify({ canonical: result.canonical, errors: result.errors })).toEqual([]);
   if (!allowCanvasOverflow) expect(result.viewportOverflow).toBeLessThanOrEqual(2);
 }
 async function perturb(page: any, selector: string, token: string, value: string, property: string) {
@@ -143,6 +153,7 @@ for (const route of routes) {
       await page.evaluate(() => document.fonts.ready);
       await settle(page);
       const measurement = await readText(page);
+      await info.attach('initial-text-and-canonical-roles', {body:JSON.stringify(measurement),contentType:'application/json'});
       assertText(measurement, family === 'poster' || family === 'slides');
       const dates = await checkDates(page), probes = [], states = [];
       if (family === 'poster') {
