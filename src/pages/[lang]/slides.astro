@@ -141,6 +141,15 @@ const iframeTitle = t(lang, 'slides.title');
     margin: 0 calc(var(--osa-space-unit) * 1);
   }
 
+  /* The localized Fit label is longer than an icon button. A fixed 2rem
+     hitbox caused its text to overlap the + control and steal real clicks. */
+  #zoom-fit {
+    width: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-inline: calc(var(--osa-space-unit) * 3);
+  }
+
   #print-btn {
     width: auto;
     padding: 0 calc(var(--osa-space-unit) * 2.5);

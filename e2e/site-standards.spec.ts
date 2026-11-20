@@ -97,7 +97,9 @@ async function perturb(page: any, selector: string, token: string, value: string
   const result = await page.evaluate(async ({selector,token,value,property}: any) => {
     const root = document.documentElement, consumer = document.querySelector(selector);
     if (!consumer) throw new Error(`Missing consumer ${selector}`);
-    const render = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    // Check the actual rendered consumer after three settled browser frames;
+    // a custom-property update may flush asynchronously during route hydration.
+    const render = () => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     const before = getComputedStyle(consumer)[property as any];
     const beforeWidth = consumer.getBoundingClientRect().width;
     const old = root.style.getPropertyValue(token);
@@ -183,7 +185,9 @@ for (const route of routes) {
         const comparison = !!await page.locator('.comparison-shell').count();
         probes.push(await perturb(page,'.osa-study','--osa-study-text-body','17px','fontSize'));
         probes.push(await perturb(page,'.osa-study','--osa-font-ui','monospace','fontFamily'));
-        probes.push(await perturb(page,comparison ? '.comparison-shell' : '.study-main','--osa-space-unit','.3rem','paddingLeft'));
+        // The responsive horizontal gutter is independently owned by --osa-space-gutter.
+        // Verify a real --osa-space-unit consumer on both study variants instead.
+        probes.push(await perturb(page,comparison ? '.comparison-shell' : '.study-intro','--osa-space-unit','.3rem','paddingBottom'));
         probes.push(await perturb(page,comparison ? '.comparison-shell' : '.study-main', comparison ? '--osa-width-comparison' : '--osa-width-study','16rem','maxWidth'));
         probes.push(await perturb(page,comparison ? '.comparison-hero h1' : '.study-intro h1','--osa-leading-display','1.2','lineHeight'));
         if (!comparison) {

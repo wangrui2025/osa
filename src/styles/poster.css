@@ -11,12 +11,18 @@
     size: a0 landscape;
   }
   .osa-poster-root {
-    width: var(--osa-poster-width);
-    height: var(--osa-poster-height);
+    /* Base .osa-poster-root appears later in the stylesheet; print must
+       win so the physical 84in artboard never clips at viewport width. */
+    width: var(--osa-poster-width) !important;
+    height: var(--osa-poster-height) !important;
     overflow: hidden;
     background: white;
   }
   .osa-poster-wrapper {
+    /* The preview controller writes inline left/top at screen width. Reset
+       both when printing, otherwise real output starts with a screen inset. */
+    left: 0 !important;
+    top: 0 !important;
     transform: none !important;
     width: var(--osa-poster-width) !important;
     height: var(--osa-poster-height) !important;
