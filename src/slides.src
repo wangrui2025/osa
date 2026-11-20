@@ -9,7 +9,7 @@
     2. The hardcoded URLs in this file (og:image line ~20, KaTeX CDN lines ~55-57)
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-site-standards="osa-v1" data-standard-surface="slides">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,6 +60,7 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
+    <!-- OSA_CANONICAL_TOKENS -->
     <style>
         /* ===========================================
            CSS CUSTOM PROPERTIES (THEME)
@@ -77,12 +78,12 @@
             --bg-light: #f8fafc;
             --bg-gray: #e0e0e0;
 
-            --font-display: 'Times New Roman', 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', Times, serif;
-            --font-body: 'Times New Roman', 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', Times, serif;
+            --font-display: var(--osa-font-body);
+            --font-body: var(--osa-font-body);
 
             /* Classic 1920x1080 slide size */
-            --slide-width: 1920px;
-            --slide-height: 1080px;
+            --slide-width: var(--osa-slide-width);
+            --slide-height: var(--osa-slide-height);
         }
 
         /* ===========================================
@@ -94,10 +95,14 @@
             box-sizing: border-box;
         }
 
+        html { font-size: var(--osa-text-root); }
+
         html, body {
             min-height: 100%;
             background: #1a1a1a;
-            font-family: var(--font-body);
+            font-family: var(--osa-font-body);
+            font-size: var(--osa-text-body);
+            line-height: var(--osa-leading-body);
         }
 
         body {
@@ -110,7 +115,7 @@
            =========================================== */
         .slide-viewport {
             width: 100%;
-            max-width: 1920px;
+            max-width: var(--osa-slide-width);
             margin: 0 auto;
             background: transparent;
             position: relative;
@@ -124,8 +129,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
-            padding: 30px 0;
+            gap: calc(var(--osa-slide-space-unit) * 30);
+            padding: calc(var(--osa-slide-space-unit) * 30) 0;
             width: 100%;
             height: auto;
         }
@@ -144,6 +149,9 @@
            INDIVIDUAL SLIDE
            =========================================== */
         .slide {
+            font-size: var(--osa-slide-text-body);
+            line-height: var(--osa-leading-body);
+            font-weight: var(--osa-weight-regular);
             width: var(--slide-width);
             height: var(--slide-height);
             position: relative;
@@ -167,7 +175,7 @@
             right: 75px;
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: calc(var(--osa-slide-space-unit) * 24);
             z-index: 10;
         }
 
@@ -186,8 +194,8 @@
             position: absolute;
             bottom: 40px;
             right: 75px;
-            font-size: 36px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-number);
+            font-weight: var(--osa-weight-bold);
             color: var(--text-muted);
             font-family: var(--font-display);
             z-index: 10;
@@ -198,7 +206,7 @@
            =========================================== */
         .slide-header {
             display: block;
-            padding: 38px 75px 15px;
+            padding: calc(var(--osa-slide-space-unit) * 38) calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 15);
             overflow: visible;
             position: relative;
         }
@@ -206,29 +214,29 @@
         .slide-header h1,
         .method-title-group h1 {
             font-family: var(--font-display);
-            font-size: 54px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-heading);
+            font-weight: var(--osa-weight-bold);
             color: var(--brand);
-            letter-spacing: -0.02em;
+            letter-spacing: var(--osa-slide-tracking-heading);
             display: block;
-            line-height: 1.2;
+            line-height: var(--osa-leading-heading);
         }
 
         .method-label {
             font-family: var(--font-display);
-            font-size: 32px;
-            font-weight: 600;
+            font-size: var(--osa-slide-text-method-label);
+            font-weight: var(--osa-weight-semibold);
             color: var(--brand);
-            letter-spacing: 0.02em;
+            letter-spacing: var(--osa-slide-tracking-label);
             display: block;
             margin-left: 0;
-            margin-top: 4px;
+            margin-top: calc(var(--osa-slide-space-unit) * 4);
         }
 
         .method-divider {
             height: 2.5px;
             background: var(--brand);
-            margin: 12px 0 30px;
+            margin: calc(var(--osa-slide-space-unit) * 12) 0 calc(var(--osa-slide-space-unit) * 30);
             border-radius: 1px;
             /* 留 360px 给 header-logos (100 logo + 24 gap + 100 logo + 12 buffer + 124 right margin/buffer) 避免横线穿过校徽 */
             width: calc(100% - 360px);
@@ -237,7 +245,7 @@
         .slide-divider {
             height: 2.5px;
             background: var(--brand);
-            margin: 12px 75px 30px;
+            margin: calc(var(--osa-slide-space-unit) * 12) calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 30);
             border-radius: 1px;
         }
 
@@ -250,19 +258,21 @@
            =========================================== */
         h2, h3 {
             font-family: var(--font-display);
-            font-weight: 600;
+            font-weight: var(--osa-weight-semibold);
             color: var(--brand);
         }
 
         p, li {
             font-family: var(--font-body);
             color: var(--text-primary);
-            line-height: 1.5;
+            line-height: var(--osa-leading-body);
         }
+
+        b, strong, h1 { font-weight: var(--osa-weight-bold); }
 
         .brand { color: var(--brand); }
         .muted { color: var(--text-muted); }
-        .bold { font-weight: 700; }
+        .bold { font-weight: var(--osa-weight-bold); }
 
         /* ===========================================
            FORMULA BOXES (KaTeX)
@@ -272,20 +282,20 @@
             border: 2px solid #e2e8f0;
             border-left: 6px solid var(--brand);
             border-radius: 9px;
-            padding: 15px 30px;
+            padding: calc(var(--osa-slide-space-unit) * 15) calc(var(--osa-slide-space-unit) * 30);
             text-align: center;
-            margin: 4px 0;
+            margin: calc(var(--osa-slide-space-unit) * 4) 0;
             overflow-x: auto;
             overflow-y: hidden;
         }
 
         .formula-box .katex {
-            font-size: 24px;
+            font-size: var(--osa-slide-text-formula);
         }
 
         .formula-box .katex-display {
             margin: 0;
-            padding: 4px 0;
+            padding: calc(var(--osa-slide-space-unit) * 4) 0;
         }
 
         /* ===========================================
@@ -300,16 +310,16 @@
             justify-content: center;
             align-items: center;
             color: #64748b;
-            font-size: 30px;
-            font-weight: 600;
+            font-size: var(--osa-slide-text-placeholder);
+            font-weight: var(--osa-weight-semibold);
             text-align: center;
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .placeholder-small {
-            font-size: 21px;
+            font-size: var(--osa-slide-text-caption);
             color: #94a3b8;
-            margin-top: 9px;
+            margin-top: calc(var(--osa-slide-space-unit) * 9);
         }
 
         /* ===========================================
@@ -317,7 +327,7 @@
            =========================================== */
         .slide-layout-split {
             display: flex;
-            gap: 54px;
+            gap: calc(var(--osa-slide-space-unit) * 54);
             flex: 1;
             align-items: stretch;
         }
@@ -329,7 +339,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
-            gap: 15px;
+            gap: calc(var(--osa-slide-space-unit) * 15);
             height: 100%;
         }
         .slide-layout-grid-2-1 > .cell-wide {
@@ -350,12 +360,12 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 42px;
+            gap: calc(var(--osa-slide-space-unit) * 42);
         }
         .highlight-item {
             display: flex;
             align-items: flex-start;
-            gap: 21px;
+            gap: calc(var(--osa-slide-space-unit) * 21);
         }
 
         /* ===========================================
@@ -371,33 +381,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 90px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 90);
             position: relative;
         }
 
         .title-left {
             display: flex;
             align-items: center;
-            gap: 23px;
+            gap: calc(var(--osa-slide-space-unit) * 23);
             color: var(--brand);
         }
 
         .arXiv-logo {
-            font-family: 'Times New Roman', 'Source Han Serif SC', 'STSong', 'SimSun', Times, serif;
+            font-family: var(--osa-font-body);
         }
 
         .arXiv-logo .logotype {
-            font-size: 78px;
-            font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: -1px;
+            font-size: var(--osa-slide-text-logotype);
+            font-weight: var(--osa-weight-black);
+            line-height: var(--osa-slide-leading-logotype);
+            letter-spacing: var(--osa-slide-tracking-logo);
         }
 
         .arXiv-logo .tagline {
-            font-size: 21px;
-            font-weight: 700;
-            margin-top: 9px;
-            letter-spacing: 0.5px;
+            font-size: var(--osa-slide-text-caption);
+            font-weight: var(--osa-weight-bold);
+            margin-top: calc(var(--osa-slide-space-unit) * 9);
+            letter-spacing: var(--osa-slide-tracking-caption);
         }
 
         .arXiv-icon {
@@ -413,15 +423,15 @@
         }
 
         .szu-text .univ-name {
-            font-size: 30px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-size: var(--osa-slide-text-placeholder);
+            font-weight: var(--osa-weight-bold);
+            letter-spacing: var(--osa-slide-tracking-name);
         }
 
         .szu-text .city {
-            font-size: 54px;
-            font-weight: 700;
-            line-height: 0.9;
+            font-size: var(--osa-slide-text-heading);
+            font-weight: var(--osa-weight-bold);
+            line-height: var(--osa-slide-leading-city);
         }
 
         .title-banner {
@@ -431,20 +441,20 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 60px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 60);
         }
 
         .title-banner h1 {
             color: white;
-            font-size: 60px;
-            line-height: 1.25;
-            letter-spacing: -0.01em;
+            font-size: var(--osa-slide-text-title);
+            line-height: var(--osa-slide-leading-title);
+            letter-spacing: var(--osa-slide-tracking-title);
             text-shadow: 0 2px 12px rgba(0,0,0,0.25);
         }
 
         .title-banner h1 .title-sub {
             white-space: nowrap;
-            font-size: 0.75em;
+            font-size: var(--osa-slide-text-title-sub);
         }
 
         .title-footer {
@@ -453,29 +463,29 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            padding-top: 90px;
+            padding-top: calc(var(--osa-slide-space-unit) * 90);
             text-align: center;
         }
 
         .authors {
-            font-size: 33px;
-            margin-bottom: 18px;
+            font-size: var(--osa-slide-text-authors);
+            margin-bottom: calc(var(--osa-slide-space-unit) * 18);
             font-family: var(--font-display);
         }
 
         .authors sup {
-            font-size: 18px;
+            font-size: var(--osa-slide-text-sup);
         }
 
         .affiliations {
-            font-size: 21px;
-            line-height: 1.7;
+            font-size: var(--osa-slide-text-caption);
+            line-height: var(--osa-leading-airy);
             color: var(--text-secondary);
         }
 
         .affiliations sup {
-            font-size: 17px;
-            margin-right: 5px;
+            font-size: var(--osa-slide-text-affiliation-sup);
+            margin-right: calc(var(--osa-slide-space-unit) * 5);
         }
 
         /* ===========================================
@@ -485,8 +495,7 @@
             display: flex;
             flex-direction: row;
             /* 不加 height: 100% — 跟其他 slide 一样走 .slide var(--slide-height)=1080 fixed, transform scale 后视觉正常 */
-            /* 之前 height: 100% 导致 scale² 倍缩小 (1366x700 下视觉只有 453 而不是 700, 大黑边) */
-        }
+            /* 之前 height: 100% 导致 scale² 倍缩小 (1366x700 下视觉只有 453 而不是 700, 大黑边) */;}
 
         .contents-sidebar {
             width: 35%;
@@ -499,9 +508,9 @@
 
         .contents-sidebar h2 {
             color: white;
-            font-size: 56px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-size: var(--osa-slide-text-toc-title);
+            font-weight: var(--osa-weight-bold);
+            letter-spacing: var(--osa-slide-tracking-caption);
         }
 
         .contents-main {
@@ -515,8 +524,8 @@
         .toc-list {
             display: flex;
             flex-direction: column;
-            gap: 60px;
-            margin-top: -30px;
+            gap: calc(var(--osa-slide-space-unit) * 60);
+            margin-top: calc(var(--osa-slide-space-unit) * -30);
         }
 
         .toc-item {
@@ -525,8 +534,8 @@
         }
 
         .toc-num {
-            font-size: 45px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-toc-number);
+            font-weight: var(--osa-weight-bold);
             color: white;
             width: 84px;
             height: 84px;
@@ -543,15 +552,15 @@
             width: 3px;
             height: 40px;
             background: var(--brand);
-            margin: 0 24px;
+            margin: 0 calc(var(--osa-slide-space-unit) * 24);
             border-radius: 2px;
             opacity: 0.35;
         }
 
         .toc-text {
-            font-size: 51px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
+            font-size: var(--osa-slide-text-toc-item);
+            font-weight: var(--osa-weight-bold);
+            letter-spacing: var(--osa-slide-tracking-toc);
             color: var(--text-primary);
         }
 
@@ -559,49 +568,49 @@
            SLIDE 3: PROBLEM SETTING
            =========================================== */
         .slide-problem {
-            padding: 38px 83px 0;
+            padding: calc(var(--osa-slide-space-unit) * 38) calc(var(--osa-slide-space-unit) * 83) 0;
             display: flex;
             flex-direction: column;
         }
 
         .problem-content {
             display: flex;
-            gap: 84px;
+            gap: calc(var(--osa-slide-space-unit) * 84);
             flex: 1;
-            margin-bottom: 23px;
+            margin-bottom: calc(var(--osa-slide-space-unit) * 23);
         }
 
         .problem-left {
             width: 48%;
             display: flex;
             flex-direction: column;
-            gap: 54px;
-            padding-top: 8px;
+            gap: calc(var(--osa-slide-space-unit) * 54);
+            padding-top: calc(var(--osa-slide-space-unit) * 8);
         }
 
         .problem-item h3 {
-            font-size: 30px;
-            margin-bottom: 15px;
-            letter-spacing: 0.2px;
+            font-size: var(--osa-slide-text-placeholder);
+            margin-bottom: calc(var(--osa-slide-space-unit) * 15);
+            letter-spacing: var(--osa-slide-tracking-body);
         }
 
         .problem-item p {
-            font-size: 27px;
-            line-height: 1.6;
-            padding-left: 12px;
+            font-size: var(--osa-slide-text-body);
+            line-height: var(--osa-leading-reading);
+            padding-left: calc(var(--osa-slide-space-unit) * 12);
         }
 
         .problem-item .bullet {
             color: var(--brand);
-            font-weight: 700;
-            margin-right: 15px;
+            font-weight: var(--osa-weight-bold);
+            margin-right: calc(var(--osa-slide-space-unit) * 15);
         }
 
         .problem-right {
             width: 52%;
             display: flex;
             flex-direction: column;
-            gap: 45px;
+            gap: calc(var(--osa-slide-space-unit) * 45);
         }
 
         .problem-right .placeholder {
@@ -610,7 +619,7 @@
 
         .problem-right img {
             flex: 1;
-            padding: 15px;
+            padding: calc(var(--osa-slide-space-unit) * 15);
             min-height: 210px;
             object-fit: contain;
             width: 100%;
@@ -622,7 +631,7 @@
            SLIDE 4: METHOD OVERVIEW
            =========================================== */
         .slide-overview {
-            padding: 30px 75px 23px;
+            padding: calc(var(--osa-slide-space-unit) * 30) calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 23);
             display: flex;
             flex-direction: column;
         }
@@ -634,7 +643,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0 10px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 10);
             overflow: hidden;
         }
 
@@ -651,20 +660,20 @@
 
         .overview-caption {
             text-align: center;
-            font-size: 21px;
+            font-size: var(--osa-slide-text-caption);
             color: var(--text-secondary);
-            margin-top: 15px;
+            margin-top: calc(var(--osa-slide-space-unit) * 15);
             font-family: var(--font-body);
             white-space: normal;
-            line-height: 1.5;
-            font-weight: 500;
+            line-height: var(--osa-leading-body);
+            font-weight: var(--osa-weight-medium);
         }
 
         /* ===========================================
            SLIDE 5: METHOD OSU
            =========================================== */
         .slide-osu {
-            padding: 27px 75px 30px;
+            padding: calc(var(--osa-slide-space-unit) * 27) calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 30);
             display: flex;
             flex-direction: column;
         }
@@ -672,7 +681,7 @@
         .method-header {
             padding: 0;
             display: block;
-            position: static;  /* override .slide-header { position: relative } 让 .method-title-group 的 absolute 锚到 .slide */
+            position: static;  /* override .slide-header { position: relative;} 让 .method-title-group 的 absolute 锚到 .slide */
             /* 撑出空间: 76 (h1 top) + 65 (h1 height) + 12 (divider margin-top) + 2.5 (divider) + 17 (gap) ≈ 170 */
             min-height: 170px;
         }
@@ -687,7 +696,7 @@
         }
 
         .method-header .method-title-group h1 {
-            font-size: 54px;
+            font-size: var(--osa-slide-text-heading);
         }
 
         /* header-logos is absolute positioned, no margin needed */
@@ -719,7 +728,7 @@
             background: #f8f9fa;
             border-radius: 9px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            padding: 6px;
+            padding: calc(var(--osa-slide-space-unit) * 6);
             flex-shrink: 0;               /* prevent center column from squeezing us */
         }
         .osu-col-left picture {
@@ -741,7 +750,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 6px;
+            gap: calc(var(--osa-slide-space-unit) * 6);
             z-index: 10;
             flex-shrink: 1;
             overflow: hidden;
@@ -750,7 +759,7 @@
             flex: none;
             height: auto;
             min-height: 52px;
-            padding: 6px 10px;
+            padding: calc(var(--osa-slide-space-unit) * 6) calc(var(--osa-slide-space-unit) * 10);
             border-left: 1px solid var(--brand);
             border-radius: 5px;
             display: flex;
@@ -759,11 +768,11 @@
             overflow: visible;
         }
         .osu-col-center .formula-box .katex {
-            font-size: 26px !important;
+            font-size: var(--osa-slide-text-formula-dense) !important;
         }
         .osu-col-center .formula-box.proj-formula .katex {
-            font-size: 26px !important;
-            font-weight: 600;
+            font-size: var(--osa-slide-text-formula-dense) !important;
+            font-weight: var(--osa-weight-semibold);
         }
         .osu-col-center .formula-box + .formula-box {
             border-top: none;
@@ -809,16 +818,16 @@
            SLIDE 6: METHOD APFE
            =========================================== */
         .slide-apfe {
-            padding: 38px 75px 0;
+            padding: calc(var(--osa-slide-space-unit) * 38) calc(var(--osa-slide-space-unit) * 75) 0;
             display: flex;
             flex-direction: column;
         }
 
         .apfe-content {
             display: flex;
-            gap: 45px;
+            gap: calc(var(--osa-slide-space-unit) * 45);
             flex: 1;
-            padding: 8px 8px 23px;
+            padding: calc(var(--osa-slide-space-unit) * 8) calc(var(--osa-slide-space-unit) * 8) calc(var(--osa-slide-space-unit) * 23);
         }
 
         .apfe-left {
@@ -826,7 +835,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 21px;
+            gap: calc(var(--osa-slide-space-unit) * 21);
         }
 
         .apfe-right {
@@ -834,7 +843,7 @@
             display: flex;
             align-items: stretch;
             justify-content: center;
-            padding: 18px;
+            padding: calc(var(--osa-slide-space-unit) * 18);
             background: var(--bg-light);
             border-radius: 15px;
         }
@@ -855,15 +864,15 @@
            SLIDE 7 & 8: EXPERIMENTS
            =========================================== */
         .slide-experiments {
-            padding: 8px 75px 15px;
+            padding: calc(var(--osa-slide-space-unit) * 8) calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 15);
             display: flex;
             flex-direction: column;
         }
         .slide-experiments .slide-header {
-            padding: 23px 75px 0;
+            padding: calc(var(--osa-slide-space-unit) * 23) calc(var(--osa-slide-space-unit) * 75) 0;
         }
         .slide-experiments .method-header .header-logos {
-            margin-top: 5px;
+            margin-top: calc(var(--osa-slide-space-unit) * 5);
         }
         .slide-experiments .logo-szu-img,
         .slide-experiments .logo-polyu-img {
@@ -871,31 +880,31 @@
             height: 100px;
         }
         .slide-experiments .method-header .method-title-group h1 {
-            font-size: 54px;
+            font-size: var(--osa-slide-text-heading);
         }
 
         .experiments-placeholder {
             flex: 1;
-            margin-bottom: 23px;
+            margin-bottom: calc(var(--osa-slide-space-unit) * 23);
         }
 
         .slide-experiments img {
             width: 100%;
-            margin-bottom: 30px;
+            margin-bottom: calc(var(--osa-slide-space-unit) * 30);
             border-radius: 9px;
         }
 
         .slide-experiments .slide-divider {
-            margin-bottom: 30px;
+            margin-bottom: calc(var(--osa-slide-space-unit) * 30);
         }
 
         /* Split layout for slide 7: image + highlights */
         .exp-split {
             display: flex;
-            gap: 54px;
+            gap: calc(var(--osa-slide-space-unit) * 54);
             flex: 1;
             align-items: stretch;
-            margin-bottom: 23px;
+            margin-bottom: calc(var(--osa-slide-space-unit) * 23);
         }
 
         .exp-split-left {
@@ -905,7 +914,7 @@
             justify-content: center;
             background: var(--bg-light);
             border-radius: 15px;
-            padding: 18px;
+            padding: calc(var(--osa-slide-space-unit) * 18);
         }
 
         .exp-split-left img {
@@ -921,34 +930,34 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 42px;
-            padding: 15px 8px;
+            gap: calc(var(--osa-slide-space-unit) * 42);
+            padding: calc(var(--osa-slide-space-unit) * 15) calc(var(--osa-slide-space-unit) * 8);
         }
 
         .exp-highlight {
             display: flex;
             align-items: flex-start;
-            gap: 21px;
+            gap: calc(var(--osa-slide-space-unit) * 21);
         }
 
         .exp-highlight .num {
-            font-size: 42px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-stat);
+            font-weight: var(--osa-weight-bold);
             color: var(--brand);
             font-family: var(--font-display);
-            line-height: 1;
+            line-height: var(--osa-leading-none);
             min-width: 36px;
             text-align: center;
         }
 
         .exp-highlight p {
-            font-size: 27px;
-            line-height: 1.5;
+            font-size: var(--osa-slide-text-body);
+            line-height: var(--osa-leading-body);
             color: var(--text-primary);
         }
 
         .exp-highlight .hl-brand {
-            font-weight: 700;
+            font-weight: var(--osa-weight-bold);
             color: var(--brand);
         }
 
@@ -965,7 +974,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: minmax(0, 480px) minmax(0, 390px);
-            gap: 15px;
+            gap: calc(var(--osa-slide-space-unit) * 15);
             height: 100%;
         }
 
@@ -1002,59 +1011,59 @@
            SLIDE 9: DISCUSSION
            =========================================== */
         .slide-discussion {
-            padding: 0 75px 30px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 30);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .slide-discussion .slide-header {
-            padding-top: 30px;
-            padding-bottom: 15px;
+            padding-top: calc(var(--osa-slide-space-unit) * 30);
+            padding-bottom: calc(var(--osa-slide-space-unit) * 15);
             width: 100%;
         }
 
         .slide-discussion .slide-header h1 {
-            font-size: 54px;
+            font-size: var(--osa-slide-text-heading);
         }
         .slide-discussion .method-header .method-title-group h1 {
-            font-size: 54px;
+            font-size: var(--osa-slide-text-heading);
         }
 
         .discussion-content {
             display: flex;
             flex-direction: column;
-            gap: 57px;
-            margin-top: 30px;
+            gap: calc(var(--osa-slide-space-unit) * 57);
+            margin-top: calc(var(--osa-slide-space-unit) * 30);
             width: 100%;
-            max-width: 1650px;
+            max-width: var(--osa-slide-width-prose);
         }
 
         .discussion-item {
             display: flex;
             align-items: flex-start;
-            gap: 33px;
+            gap: calc(var(--osa-slide-space-unit) * 33);
             background: var(--bg-light);
             border-left: 8px solid var(--brand);
             border-radius: 0 10px 10px 0;
-            padding: 33px 42px;
+            padding: calc(var(--osa-slide-space-unit) * 33) calc(var(--osa-slide-space-unit) * 42);
         }
 
         .discussion-item .bullet {
-            font-size: 48px;
+            font-size: var(--osa-slide-text-discussion-bullet);
             color: var(--brand);
-            font-weight: 700;
-            line-height: 1.4;
+            font-weight: var(--osa-weight-bold);
+            line-height: var(--osa-leading-caption);
             flex-shrink: 0;
         }
 
         .discussion-item p {
-            font-size: 39px;
-            line-height: 1.5;
+            font-size: var(--osa-slide-text-discussion);
+            line-height: var(--osa-leading-body);
         }
 
         .discussion-item .label {
-            font-weight: 700;
+            font-weight: var(--osa-weight-bold);
             color: var(--brand);
         }
 
@@ -1062,39 +1071,39 @@
            SLIDE 10: CONCLUSION
            =========================================== */
         .slide-conclusion {
-            padding: 0 75px 30px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 30);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .slide-conclusion .slide-header {
-            padding-top: 30px;
-            padding-bottom: 15px;
+            padding-top: calc(var(--osa-slide-space-unit) * 30);
+            padding-bottom: calc(var(--osa-slide-space-unit) * 15);
             width: 100%;
         }
 
         .slide-conclusion .slide-header h1 {
-            font-size: 54px;
+            font-size: var(--osa-slide-text-heading);
         }
 
         .conclusion-content {
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            margin-top: 20px;
+            gap: calc(var(--osa-slide-space-unit) * 30);
+            margin-top: calc(var(--osa-slide-space-unit) * 20);
             width: 100%;
-            max-width: 1650px;
+            max-width: var(--osa-slide-width-prose);
         }
 
         .conclusion-item {
             display: flex;
             align-items: flex-start;
-            gap: 25px;
+            gap: calc(var(--osa-slide-space-unit) * 25);
             background: var(--bg-light);
             border-left: 8px solid var(--brand);
             border-radius: 0 10px 10px 0;
-            padding: 24px 36px;
+            padding: calc(var(--osa-slide-space-unit) * 24) calc(var(--osa-slide-space-unit) * 36);
         }
 
         .conclusion-item .bullet {
@@ -1102,40 +1111,40 @@
             height: 42px;
             background: var(--brand);
             color: white;
-            font-size: 24px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-formula);
+            font-weight: var(--osa-weight-bold);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-shrink: 0;
-            line-height: 1;
+            line-height: var(--osa-leading-none);
         }
 
         .conclusion-item p {
-            font-size: 32px;
-            line-height: 1.5;
+            font-size: var(--osa-slide-text-method-label);
+            line-height: var(--osa-leading-body);
             color: var(--text-primary);
         }
 
         .conclusion-item .hl-brand {
             color: var(--brand);
-            font-weight: 700;
+            font-weight: var(--osa-weight-bold);
         }
 
         /* ===========================================
            SLIDE 11: LIMITATION
            =========================================== */
         .slide-limitation {
-            padding: 0 75px 20px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 75) calc(var(--osa-slide-space-unit) * 20);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .slide-limitation .slide-header {
-            padding-top: 15px;
-            padding-bottom: 8px;
+            padding-top: calc(var(--osa-slide-space-unit) * 15);
+            padding-bottom: calc(var(--osa-slide-space-unit) * 8);
             width: 100%;
         }
 
@@ -1145,10 +1154,10 @@
 
         .limitation-content {
             display: flex;
-            gap: 45px;
+            gap: calc(var(--osa-slide-space-unit) * 45);
             flex: 1;
             align-items: stretch;
-            margin-top: 12px;
+            margin-top: calc(var(--osa-slide-space-unit) * 12);
             width: 100%;
         }
 
@@ -1156,34 +1165,34 @@
             width: 48%;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: calc(var(--osa-slide-space-unit) * 14);
         }
 
         .limitation-item {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: calc(var(--osa-slide-space-unit) * 16);
             background: var(--bg-light);
             border-left: 5px solid var(--text-secondary);
             border-radius: 0 6px 6px 0;
-            padding: 10px 20px;
+            padding: calc(var(--osa-slide-space-unit) * 10) calc(var(--osa-slide-space-unit) * 20);
         }
 
         .limitation-item .bullet {
-            font-size: 22px;
+            font-size: var(--osa-slide-text-limitation);
             color: var(--text-secondary);
-            font-weight: 700;
-            line-height: 1.4;
+            font-weight: var(--osa-weight-bold);
+            line-height: var(--osa-leading-caption);
             flex-shrink: 0;
         }
 
         .limitation-item p {
-            font-size: 22px;
-            line-height: 1.35;
+            font-size: var(--osa-slide-text-limitation);
+            line-height: var(--osa-slide-leading-note);
         }
 
         .limitation-item .label {
-            font-weight: 700;
+            font-weight: var(--osa-weight-bold);
             color: var(--text-secondary);
         }
 
@@ -1192,7 +1201,7 @@
             display: flex;
             align-items: stretch;
             justify-content: center;
-            padding: 18px;
+            padding: calc(var(--osa-slide-space-unit) * 18);
             background: var(--bg-light);
             border-radius: 15px;
         }
@@ -1221,33 +1230,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 90px;
+            padding: 0 calc(var(--osa-slide-space-unit) * 90);
             position: relative;
         }
 
         .thanks-conf {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: calc(var(--osa-slide-space-unit) * 18);
             color: var(--brand);
         }
 
         .iccv-logo {
-            font-family: 'Times New Roman', 'Source Han Serif SC', 'STSong', 'SimSun', Times, serif;
+            font-family: var(--osa-font-body);
         }
 
         .iccv-logo .conf-name {
-            font-size: 75px;
-            font-weight: 900;
-            line-height: 0.85;
+            font-size: var(--osa-slide-text-conference);
+            font-weight: var(--osa-weight-black);
+            line-height: var(--osa-slide-leading-logotype);
         }
 
         .iccv-logo .conf-date {
-            font-size: 21px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-caption);
+            font-weight: var(--osa-weight-bold);
             color: #1a1a1a;
-            margin-top: 9px;
-            letter-spacing: 0.5px;
+            margin-top: calc(var(--osa-slide-space-unit) * 9);
+            letter-spacing: var(--osa-slide-tracking-caption);
         }
 
         .iccv-icon {
@@ -1262,14 +1271,14 @@
         }
 
         .thanks-location .city {
-            font-size: 51px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-toc-item);
+            font-weight: var(--osa-weight-bold);
             letter-spacing: 0;
         }
 
         .thanks-location .country {
-            font-size: 30px;
-            font-weight: 700;
+            font-size: var(--osa-slide-text-placeholder);
+            font-weight: var(--osa-weight-bold);
         }
 
         .thanks-banner {
@@ -1282,10 +1291,10 @@
 
         .thanks-banner h1 {
             color: white;
-            font-size: 135px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-family: 'Times New Roman', 'Source Han Serif SC', 'STSong', 'SimSun', Times, serif;
+            font-size: var(--osa-slide-text-thanks);
+            font-weight: var(--osa-weight-bold);
+            letter-spacing: var(--osa-slide-tracking-thanks);
+            font-family: var(--osa-font-body);
             text-shadow: 0 2px 16px rgba(0,0,0,0.3);
         }
 
@@ -1296,21 +1305,21 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: calc(var(--osa-slide-space-unit) * 12);
         }
 
         .thanks-footer .contact {
-            font-size: 27px;
+            font-size: var(--osa-slide-text-body);
             color: var(--text-secondary);
             font-family: var(--font-body);
-            line-height: 1.6;
+            line-height: var(--osa-leading-reading);
             display: block;
         }
 
         .thanks-footer .contact a {
             color: var(--brand);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: var(--osa-weight-semibold);
         }
 
         /* ===========================================
@@ -1432,7 +1441,7 @@
             .limitation-content {
                 display: flex !important;
                 flex-direction: row !important;
-                gap: 30px !important;
+                gap: calc(var(--osa-slide-space-unit) * 30) !important;
             }
             .limitation-left,
             .limitation-right {

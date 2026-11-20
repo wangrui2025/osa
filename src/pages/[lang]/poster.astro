@@ -25,7 +25,9 @@ const description = t(lang, 'poster.description');
   }
   @page {
     size: 84in 42in;
-    margin: 0;
+    /* The global print stylesheet loads later and owns ordinary paper
+       margins. This fixed 84in x 42in poster requires zero page margins. */
+    margin: 0 !important;
   }
   @media print {
     .osa-poster-page {

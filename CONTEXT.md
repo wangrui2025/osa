@@ -1,7 +1,7 @@
 # OSA — Context
 
 ## Project Type
-Single-page academic paper presentation (CVPR 2026). Static Astro site deployed to GitHub Pages subfolder `/osa/`.
+Academic project site (CVPR 2026), including paper, poster, slides and explorable explanations. Static Astro site deployed to GitHub Pages subfolder `/osa/`.
 
 ## Domain Terms
 
@@ -19,12 +19,15 @@ Single-page academic paper presentation (CVPR 2026). Static Astro site deployed 
 
 - `/osa/` → `src/pages/index.astro` (meta refresh redirect to `/osa/en/`)
 - `/osa/en/` and `/osa/zh/` → `src/pages/[lang]/index.astro` → `HomePage.astro`
-- `/osa/en/poster`, `/osa/zh/poster` → `src/pages/[lang]/poster.astro` (fullscreen iframe)
-- `/osa/en/slides`, `/osa/zh/slides` → `src/pages/[lang]/slides.astro` (fullscreen iframe + zoom/print controls)
+- `/osa/en/poster/`, `/osa/zh/poster/` → `src/pages/[lang]/poster.astro` → `Poster.astro` (84×42in canvas with responsive preview)
+- `/osa/en/slides/`, `/osa/zh/slides/` → `src/pages/[lang]/slides.astro` (iframe + zoom/print controls)
+- `/osa/slides/` → styled redirect to `/osa/en/slides/`; `/osa/slides-raw/` → English-only generated asset from `src/slides.src`
+- `/osa/{en,zh}/explore/` and its `network-first/`, `video-first/` routes → intentionally noindex study/compare pages
+- `/osa/{en,zh}/404/` → localized 404; `/osa/404.html` → self-contained GitHub Pages fallback
 
 ## Assets
 
-Publication figures and logos are served from the centralized `mykcs/academic` repository at `wangrui2025.github.io/academic/`. Paths use `/academic/images/...` (see ADR-0002).
+Publication figures and logos come from the centralized `mykcs/academic` repository through the pinned CDN configuration in `src/config/academic-cdn.json`. `getAcademicImage()` and the slides integration resolve the actual URLs; do not duplicate a moving asset version in new callers.
 
 ## i18n
 
@@ -33,8 +36,14 @@ Content Collections under `src/content/homepage/` (en.json, zh.json), via `t(lan
 ## Build Verification
 
 ```bash
-npm run build  # must pass, 8 pages built (was 4 before poster/slides migration)
+npm run test:standards
+npm run build  # 16 Astro routes + 2 standalone assets = 18 HTML; dynamic source/output guard
+npx playwright test  # existing interactions + all-route Chromium/WebKit standards and physical canvases
 ```
+
+## Shared design and date owner
+
+`src/styles/tokens.css` is consumed by ordinary layouts, generated standalone 404 styles and the raw-slides generator. `DateText.astro` uses calendar-only formatting without timezone shifts or invented precision. See [site standards](docs/site-standards.md) for roles, the route inventory, negative guards, real consumer mutations and branch-specific browser/deployment evidence. Manual `astro.yml` dispatch requires the reviewed full `expected_sha`; feature branches are verified without deploying Pages.
 
 ## SEO / PWA
 

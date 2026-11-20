@@ -4,9 +4,12 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/check-site-standards.mjs",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "styles:sync": "node scripts/sync-standalone-styles.mjs",
+    "test:standards": "node --test tests/site-standards.test.mjs",
+    "check:standards": "node scripts/check-site-standards.mjs"
   },
   "dependencies": {
     "@fontsource/noto-sans": "^5.2.10",
