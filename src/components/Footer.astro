@@ -1,4 +1,7 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import agentEn from '../content/agent-reader/en.json';
+import agentZh from '../content/agent-reader/zh.json';
 import { t } from '../i18n';
 import DateText from './DateText.astro';
 const lang = (Astro.currentLocale ?? 'en') as 'en' | 'zh';
@@ -14,6 +17,7 @@ const [beforeDate, afterDate = ''] = t(lang, 'footerTemplate').split('{date}');
   <div class="max-w-page mx-auto px-4 text-center">
     <p class="text-caption text-gray-500 dark:text-gray-400">
       {beforeDate}{lastUpdated && <DateText value={lastUpdated} lang={lang} />}{afterDate}
+     <span aria-hidden="true"> · </span><a class="underline" href={getRelativeLocaleUrl(lang,"agent/")}>{lang==="zh"?agentZh.title:agentEn.title}</a>
     </p>
   </div>
 </footer>

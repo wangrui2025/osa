@@ -93,7 +93,7 @@ export default defineConfig({
         // Sitemap integration passes fully-qualified URLs (e.g. https://...osa/slides/),
         // so strip protocol+host and re-anchor the path match.
         const path = page.replace(/^https?:\/\/[^/]+/, '');
-        return !path.includes('/404/') && !/^\/osa\/(slides\/)?$/.test(path);
+        return !path.includes('/404/') && !/^\/osa\/(slides\/|agent\/)?$/.test(path);
       },
     }),
     astroIcon(),

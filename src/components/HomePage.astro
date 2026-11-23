@@ -1,4 +1,5 @@
 ---
+import { publicationLinks } from '../config/publication-links';
 import Layout from '../layouts/Layout.astro';
 import Section from './Section.astro';
 import ActionButton from './ActionButton.astro';
@@ -30,7 +31,7 @@ const schema = getScholarlyArticleSchema({
   url: new URL(Astro.url.pathname, Astro.site).href,
   image: new URL(figOverview, Astro.site).href,
   venue: 'CVPR 2026',
-  pdfUrl: 'https://arxiv.org/abs/2603.26188',
+  pdfUrl: publicationLinks.arxiv,
   codeUrl: 'https://github.com/wangrui2025/OSA',
   // Required by Google Rich Results test for ScholarlyArticle.
   // Source of truth: ASTRO_PUBLICATION_DATE env var (defaults to TBD placeholder
@@ -90,7 +91,7 @@ const schema = getScholarlyArticleSchema({
         </div>
 
         <div class="flex flex-wrap justify-center gap-3 mt-8">
-          <ActionButton href="https://arxiv.org/abs/2603.26188" icon="lucide:file-text" target="_blank">
+          <ActionButton href={publicationLinks.arxiv} icon="lucide:file-text" target="_blank">
             {t(lang, 'arxivLabel')}
           </ActionButton>
           <ActionButton href="https://github.com/wangrui2025/OSA" icon="lucide:github" target="_blank">
@@ -255,7 +256,7 @@ const schema = getScholarlyArticleSchema({
       <h2 class="text-section font-semibold text-center mb-6 font-display">{t(lang, 'resourcesTitle')}</h2>
       <div class="flex flex-wrap justify-center gap-3 mt-6">
         <ActionButton
-          href="https://openaccess.thecvf.com/content/CVPR2026/html/Wang_OSA_Echocardiography_Video_Segmentation_via_Orthogonalized_State_Update_and_Anatomical_CVPR_2026_paper.html"
+          href={publicationLinks.cvf}
           icon="lucide:file-text"
           target="_blank"
         >
