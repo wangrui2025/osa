@@ -129,6 +129,7 @@ const ogImage = new URL(image ?? defaultOgImage, Astro.site).href;
       /* TRUSTED: static JSON.stringify of academic data, served as application/ld+json. */
       <script is:inline type="application/ld+json" set:html={structuredDataJson} />
     )}
+    <link rel="help" type="text/markdown" href={import.meta.env.BASE_URL.replace(/\/$/,"")+"/agent/SKILL.md"} />
   </head>
   <body class="bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-200 transition-colors min-h-screen flex flex-col">
     <a href="#main-content" class="skip-link">Skip to main content</a>

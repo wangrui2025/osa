@@ -1,0 +1,8 @@
+---
+import RedirectLayout from "../../layouts/RedirectLayout.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+const target=getRelativeLocaleUrl("en","agent/");
+const canonical=new URL(target,Astro.site).href;
+const zhTarget=new URL(getRelativeLocaleUrl("zh","agent/"),Astro.site).href;
+---
+<RedirectLayout target={target} canonical={canonical} zhTarget={zhTarget} label="Read the public project guide" />
