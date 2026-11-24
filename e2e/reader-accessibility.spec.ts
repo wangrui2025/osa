@@ -13,7 +13,7 @@ for (const mobile of [false, true]) {
       for (const dark of [false, true]) {
         await page.evaluate(d => document.documentElement.classList.toggle('dark', d), dark);
         await page.waitForTimeout(250);
-        const results = await page.locator('a.bg-gray-800, .copy-btn').evaluateAll(nodes => {
+        const results = await page.locator('a.bg-gray-800, .copy-btn, [data-ab-development-footer]').evaluateAll(nodes => {
           const canvas = document.createElement('canvas');
           canvas.width = canvas.height = 1;
           const ctx = canvas.getContext('2d')!;
@@ -28,7 +28,12 @@ for (const mobile of [false, true]) {
           }
           return nodes.filter(n => n.getClientRects().length > 0).map(n => {
             const s = getComputedStyle(n);
-            const fg = luminance(s.color), bg = luminance(s.backgroundColor);
+            let bgColor = s.backgroundColor, parent = n.parentElement;
+            while ((bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent') && parent) {
+              bgColor = getComputedStyle(parent).backgroundColor;
+              parent = parent.parentElement;
+            }
+            const fg = luminance(s.color), bg = luminance(bgColor);
             return { contrast: (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05), opacity: s.opacity };
           });
         });
