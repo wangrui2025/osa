@@ -76,13 +76,12 @@ pre, code, kbd, samp { font-family: var(--osa-font-code); }
 sup, sub { font-size: var(--osa-text-sup); line-height: var(--osa-leading-none); }
 }
 
-a {
-  color: var(--color-primary);
-  transition: color 0.2s;
-}
-
-a:hover {
-  color: var(--color-primary-dark);
+@layer base {
+  a {
+    color: var(--color-primary);
+    transition: color 0.2s;
+  }
+  a:hover { color: var(--color-primary-dark); }
 }
 
 /* Skip link (WCAG 2.4.1) — hidden until focused via keyboard */
@@ -117,12 +116,9 @@ a:focus-visible,
   outline-offset: 3px;
 }
 
-.dark a {
-  color: oklch(70% 0.17 250);
-}
-
-.dark a:hover {
-  color: oklch(75% 0.17 250);
+@layer base {
+  .dark a { color: oklch(70% 0.17 250); }
+  .dark a:hover { color: oklch(75% 0.17 250); }
 }
 
 /* Animations ---------------------------------------------------------------- */
@@ -258,7 +254,7 @@ pre {
 
 /* Copy button --------------------------------------------------------------- */
 .copy-btn {
-  opacity: 0.7;
+  opacity: 1;
   transition: opacity 0.2s;
   border: 1px solid oklch(85% 0 0);
   cursor: pointer;

@@ -246,7 +246,7 @@ const schema = getScholarlyArticleSchema({
     <h2 class="text-section font-semibold text-center mb-6 font-display">{t(lang, 'bibtexTitle')}</h2>
     <div class="relative">
       <CopyButton targetId="bibtex-content" label={t(lang, 'copyLabel')} successLabel={t(lang, 'copiedLabel')} />
-      <pre><code id="bibtex-content">{t(lang, 'bibtexEntry')}</code></pre>
+      <pre tabindex="0" aria-label={t(lang, 'bibtexTitle')}><code id="bibtex-content">{t(lang, 'bibtexEntry')}</code></pre>
     </div>
   </Section>
 
