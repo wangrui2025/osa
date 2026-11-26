@@ -9,3 +9,5 @@ OSA 项目站首先要让读者理解方法、论文图表、可查看的交互�
 将来实施时应先核对当前 Astro 组件与设计 token，做适当的低成本原型；真实检查桌面及 440×956 手机、键盘焦点、触控、prefers-reduced-motion、无布局偏移与溢出，并保持论文图、数值、结果来源、中英文和 SEO 的真实性。**这是一份待实施的 Wish，不是功能交付或生产授权。**
 
 本文件记录一个项目设计方向，不改动实验方法、科研数据、发布权限及现有页面源码；具体 UI 数值继续由本仓实际组件/样式 owner 管理。
+
+Feature-level goals and protected semantics: [Intent](../intent/README.md). This file retains its existing ownership and history.
