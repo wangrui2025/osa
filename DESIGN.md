@@ -427,3 +427,4 @@ for (const ds of [3,4,7,8,9,10,11]) {
 | 2026-06-17 | 修复 §14.5：slide 11 h1 44→54px 统一（commit `5a10e7b`） |
 | 2026-06-17 | 修复 §14.6：删 `.slide-contents { height: 100% }`（commit `f72145b`） |
 
+Feature-level goals and protected semantics: [Intent](docs/intent/README.md). This file retains its existing ownership and history.
