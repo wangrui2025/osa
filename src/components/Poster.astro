@@ -277,8 +277,10 @@ const figExp = getAcademicImage('publications/cvpr2026-osa/fig/Exp/image.png');
     if (zoomLevelEl) zoomLevelEl.textContent = Math.round(currentScale * 100) + '%';
   }
 
-  window.addEventListener('load', () => { requestAnimationFrame(fitWidth); });
-  window.addEventListener('resize', () => { requestAnimationFrame(fitWidth); });
+  requestAnimationFrame(fitToScreen);
+  document.addEventListener('astro:page-load', () => { requestAnimationFrame(fitToScreen); });
+  window.addEventListener('load', () => { requestAnimationFrame(fitToScreen); });
+  window.addEventListener('resize', () => { requestAnimationFrame(fitToScreen); });
 
   document.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest('[data-action]');

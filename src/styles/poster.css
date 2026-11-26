@@ -390,7 +390,7 @@ img.img-placeholder::after {
 .osa-poster-preview-controls button {
   background: #7F9EE6;
   border: none;
-  color: #F3F7FF;
+  color: #17243d;
   padding: calc(var(--osa-space-unit) * 2.5) calc(var(--osa-space-unit) * 6);
   border-radius: 4px;
   cursor: pointer;
@@ -427,6 +427,9 @@ img.img-placeholder::after {
 
 @media screen {
   .osa-poster-root {
+    position: relative;
+    max-width: 100vw;
+    height: 100vh;
     min-height: 100vh;
     background: #1a1a2e;
     overflow: auto;
